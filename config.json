@@ -1,0 +1,12 @@
+{
+    "dev":{
+        "esHost":"localhost",
+        "esProtocol":"http",
+        "esPort":9200
+    },
+    "prod":{
+        "esHost":"localhost",
+        "esProtocol":"http",
+        "esPort":9200
+    }
+}
