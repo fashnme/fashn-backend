@@ -1,14 +1,14 @@
 const elasticsearch = require('elasticsearch');
-const config = require('./config.json');
+const { dev } = require('./../config.json')
 
 const  esClient =  new elasticsearch.Client({  host: [
     {
-      host: "localhost",
-      protocol: 'http',
-      port: 9200
+      host: dev.esHost,
+      protocol: dev.esProtocol,
+      port: dev.esPort,
+      auth: `${dev.esUser}:${dev.esPassword}`,
     }
   ]
 });
-
 
 module.exports = {esClient}

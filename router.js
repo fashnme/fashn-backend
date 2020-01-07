@@ -1,10 +1,17 @@
 // Memory Cache
 const mcache = require('memory-cache');
 
-//Imports 
-const {sendOTP} = require('./routes/send-otp');
-const {resendOTP} = require('./routes/resend-otp');
-const {verifyOTP} = require('./routes/verify-otp');
+
+//Import Middlewares
+const { authPhoneNoMiddleware } = require('./controllers/middlewares/auth-phoneno');
+const { authUniqueIdMiddleware } = require('./controllers/middlewares/auth-unique-id');
+
+//Import Route Files
+const {sendOTP} = require('./routes/auth/user/send-otp');
+const {resendOTP} = require('./routes/auth/user/resend-otp');
+const {verifyOTP} = require('./routes/auth/user/verify-otp');
+const {createUser} = require('./routes/auth/user/create-user');
+
 
 
 var cache = (duration) => {
@@ -29,7 +36,20 @@ var cache = (duration) => {
 }
 
 module.exports = function(app){
-  app.post(`/send-otp`,sendOTP);
-  app.post(`/resend-otp`,resendOTP);
-  app.post(`/verify-otp`,verifyOTP);
+
+  // Auth User Routes
+  app.post(`/auth/user/send-otp`,sendOTP);
+  app.post(`/auth/user/resend-otp`,resendOTP);
+  app.post(`/auth/user/verify-otp`,verifyOTP);
+  app.post(`/auth/user/create-user`,authPhoneNoMiddleware , createUser);
+
+  // User Action Routes TODO
+  // app.post(`/user/create-post`, authUniqueIdMiddleware , createPost);
+  // app.post(`/user/like-post`, authUniqueIdMiddleware , likePost);
+  // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
+  // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
+  // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
+  // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  createStory);
+  // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  likeProduct);
+
 }

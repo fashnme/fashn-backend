@@ -5,6 +5,7 @@ const http = require('http');
 const cors =require('cors');
 const express = require('express');
 const bodyParser=require('body-parser');
+const morgan = require('morgan');
 
 // Inject dotenv environment 
 require('dotenv').config();
@@ -31,20 +32,9 @@ app.use(cors({origin:"*"}))
 
 router(app)
 
-
-// Socket I/O event Handling
-// io.on('connection',(socket) => {
-// 	socket.on('event-name',async function(payload){
-// 		return	socket.emit('get-offers-and-prices',{
-// 			data 
-// 		})
-// 		.catch()
-// 	})
-// })
-
 const port = process.env.PORT || 8080
 
 server.listen(port,()=>{
-	console.log(`"\x1b[32m"`)
+	console.log(`\x1b[1mServer Started at Port: ${port}`)
 })
 
