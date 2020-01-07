@@ -5,7 +5,7 @@ const http = require('http');
 const cors =require('cors');
 const express = require('express');
 const bodyParser=require('body-parser');
-
+const morgan=require('morgan');
 // Inject dotenv environment 
 require('dotenv').config();
 
@@ -45,6 +45,6 @@ router(app)
 const port = process.env.PORT || 8080
 
 server.listen(port,()=>{
-	console.log(`"\x1b[32m"`)
+	console.log(`"\x1b[32m STARTED \x1b[32m"`)
 })
 

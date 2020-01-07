@@ -29,6 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "memory-cache": "^0.2.0",
     "morgan": "^1.9.1",
-    "sendotp": "^1.2.9"
+    "sendotp": "^1.2.9",
+    "socket.io": "^2.3.0"
   }
 }
