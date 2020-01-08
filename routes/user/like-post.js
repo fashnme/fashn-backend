@@ -16,7 +16,8 @@ const likePost = (req, res) => {
         id: `${likeInfo.userId}.${likeInfo.postId}`,
         body: likeInfo
     }).then(resp => {
-        esClient.update({   // and then updating totalLikes value in post index 
+        // Then updating totalLikes value in post index 
+        esClient.update({
             index: 'post',
             id: likeInfo.postId,
             body: {

@@ -2,7 +2,6 @@ const { esClient } = require('./../../conf/elastic-conf');
 const { postDefaultAdditionalSchema } = require('./../../schemas/post-default-schema');
 
 const createPost = (req, res) => {
-    console.log("came")
 
     // postInfo fetched from request body
     let postInfo = {
@@ -26,7 +25,7 @@ const createPost = (req, res) => {
         return res.status(200).json({ ...postBody, _id: resp._id });
 
     }).catch(err => {
-        console.log(err)
+        console.log("error in creating post",err)
         return res.status(401).end();
     })
 

@@ -9,7 +9,6 @@ const authUniqueIdMiddleware = (req, res, next) => {
     //Decoding JWT Token
     const decodedToken = decodeJWT(token);
 
-    console.log(decodedToken)
     if (decodedToken) {
         esClient.get({
             index: 'user',
