@@ -29,25 +29,17 @@ const createUser = (req, res) => {
         body
     }).then(resp => {
 
-        // Fetching the user
-        esClient.get({
-            index: 'user',
-            id: resp._id
-        }).then(data => {
+        // adding _id to our existing body we PUT in ES index
+        body._id=resp._id 
 
-            // Creating JWT based on unique Id for all subsequent requests
-            let jwt = createJWT(data._id);
+        // Creating JWT based on unique Id for all subsequent requests
+        let jwt = createJWT(body._id);
+        return res.status(200).json({ body, jwt });
 
-            // User Object for client
-            let user = { ...data._source, _id: data._id } || null;
-
-            return res.status(200).json({ user, jwt });
-
-        }).catch(err => {
-            console.log(err)
-            return res.status(401);
-        })
-    });
+    }).catch(err => {
+        console.log(err)
+        return res.status(401).end();
+    })
 }
 
 module.exports = { createUser }

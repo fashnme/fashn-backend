@@ -23,7 +23,6 @@ const { esClient } = require('./../../conf/elastic-conf');
 //     console.log('error', e);
 // });
 
-
 //Search Document
 // esClient.search({
 //     index:'new_index',
@@ -129,14 +128,14 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 
 // Delete a doc using id
-esClient.delete({
-    index: 'user',
-    id:"W2gugm8BuJISDM2-CD4L"
-  }).then(resp=>{
-      console.log(resp);
-  }).catch(e=>{
-      console.log('e',e);
-  })
+// esClient.delete({
+//     index: 'user',
+//     id:"W2gugm8BuJISDM2-CD4L"
+//   }).then(resp=>{
+//       console.log(resp);
+//   }).catch(e=>{
+//       console.log('e',e);
+//   })
 
 
 

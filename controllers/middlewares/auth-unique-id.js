@@ -14,7 +14,7 @@ const authUniqueIdMiddleware = (req, res, next) => {
             _id:decodedToken
         }).then(data => {
             if (data.hits.count > 0) {
-                req.phoneNo = decodedToken;
+                req._id = decodedToken;
                 next();
             } else {
                 return res.status(401);
