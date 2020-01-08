@@ -2,30 +2,32 @@ const { esClient } = require('../../../conf/elastic-conf');
 
 module.exports={
     
-    likePost(req,res){
+    unlikePost(req,res){
 
-        // likeInfo fetched from request body
-        let likeInfo = {
-            timestamp: new Date(),
-            postId: req.body.postId,
-            userId: req._id
+        // removing doc from like index by querying
+        
+        postId=req.body.postId
+
+        esClient.deleteByQuery({
+        index: 'likes',
+        body:{
+            "query":{
+                "match":{
+                    "postId":postId
+                }
+            }
         }
-
-        // putting doc in like index 
-        esClient.index({
-            index: 'likes',
-            likeBody
-        }).then(resp => {
+        }).then(resp=>{
 
             esClient.update({   // and then updating totalLikes value in post index 
             index: 'post',
-            id: postInfo.postId,
+            id: postId,
             body: {
                 "script" : {
-                    "source": "ctx._source.totalLikes += increment",
+                    "source": "ctx._source.totalLikes -= decrement",
                     "lang": "painless",
                     "params" : {
-                        "increment" : 1
+                        "decrement" : 1
                     }
                 }
             }
@@ -36,8 +38,9 @@ module.exports={
                 // implement rollback here in later versions
             })
 
-        }).catch(err => {
-            return res.status(401).end();
+        }).catch(e=>{
+            
+            res.status(401).end()
         })
 
     }
