@@ -8,6 +8,7 @@ const  esClient =  new elasticsearch.Client({  host: [
   ]
 });
 
+
 module.exports = {
 	ping: function(req, res){
 		esClient.ping({
