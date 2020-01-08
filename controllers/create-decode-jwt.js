@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
-const secretkey = require('./../config.json').dev.jwtSecret;
+//const secretkey = require('./../config.json').dev.jwtSecret;
 
 const decodeJWT = (token) => {
 	if (token) {
-		return jwt.verify(token, secretkey, function (err, decoded) {
+		return jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
 			if (decoded) {
 				return decoded.data
 			} else {
