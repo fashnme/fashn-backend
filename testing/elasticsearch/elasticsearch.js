@@ -12,16 +12,16 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 
 // Ceate Document
-// esClient.index({
-//     index: 'new_index',
-//     body: {
-//         "title":"men jeans"
-//     }
-// }).then(function (resp) {
-//     console.log(resp)
-// }).catch(e=>{
-//     console.log('error', e);
-// });
+esClient.index({
+    index: 'new_index',
+    body: {
+        "date":new Date()
+    }
+}).then(function (resp) {
+    console.log(resp)
+}).catch(e=>{
+    console.log('error', e);
+});
 
 
 //Search Document
@@ -129,14 +129,14 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 
 // Delete a doc using id
-esClient.delete({
-    index: 'user',
-    id:"W2gugm8BuJISDM2-CD4L"
-  }).then(resp=>{
-      console.log(resp);
-  }).catch(e=>{
-      console.log('e',e);
-  })
+// esClient.delete({
+//     index: 'user',
+//     id:"W2gugm8BuJISDM2-CD4L"
+//   }).then(resp=>{
+//       console.log(resp);
+//   }).catch(e=>{
+//       console.log('e',e);
+//   })
 
 
 
