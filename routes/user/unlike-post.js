@@ -1,47 +1,38 @@
-const { esClient } = require('../../../conf/elastic-conf');
+const { esClient } = require('./../../conf/elastic-conf');
 
-module.exports={
-    
-    unlikePost(req,res){
+const unlikePost = (req, res) => {
 
-        // removing doc from like index by querying
-        
-        postId=req.body.postId
+    // removing doc from like index by querying
+    let postId = req.body.postId;
+    let userId = req._id;
 
-        esClient.deleteByQuery({
-        index: 'likes',
-        body:{
-            "query":{
-                "match":{
-                    "postId":postId
-                }
-            }
-        }
-        }).then(resp=>{
-
-            esClient.update({   // and then updating totalLikes value in post index 
+    esClient.delete({
+        index: 'like',
+        id: `${userId}.${postId}`
+    }).then(resp => {
+        // Then updating totalLikes value in post index
+        esClient.update({
             index: 'post',
             id: postId,
             body: {
-                "script" : {
-                    "source": "ctx._source.totalLikes -= decrement",
-                    "lang": "painless",
-                    "params" : {
-                        "decrement" : 1
-                    }
+                "script": {
+                    "source": "ctx._source.totalLikes--",
+                    "lang": "painless"
                 }
             }
-            }).then(data=>{
-                res.status(200).end()
-            }).catch(e=>{
-                res.status(401).end()
-                // implement rollback here in later versions
-            })
-
-        }).catch(e=>{
-            
+        }).then(data => {
+            res.status(200).end()
+        }).catch(e => {
             res.status(401).end()
+            // implement rollback here in later versions
         })
 
-    }
+    }).catch(e => {
+        // Like not present
+        res.status(404).end()
+    })
+
+}
+module.exports = {
+    unlikePost
 }

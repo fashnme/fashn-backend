@@ -1,5 +1,4 @@
 const elasticsearch = require('elasticsearch');
-//const { dev } = require('./../config.json')
 
 const  esClient =  new elasticsearch.Client({  host: [
     {

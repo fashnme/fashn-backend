@@ -1,6 +1,6 @@
-const { esClient } = require('../../../conf/elastic-conf');
-const { userDefaultAdditionalSchema } = require('../../../schemas/user-default-schema');
-const { createJWT } = require('../../../controllers/create-decode-jwt');
+const { esClient } = require('./../../../conf/elastic-conf');
+const { userDefaultAdditionalSchema } = require('./../../../schemas/user-default-schema');
+const { createJWT } = require('./../../../controllers/create-decode-jwt');
 
 const createUser = (req, res) => {
 

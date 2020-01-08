@@ -1,44 +1,44 @@
-const { esClient } = require('../../../conf/elastic-conf');
+const { esClient } = require('./../../conf/elastic-conf');
 
-module.exports={
-    
-    likePost(req,res){
+const likePost = (req, res) => {
 
-        // likeInfo fetched from request body
-        let likeInfo = {
-            timestamp: new Date(),
-            postId: req.body.postId,
-            userId: req._id
-        }
+    // likeInfo fetched from request body
+    let likeInfo = {
+        timestamp: new Date(),
+        postId: req.body.postId,
+        userId: req._id
+    }
 
-        // putting doc in like index 
-        esClient.index({
-            index: 'likes',
-            likeBody
-        }).then(resp => {
 
-            esClient.update({   // and then updating totalLikes value in post index 
+    // putting doc in like index 
+    esClient.create({
+        index: 'like',
+        id: `${likeInfo.userId}.${likeInfo.postId}`,
+        body: likeInfo
+    }).then(resp => {
+        // Then updating totalLikes value in post index 
+        esClient.update({
             index: 'post',
-            id: postInfo.postId,
+            id: likeInfo.postId,
             body: {
-                "script" : {
-                    "source": "ctx._source.totalLikes += increment",
-                    "lang": "painless",
-                    "params" : {
-                        "increment" : 1
-                    }
+                "script": {
+                    "source": "ctx._source.totalLikes++",
+                    "lang": "painless"
                 }
             }
-            }).then(data=>{
-                res.status(200).end()
-            }).catch(e=>{
-                res.status(401).end()
-                // implement rollback here in later versions
-            })
-
-        }).catch(err => {
-            return res.status(401).end();
+        }).then(data => {
+            res.status(200).end()
+        }).catch(e => {
+            // Error in updating likeCounter
+            res.status(401).end()
+            // implement rollback here in later versions
         })
+    }).catch(e => {
+        //Like Already Exists
+        return res.status(422).end();
+    })
 
-    }
+}
+module.exports = {
+    likePost
 }

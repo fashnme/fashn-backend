@@ -140,18 +140,18 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 
 //Delete By Query
-// esClient.deleteByQuery({
-//     index: 'new_index',
-//     body:{
-//         "query":{
-//             "match":{
-//                 "title":"new"
-//             }
-//         }
-//     }
-//   }).then(resp=>{
-//       console.log(resp);
-//   }).catch(e=>{
-//       console.log('e',e);
-//   })
+esClient.deleteByQuery({
+    index: 'like',
+    body:{
+        "query":{
+            "match_all":{
+
+            }
+        }
+    }
+  }).then(resp=>{
+      console.log(resp);
+  }).catch(e=>{
+      console.log('e',e);
+  })
 
