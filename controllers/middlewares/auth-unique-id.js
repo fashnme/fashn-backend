@@ -1,30 +1,35 @@
 const jwt = require('jsonwebtoken');
-const { decodeJWT } = require('../create-decode-jwt');
+const { decodeJWT } = require('./../create-decode-jwt');
+const { esClient } = require('./../../conf/elastic-conf');
 
 const authUniqueIdMiddleware = (req, res, next) => {
-    try {
-        // Splitting Token from bearer <token>
-        const token = req.headers.authorization.split(' ')[1];
+    // Splitting Token from bearer <token>
+    const token = req.headers.authorization.split(' ')[1];
 
-        //Decoding JWT Token
-        const decodedToken = decodeJWT(token);
+    //Decoding JWT Token
+    const decodedToken = decodeJWT(token);
 
+    console.log(decodedToken)
+    if (decodedToken) {
         esClient.get({
             index: 'user',
-            _id:decodedToken
+            id: decodedToken
         }).then(data => {
-            if (data.hits.count > 0) {
-                req.phoneNo = decodedToken;
+            if (data.found) {
+                req._id = decodedToken;
                 next();
             } else {
                 return res.status(401);
             }
+        }).catch(e => {
+            console.log(e);
         })
-    } catch(e){
-        res.status(401).json({
-            error: new Error('Invalid request!')
-        });
+    } else {
+        return res.status(401);
+
     }
+
+
 }
 
 module.exports = { authUniqueIdMiddleware }

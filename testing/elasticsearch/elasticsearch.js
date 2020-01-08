@@ -12,17 +12,16 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 
 // Ceate Document
-esClient.index({
-    index: 'new_index',
-    body: {
-        "date":new Date()
-    }
-}).then(function (resp) {
-    console.log(resp)
-}).catch(e=>{
-    console.log('error', e);
-});
-
+// esClient.index({
+//     index: 'new_index',
+//     body: {
+//         "date":new Date()
+//     }
+// }).then(function (resp) {
+//     console.log(resp)
+// }).catch(e=>{
+//     console.log('error', e);
+// });
 
 //Search Document
 // esClient.search({
@@ -141,18 +140,18 @@ esClient.index({
 
 
 //Delete By Query
-// esClient.deleteByQuery({
-//     index: 'new_index',
-//     body:{
-//         "query":{
-//             "match":{
-//                 "title":"new"
-//             }
-//         }
-//     }
-//   }).then(resp=>{
-//       console.log(resp);
-//   }).catch(e=>{
-//       console.log('e',e);
-//   })
+esClient.deleteByQuery({
+    index: 'like',
+    body:{
+        "query":{
+            "match_all":{
+
+            }
+        }
+    }
+  }).then(resp=>{
+      console.log(resp);
+  }).catch(e=>{
+      console.log('e',e);
+  })
 

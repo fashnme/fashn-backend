@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secretkey = require('./../config.json').dev.jwtSecret;
+const secretkey = process.env.JWT_SECRET;
 
 const decodeJWT = (token) => {
 	if (token) {
