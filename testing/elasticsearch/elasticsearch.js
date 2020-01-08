@@ -15,7 +15,7 @@ const { esClient } = require('./../../conf/elastic-conf');
 // esClient.index({
 //     index: 'new_index',
 //     body: {
-//         "title":"men jeans"
+//         "date":new Date()
 //     }
 // }).then(function (resp) {
 //     console.log(resp)
