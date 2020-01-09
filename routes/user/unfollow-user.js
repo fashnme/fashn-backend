@@ -1,11 +1,10 @@
 const { esClient } = require('../../conf/elastic-conf');
 
-const unFollow = (req, res) => {
+const unfollowUser = (req, res) => {
 
     esClient.search({
         //i dont remember the exact search body syntax
         index: 'follow',
-        type: docType,
         body: {
             "query": {
                 "term": {
@@ -45,5 +44,5 @@ const unFollow = (req, res) => {
 }
 
 module.exports = {
-    unFollow
+    unfollowUser
 }
