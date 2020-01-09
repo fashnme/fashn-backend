@@ -14,7 +14,8 @@ const {createUser} = require('./routes/auth/user/create-user');
 const {createPost} = require('./routes/user/create-post');
 const {likePost} = require('./routes/user/like-post');
 const {unlikePost} = require('./routes/user/unlike-post');
-
+const {follow} = require('./routes/user/follow');
+const {unFollow} = require('./routes/user/unfollow');
 
 
 var cache = (duration) => {
@@ -50,7 +51,8 @@ module.exports = function(app){
   app.post(`/user/create-post`, authUniqueIdMiddleware , createPost);
   app.post(`/user/like-post`, authUniqueIdMiddleware , likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware , unlikePost);
-
+  app.post(`/user/follow`, authUniqueIdMiddleware , follow);
+  app.post(`/user/unfollow`, authUniqueIdMiddleware , unFollow);
   
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);

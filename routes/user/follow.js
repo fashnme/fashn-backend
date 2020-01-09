@@ -60,3 +60,7 @@ const follow = (req, res) => {
             return res.status(422).end();
         })
 }
+
+module.exports = {
+    follow
+}

@@ -43,3 +43,7 @@ const unFollow = (req, res) => {
         })
 
 }
+
+module.exports = {
+    unFollow
+}
