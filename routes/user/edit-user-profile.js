@@ -1,5 +1,5 @@
 const { checkUsername } = require('./../../controllers/helpers/elasticSearch-helpers/check-user-name')
-
+const {userUpdateProfile}=require('./../../controllers/helpers/elasticSearch-helpers/user-update-profile')
 const editUserProfile = async (req, res) => {
 
     /**
@@ -12,11 +12,18 @@ const editUserProfile = async (req, res) => {
     if (req.body.userNameChanged) {
 
         await checkUsername()
-            .then(data => {
+            .then(async (data) => {
                 if (data.count == 0) {
                     // Username can be used
 
-                    // call update profile function
+                    // calling update profile function
+                    await userUpdateProfile(req._id, req.body.newProfile)
+
+                        .then(data => {
+                            res.status(200).end()
+                        }).catch(e => {
+                            res.status(400).end()
+                        })
 
                 } else {
                     // Username is already used by someone
@@ -32,7 +39,14 @@ const editUserProfile = async (req, res) => {
 
         // username was not changed
 
-        // call update profile function
+        // calling update profile function
+        await userUpdateProfile(req._id, req.body.newProfile)
+
+        .then(data => {
+            res.status(200).end()
+        }).catch(e => {
+            res.status(400).end()
+        })
 
 
     }
