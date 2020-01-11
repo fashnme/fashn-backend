@@ -2,45 +2,49 @@ const { esClient } = require('../../conf/elastic-conf');
 
 const unfollowUser = (req, res) => {
 
-    esClient.search({
-        //i dont remember the exact search body syntax
+    esClient.get({
         index: 'follow',
-        body: {
-            "query": {
-                "term": {
-                    follower: req._id,
-                    following: req.body.userId
-                }
-            }
-        }
+        id: `${req._id}.${req.body.userId}`
     })
         .then(entry => {
-            //move this entry to archive
-        })
-        .then(resp => {
-            //decrementing totalFollowing from ${req._id} in user index
-            esClient.update({
-                index: 'user',
-                id: req._id,
-                body: {
-                    "script": {
-                        "source": "ctx._source.totalFollowing--",
-                        "lang": "painless"
+
+            esClient.bulk({
+                body: [
+                    { "update": { "_index": "user", "_id": req._id } },
+                    {
+                        "script": {
+                            "source": "ctx._source.followingCount--",
+                            "lang": "painless"
+                        }
+                    },
+
+                    { "update": { "_index": "user", "_id": req.body.userId } },
+                    {
+                        "script": {
+                            "source": "ctx._source.followersCount--",
+                            "lang": "painless"
+                        }
+                    },
+                    {
+                        "delete": {
+                            "_index": "follow",
+                            "_id": `${req._id}.${req.body.userId}`
+                        }
                     }
-                }
-            })
-                .then(data => res.status(200).end())
+                ]
+            }).then(data => res.status(200).end())
                 .catch(e => {
-                    // Error in updating totalFollowing
-                    res.status(401).end()
+                    // Error in updating
+                    console.log(e, undefined, 2);
+                    res.status(401).end();
                     // implement rollback here in later versions
                 })
         })
         .catch(e => {
-            //searching failed
-            res.satus(500).end()
+            //entry not present in follow index
+            console.log(e, undefined, 2);
+            res.status(404).end();
         })
-
 }
 
 module.exports = {
