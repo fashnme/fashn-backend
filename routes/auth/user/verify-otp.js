@@ -34,7 +34,6 @@ const verifyOTP = async (req, res) => {
 				
 				//If User Exists with the Phone No then login case and thus generate uniqueId with 
 				if(data.hits.hits.length>0){
-					console.log("this case")
 					jwt = createJWT(data.hits.hits[0]._id);	
 					user = { ...data.hits.hits[0]._source, _id: data.hits.hits[0]._id };
 				}else{

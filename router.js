@@ -40,6 +40,7 @@ var cache = (duration) => {
 
 module.exports = function(app){
 
+  app.get('/test',(req,res)=>{console.log(req.connection.remoteAddress); return res.status(200);})
   // Auth User Routes
   app.post(`/auth/user/send-otp`,sendOTP);
   app.post(`/auth/user/resend-otp`,resendOTP);
