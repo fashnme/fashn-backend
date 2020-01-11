@@ -7,14 +7,15 @@ const { authPhoneNoMiddleware } = require('./controllers/middlewares/auth-phonen
 const { authUniqueIdMiddleware } = require('./controllers/middlewares/auth-unique-id');
 
 //Import Route Files
-const {sendOTP} = require('./routes/auth/user/send-otp');
-const {resendOTP} = require('./routes/auth/user/resend-otp');
-const {verifyOTP} = require('./routes/auth/user/verify-otp');
-const {createUser} = require('./routes/auth/user/create-user');
-const {createPost} = require('./routes/user/create-post');
-const {likePost} = require('./routes/user/like-post');
-const {unlikePost} = require('./routes/user/unlike-post');
-
+const { sendOTP } = require('./routes/auth/user/send-otp');
+const { resendOTP } = require('./routes/auth/user/resend-otp');
+const { verifyOTP } = require('./routes/auth/user/verify-otp');
+const { createUser } = require('./routes/auth/user/create-user');
+const { createPost } = require('./routes/user/create-post');
+const { likePost } = require('./routes/user/like-post');
+const { unlikePost } = require('./routes/user/unlike-post');
+const { followUser } = require('./routes/user/follow-user');
+const { unfollowUser } = require('./routes/user/unfollow-user');
 
 
 var cache = (duration) => {
@@ -22,7 +23,7 @@ var cache = (duration) => {
     let key = '__express__' + req.originalUrl || req.url
     let cachedBody = mcache.get(key)
     if (cachedBody) {
-       res.setHeader('content-type', 'application/json');
+      res.setHeader('content-type', 'application/json');
       res.send(JSON.parse(cachedBody))
       return
     } else {
@@ -38,20 +39,21 @@ var cache = (duration) => {
   }
 }
 
-module.exports = function(app){
+module.exports = function (app) {
 
   // Auth User Routes
-  app.post(`/auth/user/send-otp`,sendOTP);
-  app.post(`/auth/user/resend-otp`,resendOTP);
-  app.post(`/auth/user/verify-otp`,verifyOTP);
-  app.post(`/auth/user/create-user`,authPhoneNoMiddleware , createUser);
+  app.post(`/auth/user/send-otp`, sendOTP);
+  app.post(`/auth/user/resend-otp`, resendOTP);
+  app.post(`/auth/user/verify-otp`, verifyOTP);
+  app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
 
   // User Action Routes TODO
-  app.post(`/user/create-post`, authUniqueIdMiddleware , createPost);
-  app.post(`/user/like-post`, authUniqueIdMiddleware , likePost);
-  app.post(`/user/unlike-post`, authUniqueIdMiddleware , unlikePost);
+  app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
+  app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
+  app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
+  app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
+  app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
 
-  
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
