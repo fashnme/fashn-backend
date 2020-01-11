@@ -14,8 +14,13 @@ const { createUser } = require('./routes/auth/user/create-user');
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
 const { unlikePost } = require('./routes/user/unlike-post');
+<<<<<<< HEAD
+const { getGeneralFeed } = require('./routes/user/get-general-feed');
+
+=======
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
+>>>>>>> 4244d682b15a2c1a3ce27da29937c8d2e3c5e7fd
 
 
 var cache = (duration) => {
@@ -52,6 +57,11 @@ module.exports = function (app) {
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
+
+
+  //Feed Routes
+  app.get('/user/get-general-feed', getGeneralFeed);
+
   app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
 
