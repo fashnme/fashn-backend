@@ -16,7 +16,8 @@ const { likePost } = require('./routes/user/like-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
-
+const { createStory } = require('./routes/user/create-story');
+const {deleteStory} = require('./routes/user/delete-story');
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -53,6 +54,10 @@ module.exports = function (app) {
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
   app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
+  app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
+  app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
+  
+
 
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
