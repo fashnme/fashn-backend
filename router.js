@@ -21,6 +21,10 @@ const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
 const { createStory } = require('./routes/user/create-story');
 const {deleteStory} = require('./routes/user/delete-story');
+const { addToCollection } = require('./routes/user/add-to-collection')
+const { removeFromCollection } = require('./routes/user/remove-from-collection')
+const { addToCart } = require('./routes/user/add-to-cart')
+const { removeFromCart } = require('./routes/user/remove-from-cart')
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -57,6 +61,12 @@ module.exports = function (app) {
   app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
+
+
+  app.post(`/user/add-to-collection`, authUniqueIdMiddleware, addToCollection);
+  app.post(`/user/remove-from-collection`, authUniqueIdMiddleware, removeFromCollection);
+  app.post(`/user/add-to-cart`, authUniqueIdMiddleware, addToCart);
+  app.post(`/user/remove-from-cart`, authUniqueIdMiddleware, removeFromCart);
 
 
   //Feed Routes
