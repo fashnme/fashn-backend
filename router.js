@@ -18,7 +18,8 @@ const { getGeneralFeed } = require('./routes/user/get-general-feed');
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
-
+const { addToCollection } = require('./routes/user/add-to-collection')
+const { removeFromCollection } = require('./routes/user/remove-from-collection')
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -54,6 +55,10 @@ module.exports = function (app) {
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
+
+
+  app.post(`/user/add-to-collection`, authUniqueIdMiddleware, addToCollection);
+  app.post(`/user/remove-from-collection`, authUniqueIdMiddleware, removeFromCollection);
 
 
   //Feed Routes
