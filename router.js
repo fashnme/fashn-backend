@@ -13,11 +13,14 @@ const { verifyOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
+const {deletePost} = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
+const { createStory } = require('./routes/user/create-story');
+const {deleteStory} = require('./routes/user/delete-story');
 const { addToCollection } = require('./routes/user/add-to-collection')
 const { removeFromCollection } = require('./routes/user/remove-from-collection')
 const { addToCart } = require('./routes/user/add-to-cart')
@@ -55,6 +58,7 @@ module.exports = function (app) {
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
+  app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
 
@@ -70,6 +74,10 @@ module.exports = function (app) {
 
   app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
+  app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
+  app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
+  
+
 
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
