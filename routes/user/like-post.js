@@ -7,7 +7,6 @@ const likePost = (req, res) => {
         likeTimestamp: new Date(),
         postId: req.body.postId,
         userId: req._id,
-        active: false
     }
 
 

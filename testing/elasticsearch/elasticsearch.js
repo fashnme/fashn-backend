@@ -10,6 +10,8 @@ const esClient = new elasticsearch.Client({
   ]
 });
 
+const body = require('./../personal-testing/dump.json');
+
 
 // console.log(esClient)
 // Index Created
@@ -36,55 +38,55 @@ const esClient = new elasticsearch.Client({
 
 
 // Ceate Document
-esClient.index({
-    index: 'feed',
-    id:"general-feed",
-    body: {
-        postIds:[
-          "XWhRhW8BuJISDM2-eD74",
-          "ZmhzlG8BuJISDM2-rz5r",
-          "Z2hzlG8BuJISDM2-rz5r",
-          "aGhzlG8BuJISDM2-rz5r",
-          "aWhzlG8BuJISDM2-rz5r",
-          "amhzlG8BuJISDM2-rz5r",
-          "a2hzlG8BuJISDM2-rz5r",
-          "bGhzlG8BuJISDM2-rz5r",
-          "bWhzlG8BuJISDM2-rz5r",
-          "bmhzlG8BuJISDM2-rz5r",
-          "b2hzlG8BuJISDM2-rz5r",
-          "cGhzlG8BuJISDM2-rz5r",
-          "cWhzlG8BuJISDM2-rz5r",
-          "cmhzlG8BuJISDM2-rz5r",
-          "c2hzlG8BuJISDM2-rz5r",
-          "dGhzlG8BuJISDM2-rz5r",
-          "dWhzlG8BuJISDM2-rz5r",
-          "dmhzlG8BuJISDM2-rz5r",
-          "d2hzlG8BuJISDM2-rz5r",
-          "eGhzlG8BuJISDM2-rz5r",
-          "eWhzlG8BuJISDM2-rz5r",
-          "emhzlG8BuJISDM2-rz5r",
-          "e2hzlG8BuJISDM2-rz5r",
-          "fGhzlG8BuJISDM2-rz5r",
-          "fWhzlG8BuJISDM2-rz5r",
-          "fmhzlG8BuJISDM2-rz5r",
-          "f2hzlG8BuJISDM2-rz5r",
-          "gGhzlG8BuJISDM2-rz5r",
-          "gWhzlG8BuJISDM2-rz5r",
-          "gmhzlG8BuJISDM2-rz5r",
-          "g2hzlG8BuJISDM2-rz5r",
-          "hGhzlG8BuJISDM2-rz5r",
-          "hWhzlG8BuJISDM2-rz5r",
-          "hmhzlG8BuJISDM2-rz5r",
-          "h2hzlG8BuJISDM2-rz5r",
-          "iGhzlG8BuJISDM2-rz5r",
-          "iWhzlG8BuJISDM2-rz5r"
-        ]
-    }
-}).then(function (resp) {
-    console.log(resp)
-}).catch(e=>{
-    console.log('error', e);
-});
+// esClient.index({
+//     index: 'feed',
+//     id:"general-feed",
+//     body: {
+//         postIds:[
+//           "XWhRhW8BuJISDM2-eD74",
+//           "ZmhzlG8BuJISDM2-rz5r",
+//           "Z2hzlG8BuJISDM2-rz5r",
+//           "aGhzlG8BuJISDM2-rz5r",
+//           "aWhzlG8BuJISDM2-rz5r",
+//           "amhzlG8BuJISDM2-rz5r",
+//           "a2hzlG8BuJISDM2-rz5r",
+//           "bGhzlG8BuJISDM2-rz5r",
+//           "bWhzlG8BuJISDM2-rz5r",
+//           "bmhzlG8BuJISDM2-rz5r",
+//           "b2hzlG8BuJISDM2-rz5r",
+//           "cGhzlG8BuJISDM2-rz5r",
+//           "cWhzlG8BuJISDM2-rz5r",
+//           "cmhzlG8BuJISDM2-rz5r",
+//           "c2hzlG8BuJISDM2-rz5r",
+//           "dGhzlG8BuJISDM2-rz5r",
+//           "dWhzlG8BuJISDM2-rz5r",
+//           "dmhzlG8BuJISDM2-rz5r",
+//           "d2hzlG8BuJISDM2-rz5r",
+//           "eGhzlG8BuJISDM2-rz5r",
+//           "eWhzlG8BuJISDM2-rz5r",
+//           "emhzlG8BuJISDM2-rz5r",
+//           "e2hzlG8BuJISDM2-rz5r",
+//           "fGhzlG8BuJISDM2-rz5r",
+//           "fWhzlG8BuJISDM2-rz5r",
+//           "fmhzlG8BuJISDM2-rz5r",
+//           "f2hzlG8BuJISDM2-rz5r",
+//           "gGhzlG8BuJISDM2-rz5r",
+//           "gWhzlG8BuJISDM2-rz5r",
+//           "gmhzlG8BuJISDM2-rz5r",
+//           "g2hzlG8BuJISDM2-rz5r",
+//           "hGhzlG8BuJISDM2-rz5r",
+//           "hWhzlG8BuJISDM2-rz5r",
+//           "hmhzlG8BuJISDM2-rz5r",
+//           "h2hzlG8BuJISDM2-rz5r",
+//           "iGhzlG8BuJISDM2-rz5r",
+//           "iWhzlG8BuJISDM2-rz5r"
+//         ]
+//     }
+// }).then(function (resp) {
+//     console.log(resp)
+// }).catch(e=>{
+//     console.log('error', e);
+// });
 
 //Search Document
 // esClient.search({
@@ -194,21 +196,7 @@ esClient.index({
 // Bulk Operations
 // esClient.bulk({
 //     body: [
-//         { "index" : { "_index" : "test", "_id" : "1" } },
-//         { "name" : "value1","email":"value2" },
-
-//         { "delete" : { "_index" : "test", "_id" : "2" } },
-
-//         { "create" : { "_index" : "test", "_id" : "3" } },
-//         { "field1" : "value3" },
-
-//         { "update" : {"_id" : "1", "_index" : "test"} },
-//         { "doc" : {"field2" : "value2"} },
-
-
-//         { "update" : {"_id" : "5", "_index" : "test"} },
-//         { "doc" : {"field2" : "value2"} }
-
+        
 //       ]
 
 //   }).then(resp=>{
@@ -231,7 +219,7 @@ esClient.index({
 
 //Delete By Query
 // esClient.deleteByQuery({
-index: 'like',
+//index: 'like',
 //     index: 'like',
 //     body:{
 //         "query":{
@@ -330,3 +318,5 @@ esClient.update({
 // })
 
 //
+
+console.log("code",body);

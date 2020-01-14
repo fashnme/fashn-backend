@@ -232,3 +232,5 @@ esClient.update({
 //   }).catch(e=>{
 //       console.log('e',e);
 //   })
+
+//curl -u elastic:3a7piSEEQHKBGSmREr8w8MjU -s -H "Content-Type: application/x-ndjson" -XPOST https://acea2a0a6441468c916122818742e87b.us-east-1.aws.found.io/test/_bulk --data-binary @request_example.json

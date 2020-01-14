@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev":"nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "elasticsearch": "^16.5.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.1.0",
     "memory-cache": "^0.2.0",
     "morgan": "^1.9.1",
     "sendotp": "^1.2.9",
