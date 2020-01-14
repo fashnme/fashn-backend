@@ -13,6 +13,7 @@ const { verifyOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
+const {deletePost} = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
 
@@ -53,6 +54,7 @@ module.exports = function (app) {
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
+  app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
 

@@ -10,8 +10,6 @@ const esClient = new elasticsearch.Client({
   ]
 });
 
-const body = require('./../personal-testing/dump.json');
-
 
 // console.log(esClient)
 // Index Created
@@ -236,23 +234,23 @@ const body = require('./../personal-testing/dump.json');
 
 
 //Check what does returned in updated
-esClient.update({
-    "index": "test",
-    "id": "10",
-    body: {
-        "doc":
-        {
-            // "hey": "hello",
-            "run":{
-                "hey":"go",
-                "working":"no"
-            }
-        }, 
-        "doc_as_upsert": true
-    }
-}).then(resp => {
-    console.log("this is", resp)
-})
+// esClient.update({
+//     "index": "test",
+//     "id": "10",
+//     body: {
+//         "doc":
+//         {
+//             // "hey": "hello",
+//             "run":{
+//                 "hey":"go",
+//                 "working":"no"
+//             }
+//         }, 
+//         "doc_as_upsert": true
+//     }
+// }).then(resp => {
+//     console.log("this is", resp)
+// })
 //     body: [
 //         { "index" :},
 //         { "name" : "value1","email":"value2" },
@@ -318,5 +316,3 @@ esClient.update({
 // })
 
 //
-
-console.log("code",body);
