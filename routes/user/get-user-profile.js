@@ -10,13 +10,12 @@ const getUserProfile = (req, res) => {
             match:{
                 id:req._id
             }
-            
         }
     }
-    }).then(data=>{
+    }).then((data)=>{
 
         //   using this approach - can be optimised for cleaner code
-        let coreProfileData={}
+        let coreProfileData={};
         coreProfileData.firstName=data.hits.hits[0]._source.firstName
         coreProfileData.lastName=data.hits.hits[0]._source.lastName
         coreProfileData.gender=data.hits.hits[0]._source.gender

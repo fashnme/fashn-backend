@@ -5,8 +5,7 @@ const unfollowUser = (req, res) => {
     esClient.get({
         index: 'follow',
         id: `${req._id}.${req.body.userId}`
-    })
-        .then(entry => {
+    }).then((data) => {
 
             esClient.bulk({
                 body: [
