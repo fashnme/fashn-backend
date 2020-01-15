@@ -7,7 +7,7 @@ const addToCollection = (req, res) => {
     // collectionInfo fetched from request body
     let collectionInfo = {
         collectionName: req.body.collectionName || "saved",
-        productId: req.body.productId,
+        postId: req.body.postId,  
         userId: req._id,
         timeStamp: new Date()
     }
@@ -15,11 +15,11 @@ const addToCollection = (req, res) => {
     // putting doc in collection index
     esClient.create({
         index: 'collection',
-        id: `${req._id}.${req.body.productId}`,
+        id: `${req._id}.${req.body.postId}`,
         body: collectionInfo
     }).then(resp => {
         res.status(200).json({ _id: resp._id, ...collectionInfo });
-        return loggingMiddleware('add_to_collection', cartInfo);
+        return loggingMiddleware('add_to_collection', collectionInfo);
 
 
     }).catch(err => {

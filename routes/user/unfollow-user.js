@@ -1,11 +1,18 @@
 const { esClient } = require('../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const unfollowUser = (req, res) => {
 
-    esClient.get({
+    esClient.delete({
         index: 'follow',
         id: `${req._id}.${req.body.userId}`
     }).then((data) => {
+
+            let toDump = {
+                timestamp: new Date(),
+                follower: req._id,
+                following: req.body.userId
+            }
 
             esClient.bulk({
                 body: [
@@ -23,15 +30,12 @@ const unfollowUser = (req, res) => {
                             "source": "ctx._source.followersCount--",
                             "lang": "painless"
                         }
-                    },
-                    {
-                        "delete": {
-                            "_index": "follow",
-                            "_id": `${req._id}.${req.body.userId}`
-                        }
                     }
                 ]
-            }).then(data => res.status(200).end())
+            }).then(data => {
+                res.status(200).end()
+                return loggingMiddleware('unfollow_user', toDump)
+            })
                 .catch(e => {
                     // Error in updating
                     console.log(e, undefined, 2);

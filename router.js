@@ -13,14 +13,16 @@ const { verifyOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
-const {deletePost} = require('./routes/user/delete-post');
+const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
+
+const { getUserProfile } = require('./routes/user/get-user-profile');
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
 const { createStory } = require('./routes/user/create-story');
-const {deleteStory} = require('./routes/user/delete-story');
+const { deleteStory } = require('./routes/user/delete-story');
 const { addToCollection } = require('./routes/user/add-to-collection')
 const { removeFromCollection } = require('./routes/user/remove-from-collection')
 const { addToCart } = require('./routes/user/add-to-cart')
@@ -51,41 +53,43 @@ var cache = (duration) => {
 
 module.exports = function (app) {
 
-  app.get('/test',(req,res)=>{console.log(req.connection.remoteAddress); return res.status(200);})
+  app.get('/test', (req, res) => { return res.status(200).send('Working'); })
+  
   // Auth User Routes
   app.post(`/auth/user/send-otp`, sendOTP);
   app.post(`/auth/user/resend-otp`, resendOTP);
   app.post(`/auth/user/verify-otp`, verifyOTP);
   app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
 
+  // User Profile
+  app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
+
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
   app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
-
-
+  app.post(`/user/share-post`, authUniqueIdMiddleware, sharePost);
   app.post(`/user/add-to-collection`, authUniqueIdMiddleware, addToCollection);
   app.post(`/user/remove-from-collection`, authUniqueIdMiddleware, removeFromCollection);
   app.post(`/user/add-to-cart`, authUniqueIdMiddleware, addToCart);
   app.post(`/user/remove-from-cart`, authUniqueIdMiddleware, removeFromCart);
-  app.post(`/user/share-post`, authUniqueIdMiddleware, sharePost);
-
-
-  //Feed Routes
-  app.get('/user/get-general-feed', getGeneralFeed);
-
   app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
   app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
-  
-
-
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  createStory);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  likeProduct);
+
+
+  //Feed Routes
+  app.get('/user/get-general-feed', getGeneralFeed);
+
+
+
+
 
 }

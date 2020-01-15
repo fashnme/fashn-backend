@@ -1,4 +1,5 @@
 const { esClient } = require('../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const followUser = (req, res) => {
 
@@ -36,7 +37,10 @@ const followUser = (req, res) => {
                     }
                 ]
             })
-                .then(data => res.status(200).end())
+                .then(data => {
+                    res.status(200).end()
+                    return loggingMiddleware('follow_user',followInfo)
+                })
                 .catch(e => {
                     // Error in updating totalFollowers
                     console.log(e);
