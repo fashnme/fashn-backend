@@ -42,7 +42,7 @@ var cache = (duration) => {
         mcache.put(key, JSON.stringify(body), duration * 1000);
         res.setHeader('content-type', 'application/json');
 
-        res.sendResponse(body)
+        res.sendResponse(body);
       }
       next()
     }

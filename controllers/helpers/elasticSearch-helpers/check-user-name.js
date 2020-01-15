@@ -1,4 +1,4 @@
-const {esClient} = require('../../../conf/elastic-conf')
+const {esClient} = require('./../../../conf/elastic-conf')
 
 /**
  * helper to check ES user index 

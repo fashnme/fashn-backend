@@ -1,4 +1,4 @@
 node_modules/
 .env
-testing/personal testing/*
-logs/
+testing/personal-testing/*
+logs.json

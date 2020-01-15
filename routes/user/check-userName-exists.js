@@ -1,4 +1,4 @@
-const {checkUserName} = require('./../../controllers/helpers/check-userName')
+const {checkUserName} = require('./../../controllers/helpers/elasticSearch-helpers/check-user-name');
 
 /**
  * route that checks if username exists

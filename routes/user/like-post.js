@@ -1,4 +1,5 @@
 const { esClient } = require('./../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const likePost = (req, res) => {
 
@@ -16,8 +17,7 @@ const likePost = (req, res) => {
         id: `${likeInfo.userId}.${likeInfo.postId}`,
         body: likeInfo
     }).then(resp => {
-        // Then updating totalLikes value in post index 
-        
+        // Then updating totalLikes value in post index
         esClient.update({
             index: 'post',
             id: likeInfo.postId,
@@ -29,11 +29,13 @@ const likePost = (req, res) => {
             }
         }).then(data => {
             res.status(200).end();
+            return loggingMiddleware('like_post', likeInfo);
 
         }).catch(e => {
             // Error in updating likeCounter
             res.status(401).end();
             // implement rollback here in later versions
+
         })
     }).catch(e => {
         //Like Already Exists
