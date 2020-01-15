@@ -6,8 +6,7 @@ const loggingMiddleware = (activityType, payload) => {
 
     const lineToLog = {
         activityType,
-        ...payload,
-        timestamp: new Date()
+        ...payload
     };
 
     writeStream.write(`{ "create" : { } }\n${JSON.stringify(lineToLog)}\n`);

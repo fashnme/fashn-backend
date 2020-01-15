@@ -23,7 +23,7 @@ const addToCollection = (req, res) => {
 
 
     }).catch(err => {
-        console.log("error in creating collection", err)
+        console.log("error in creating collection", err);
         return res.status(401).end();
     })
 

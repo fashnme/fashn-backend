@@ -6,8 +6,7 @@ const unfollowUser = (req, res) => {
     esClient.delete({
         index: 'follow',
         id: `${req._id}.${req.body.userId}`
-    })
-        .then(entry => {
+    }).then((data) => {
 
             let toDump = {
                 timestamp: new Date(),
