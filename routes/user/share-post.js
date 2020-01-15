@@ -1,4 +1,5 @@
 const { esClient } = require('../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const sharePost = (req, res) => {
 
@@ -15,9 +16,10 @@ const sharePost = (req, res) => {
         index: 'share',
         body:sharePostInfo
     }).then(resp => {
-
-        return res.status(200).json({ _id: resp._id, ...sharePostInfo });
-
+        let saveShareInDump={ _id: resp._id, ...sharePostInfo }
+        
+        res.status(200).json(saveShareInDump);
+        return loggingMiddleware('share_post',saveShareInDump)
     }).catch(err => {
         console.log("error in creating entry in share",err)
         return res.status(401).end();

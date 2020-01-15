@@ -1,16 +1,23 @@
 const { esClient } = require('./../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const unlikePost = (req, res) => {
 
     // removing doc from like index by querying
     let postId = req.body.postId;
     let userId = req._id;
+    let id = `${userId}.${postId}`;
 
     esClient.delete({
         index: 'like',
-        id: `${userId}.${postId}`
+        id
     }).then(resp => {
         // Then updating totalLikes value in post index
+        let toDump = {
+            timestamp: new Date(),
+            postId: req.body.postId,
+            userId: req._id
+        }
         esClient.update({
             index: 'post',
             id: postId,
@@ -22,6 +29,7 @@ const unlikePost = (req, res) => {
             }
         }).then(data => {
             res.status(200).end()
+            return loggingMiddleware('unlike_post',toDump)
         }).catch(e => {
             res.status(401).end()
             // implement rollback here in later versions

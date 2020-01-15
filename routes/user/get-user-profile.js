@@ -20,7 +20,7 @@ const getUserProfile = (req, res) => {
         coreProfileData.profilePic=data._source.profilePic
         
 
-        res.json(coreProfileData)
+        res.json({user: coreProfileData})
         
     }).catch(e=>{
         console.log("error in fetching user", e)
