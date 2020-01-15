@@ -25,7 +25,7 @@ const createPost = (req, res) => {
         return res.status(200).json({ ...postBody, _id: resp._id });
 
     }).catch(err => {
-        console.log("error in creating post",err)
+        console.log("error in creating post",err);
         return res.status(401).end();
     })
 

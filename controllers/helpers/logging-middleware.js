@@ -1,22 +1,19 @@
-const log4js = require('log4js');
+const fs = require('fs');
+const path = require('path');
+const writeStream = fs.createWriteStream(path.join(__dirname, './../../logs.json'), { 'flags': 'a' });
 
-const loggingMiddleware = (action, logData) => {
+const loggingMiddleware = (activityType, payload) => {
 
-    const body = {
-        action: action,
-        payload: { ...logData, date: new Date() }
-    }
+    const lineToLog = {
+        activityType,
+        ...payload,
+        timestamp: new Date()
+    };
 
-    // Logger configuration
-    log4js.configure({
-        appenders: { fileAppender: { type: 'file', filename: './../../logs/test.log' } },
-        categories: { default: { appenders: ['fileAppender'], level: 'info' } }
-    });
-
-    // Create the logger
-    const logger = log4js.getLogger();
-
-    // Log a message
-    logger.info(JSON.stringify(body));
-
+    writeStream.write(`{ "create" : { } }\n${JSON.stringify(lineToLog)}\n`);
 }
+
+module.exports = {
+    loggingMiddleware
+}
+

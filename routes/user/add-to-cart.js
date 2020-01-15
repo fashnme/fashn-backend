@@ -1,4 +1,5 @@
 const { esClient } = require('../../conf/elastic-conf');
+const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
 
 const addToCart = (req, res) => {
 
@@ -13,18 +14,18 @@ const addToCart = (req, res) => {
     // putting doc in cart index
     esClient.create({
         index: 'cart',
-        id:`${req._id}.${req.body.productId}`,
-        body:cartInfo
+        id: `${req._id}.${req.body.productId}`,
+        body: cartInfo
     }).then(resp => {
-
-        return res.status(200).json({ _id: resp._id, ...cartInfo });
+        res.status(200).json({ _id: resp._id, ...cartInfo });
+        return loggingMiddleware('add_to_cart', cartInfo);
 
     }).catch(err => {
-        console.log("error in creating cart",err)
+        console.log("error in creating cart", err)
         return res.status(401).end();
     })
 
 }
-module.exports={
+module.exports = {
     addToCart
 }

@@ -13,18 +13,18 @@ const authUniqueIdMiddleware = (req, res, next) => {
         esClient.get({
             index: 'user',
             id: decodedToken
-        }).then(data => {
+        }).then((data) => {
             if (data.found) {
                 req._id = decodedToken;
                 next();
             } else {
-                return res.status(401);
+                return res.status(401).end();
             }
         }).catch(e => {
-            console.log(e);
+            throw new Error('Failed in searching decoded JWT Token');
         })
     } else {
-        return res.status(401);
+        return res.status(401).end();
 
     }
 

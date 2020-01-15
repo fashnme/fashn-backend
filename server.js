@@ -12,6 +12,7 @@ require('dotenv').config();
 
 //Router File Import
 const router=require('./router');
+const { logsDumpingTask } = require('./microscripts/tasks/logs-dumping-task');
 
 //Initializing Express App
 var app = express();
@@ -35,6 +36,7 @@ router(app)
 const port = process.env.PORT || 8080
 
 server.listen(port,()=>{
-	console.log(`\x1b[1mServer Started at Port: ${port}`)
+	console.log(`\x1b[1mServer Started at Port: ${port}`);
+	logsDumpingTask();
 })
 
