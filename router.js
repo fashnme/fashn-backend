@@ -17,6 +17,8 @@ const {deletePost} = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
 
+const { getUserProfile } = require('./routes/user/get-user-profile');
+
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
 const { createStory } = require('./routes/user/create-story');
@@ -57,6 +59,9 @@ module.exports = function (app) {
   app.post(`/auth/user/resend-otp`, resendOTP);
   app.post(`/auth/user/verify-otp`, verifyOTP);
   app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
+
+  // User Profile
+  app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
