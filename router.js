@@ -17,7 +17,13 @@ const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
 
+//Get methods
 const { getUserProfile } = require('./routes/user/get-user-profile');
+const { getUserCart } = require('./routes/user/get-user-cart');
+const { getUserPosts } = require('./routes/user/get-user-posts');
+const { fetchProduct } = require('./routes/products/fetch-product');
+const { fetchProducts } = require('./routes/products/fetch-products');
+
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
@@ -26,8 +32,11 @@ const { deleteStory } = require('./routes/user/delete-story');
 const { addToCollection } = require('./routes/user/add-to-collection')
 const { removeFromCollection } = require('./routes/user/remove-from-collection')
 const { addToCart } = require('./routes/user/add-to-cart')
-const { removeFromCart } = require('./routes/user/remove-from-cart')
-const { sharePost } = require('./routes/user/share-post')
+const { removeFromCart } = require('./routes/user/remove-from-cart');
+const { addToWishlist } = require('./routes/user/add-to-wishlist');
+const { removeFromWishlist } = require('./routes/user/remove-from-wishlist');
+const { sharePost } = require('./routes/user/share-post');
+const { getWishlistProduct } = require('./routes/user/get-user-wishlist');
 
 
 var cache = (duration) => {
@@ -54,7 +63,7 @@ var cache = (duration) => {
 module.exports = function (app) {
 
   app.get('/test', (req, res) => { return res.status(200).send('Working'); })
-  
+
   // Auth User Routes
   app.post(`/auth/user/send-otp`, sendOTP);
   app.post(`/auth/user/resend-otp`, resendOTP);
@@ -63,6 +72,13 @@ module.exports = function (app) {
 
   // User Profile
   app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
+  app.get('/user/get-user-posts', authUniqueIdMiddleware, getUserPosts);
+  app.get('/user/get-user-cart', authUniqueIdMiddleware, getUserCart);
+  app.get('/user/get-user-wishlist', authUniqueIdMiddleware, getWishlistProduct);
+
+  //Product
+  app.get('/product/fetch-product', fetchProduct);
+  app.post('/product/fetch-products', fetchProducts);
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
@@ -74,6 +90,8 @@ module.exports = function (app) {
   app.post(`/user/remove-from-collection`, authUniqueIdMiddleware, removeFromCollection);
   app.post(`/user/add-to-cart`, authUniqueIdMiddleware, addToCart);
   app.post(`/user/remove-from-cart`, authUniqueIdMiddleware, removeFromCart);
+  app.post(`/user/add-to-wishlist`, authUniqueIdMiddleware, addToWishlist);
+  app.post(`/user/remove-from-wishlist`, authUniqueIdMiddleware, removeFromWishlist);
   app.post(`/user/follow-user`, authUniqueIdMiddleware, followUser);
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
   app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
@@ -83,7 +101,6 @@ module.exports = function (app) {
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  createStory);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  likeProduct);
-
 
   //Feed Routes
   app.get('/user/get-general-feed', getGeneralFeed);

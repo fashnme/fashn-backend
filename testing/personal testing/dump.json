@@ -1,0 +1,6 @@
+{"index":{ "_index": "test"}}
+{"Amount": "480", "Quantity": "2", "Id": "975463711", "Client_Store_sk": "1109"}
+{"index":{"_index": "test"}}
+{"Amount": "2105", "Quantity": "2", "Id": "975463943", "Client_Store_sk": "1109"}
+{"index":{"_index": "test"}}
+{"Amount": "2107", "Quantity": "3", "Id": "974920111", "Client_Store_sk": "1109"}
