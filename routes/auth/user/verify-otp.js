@@ -2,7 +2,7 @@ const sendOtpMSG91 = require('sendotp');
 const { esClient } = require('./../../../conf/elastic-conf');
 const {createJWT } = require('../../../controllers/create-decode-jwt')
 
-const verifyOTP = async (req, res) => {
+const verifyOTP = (req, res) => {
 
 
 	const SendOtpInstance = new sendOtpMSG91(process.env.MSG_KEY, 'Your One time verification Code is {{otp}} ');
@@ -11,7 +11,7 @@ const verifyOTP = async (req, res) => {
 	let otpToVerify = req.body.otp;
 
 	//Node-MSG91 Client 
-	SendOtpInstance.verify(phoneNo, otpToVerify, async function (err, response) {
+	SendOtpInstance.verify(phoneNo, otpToVerify, function (err, response) {
 
 		// Use only response object as it contains response type and message
 		if (response.type == 'error') {
