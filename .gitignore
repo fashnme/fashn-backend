@@ -3,3 +3,4 @@ node_modules/
 testing/personal-testing/*
 logs.json
 config.json
+firebase-key.json
