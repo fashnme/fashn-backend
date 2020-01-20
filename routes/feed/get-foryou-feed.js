@@ -1,14 +1,15 @@
 const { esClient } = require('./../../conf/elastic-conf');
 
-const getGeneralFeed = (req, res) => {
+const getForYouFeed = (req, res) => {
 
     return esClient.get({
-        index: 'feed',
-        id: 'general-feed'
-    }).then((postIds) => {
+        index: 'user',
+        id: req._id,
+        _source: ['forYouPosts']
+    }).then((user) => {
         esClient.mget({
             index: 'post',
-            body: { ids: postIds._source.postIds }
+            body: { ids: user._source.forYouPosts || [] }
         }).then((data) => {
             let posts = data.docs.map(post => { return { postId: post._id, ...post._source } });
             esClient.mget({
@@ -20,7 +21,7 @@ const getGeneralFeed = (req, res) => {
                     posts[index]["userName"] = user["_source"]["userName"];
                 });
                 return res.status(200).json({ posts });
-            }).catch((e)=>{
+            }).catch((e) => {
                 console.log('error', e);
                 res.status(500).end();
             });
@@ -35,4 +36,4 @@ const getGeneralFeed = (req, res) => {
 
 }
 
-module.exports = { getGeneralFeed }
+module.exports = { getForYouFeed }

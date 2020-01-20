@@ -1,7 +1,7 @@
 const { esClient } = require('./../../conf/elastic-conf');
 
 const getGeneralFeed = (req, res) => {
-
+    
     return esClient.get({
         index: 'feed',
         id: 'general-feed'

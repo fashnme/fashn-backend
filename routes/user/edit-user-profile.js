@@ -1,14 +1,11 @@
 const { checkUsername } = require('./../../controllers/helpers/elasticSearch-helpers/check-user-name')
-const {userUpdateProfile}=require('./../../controllers/helpers/elasticSearch-helpers/user-update-profile')
+const { userUpdateProfile } = require('./../../controllers/helpers/elasticSearch-helpers/user-update-profile')
 const editUserProfile = async (req, res) => {
 
     /**
      * expects two params in body
      * - userNameChanged [bool] => true if username is changed
      */
-
-
-
     if (req.body.userNameChanged) {
 
         await checkUsername()
@@ -42,17 +39,14 @@ const editUserProfile = async (req, res) => {
         // calling update profile function
         await userUpdateProfile(req._id, req.body.newProfile)
 
-        .then(data => {
-            res.status(200).end()
-        }).catch(e => {
-            res.status(400).end()
-        })
+            .then(data => {
+                res.status(200).end()
+            }).catch(e => {
+                res.status(400).end()
+            })
 
 
     }
-
-
-
 }
 module.exports = {
     editUserProfile

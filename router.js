@@ -11,14 +11,12 @@ const { sendOTP } = require('./routes/auth/user/send-otp');
 const { resendOTP } = require('./routes/auth/user/resend-otp');
 const { verifyOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
+
+//User Actions
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
 const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
-const { getGeneralFeed } = require('./routes/user/get-general-feed');
-
-const { getUserProfile } = require('./routes/user/get-user-profile');
-
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
 const { createStory } = require('./routes/user/create-story');
@@ -28,6 +26,16 @@ const { removeFromCollection } = require('./routes/user/remove-from-collection')
 const { addToCart } = require('./routes/user/add-to-cart')
 const { removeFromCart } = require('./routes/user/remove-from-cart')
 const { sharePost } = require('./routes/user/share-post')
+
+//User Specific Routes
+const { getUserProfile } = require('./routes/user/get-user-profile');
+const { editUserProfile } = require('./routes/user/edit-user-profile');
+
+
+//Get Feed Routes
+const { getGeneralFeed } = require('./routes/user/get-general-feed');
+const { getForYouFeed } = require('./routes/feed/get-foryou-feed');
+const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 var cache = (duration) => {
@@ -63,6 +71,8 @@ module.exports = function (app) {
 
   // User Profile
   app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
+  app.post(`/user/edit-user-profile`, authUniqueIdMiddleware ,  editUserProfile);
+
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
@@ -79,17 +89,13 @@ module.exports = function (app) {
   app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
-  // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  createStory);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  likeProduct);
 
-
   //Feed Routes
-  app.get('/user/get-general-feed', getGeneralFeed);
-
-
-
-
+  app.get('/feed/get-general-feed', getGeneralFeed);
+  app.get('/feed/get-following-feed', getFollowingFeed);
+  app.get('/feed/get-foryou-feed', getForYouFeed);
 
 }
