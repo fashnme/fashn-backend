@@ -1,12 +1,13 @@
 const { esClient } = require('./../../conf/elastic-conf');
 const { loggingMiddleware } = require('./../../controllers/helpers/logging-middleware');
-
+const { sendNotification } = require('./../../controllers/helpers/sendNotification')
 const likePost = (req, res) => {
 
     // likeInfo fetched from request body
     let likeInfo = {
         timestamp: new Date(),
         postId: req.body.postId,
+        posterId:req.body.posterId,
         userId: req._id
     }
 

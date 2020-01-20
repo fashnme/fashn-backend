@@ -12,7 +12,7 @@ require('dotenv').config();
 
 //Router File Import
 const router=require('./router');
-const { logsDumpingTask } = require('./microscripts/tasks/logs-dumping-task');
+const { logsDumpingTask } = require('./microscripts/tasks/logging/logs-dumping-task');
 
 
 //Initializing Express App

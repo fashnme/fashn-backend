@@ -10,7 +10,8 @@ const createUser = (req, res) => {
         lastName: req.body.fullName.split(" ")[1] || "",
         gender: req.body.gender,
         userName: req.body.userName,
-        profilePic: req.body.profilePic || ""
+        profilePic: req.body.profilePic || "",
+        registrationToken:req.body.registrationToken
     }
 
     // Phone No fetched from authMiddleware next callback
