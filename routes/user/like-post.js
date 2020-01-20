@@ -7,7 +7,8 @@ const likePost = (req, res) => {
     let likeInfo = {
         timestamp: new Date(),
         postId: req.body.postId,
-        userId: req._id
+        userId: req._id,
+        posterId: req.body.posterId
     }
 
 
@@ -18,27 +19,49 @@ const likePost = (req, res) => {
         body: likeInfo
     }).then(resp => {
         // Then updating totalLikes value in post index
-        esClient.update({
-            index: 'post',
-            id: likeInfo.postId,
-            body: {
-                "script": {
-                    "source": "ctx._source.totalLikes++",
-                    "lang": "painless"
+        // esClient.update({
+        //     index: 'post',
+        //     id: likeInfo.postId,
+        //     body: {
+        //         "script": {
+        //             "source": "ctx._source.totalLikes++",
+        //             "lang": "painless"
+        //         }
+        //     }
+        //  })
+
+        esClient.bulk({
+            body: [
+                { "update": { "_index": "post", "_id": likeInfo.postId } },
+                {
+                    "script": {
+                        "source": "ctx._source.totalLikes++",
+                        "lang": "painless"
+                    }
+                },
+
+                { "update": { "_index": "user", "_id": likeInfo.posterId } },
+                {
+                    "script": {
+                        "source": "ctx._source.totalLikes++",
+                        "lang": "painless"
+                    }
                 }
-            }
-        }).then(data => {
-            res.status(200).end();
-            return loggingMiddleware('like_post', likeInfo);
-
-        }).catch(e => {
-            // Error in updating likeCounter
-            res.status(401).end();
-            // implement rollback here in later versions
-
+            ]
         })
-    }).catch(e => {
+            .then(data => {
+                res.status(200).end();
+                return loggingMiddleware('like_post', likeInfo);
+
+            }).catch(e => {
+                // Error in updating likeCounter
+                res.status(401).end();
+                // implement rollback here in later versions
+
+            })
+    }).catch(error => {
         //Like Already Exists
+        console.log(error);
         return res.status(422).end();
     })
 
