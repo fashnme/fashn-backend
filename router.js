@@ -37,6 +37,8 @@ const { addToWishlist } = require('./routes/user/add-to-wishlist');
 const { removeFromWishlist } = require('./routes/user/remove-from-wishlist');
 const { sharePost } = require('./routes/user/share-post');
 const { getWishlistProduct } = require('./routes/user/get-user-wishlist');
+const { viewedPost } = require('./routes/user/viewed-post');
+const { viewedPosts } = require('./routes/user/viewed-posts');
 
 
 var cache = (duration) => {
@@ -96,6 +98,9 @@ module.exports = function (app) {
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
   app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
+  app.post(`/user/viewed-post`, authUniqueIdMiddleware, viewedPost);
+  app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
+
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
