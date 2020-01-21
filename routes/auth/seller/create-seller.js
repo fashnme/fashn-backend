@@ -1,18 +1,16 @@
 const { esClient } = require('./../../../conf/elastic-conf');
-const { userDefaultAdditionalSchema } = require('./../../../schemas/user-default-schema');
+const { sellerDefaultAdditionalSchema } = require('./../../../schemas/seller-default-schema');
 const { createJWT } = require('./../../../controllers/create-decode-jwt');
 
-const createUser = (req, res) => {
+const createSeller = (req, res) => {
 
-    // UserInfo fetched from request body
-    let userInfo = {
+    // sellerInfo fetched from request body
+    let sellerInfo = {
         firstName: req.body.fullName.split(" ")[0],
         lastName: req.body.fullName.split(" ")[1] || "",
         gender: req.body.gender,
-        userName: req.body.userName,
-        profilePic: req.body.profilePic || "",
-        registrationToken:req.body.registrationToken,
-        createdOn: new Date()
+        createdOn: new Date(),
+        registrationToken:req.body.registrationToken
     }
 
     // Phone No fetched from authMiddleware next callback
@@ -20,22 +18,22 @@ const createUser = (req, res) => {
 
     // Creating body for ES indexing
     let body = {
-        ...userInfo,
-        ...userDefaultAdditionalSchema,
+        ...sellerInfo,
+        ...sellerDefaultAdditionalSchema,
         phoneNo
     }
 
-    // Indexing the user
+    // Indexing the seller
     esClient.index({
-        index: 'user',
-        body
-    }).then(resp => {
+        index: 'seller',
+        body: body
+    }).then((data) => {
 
         // adding _id to our existing body we PUT in ES index
-        body._id=resp._id 
+        body._id=data._id 
 
         // Creating JWT based on unique Id for all subsequent requests
-        let jwt = createJWT(body._id);
+        let jwt = createJWT(data._id);
         return res.status(200).json({ body, jwt });
 
     }).catch(err => {
@@ -44,4 +42,4 @@ const createUser = (req, res) => {
     })
 }
 
-module.exports = { createUser }
+module.exports = { createSeller };

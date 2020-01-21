@@ -6,10 +6,12 @@ const mcache = require('memory-cache');
 const { authPhoneNoMiddleware } = require('./controllers/middlewares/auth-phoneno');
 const { authUniqueIdMiddleware } = require('./controllers/middlewares/auth-unique-id');
 
-//Import Route Files
-const { sendOTP } = require('./routes/auth/user/send-otp');
-const { resendOTP } = require('./routes/auth/user/resend-otp');
-const { verifyOTP } = require('./routes/auth/user/verify-otp');
+//Import Auth Routes sendOTP & resendOTP
+const { sendOTP } = require('./routes/auth/send-otp');
+const { resendOTP } = require('./routes/auth/resend-otp');
+
+// Import User Auth Routes
+const { verifyUserOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
 
 //User Actions
@@ -54,6 +56,17 @@ const { getForYouFeed } = require('./routes/feed/get-foryou-feed');
 const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
+
+
+
+
+//Seller Routes
+// Import User Auth Routes
+const { verifySellerOTP } = require('./routes/auth/seller/verify-otp');
+const { createSeller } = require('./routes/auth/seller/create-seller');
+
+
+
 var cache = (duration) => {
   return (req, res, next) => {
     let key = '__express__' + req.originalUrl || req.url
@@ -76,18 +89,20 @@ var cache = (duration) => {
 }
 
 module.exports = function (app) {
-
+  
   app.get('/test', (req, res) => { return res.status(200).send('Working'); })
 
-  // Auth User Routes
-  app.post(`/auth/user/send-otp`, sendOTP);
-  app.post(`/auth/user/resend-otp`, resendOTP);
-  app.post(`/auth/user/verify-otp`, verifyOTP);
+  // Auth Routes
+  app.post(`/auth/send-otp`, sendOTP);
+  app.post(`/auth/resend-otp`, resendOTP);
+
+   // Auth User Routes
+  app.post(`/auth/user/verify-otp`, verifyUserOTP);
   app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
 
   // User Profile
   app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
-  app.post(`/user/edit-user-profile`, authUniqueIdMiddleware ,  editUserProfile);
+  app.post(`/user/edit-user-profile`, authUniqueIdMiddleware, editUserProfile);
 
   app.get('/user/get-user-posts', authUniqueIdMiddleware, getUserPosts);
   app.get('/user/get-user-cart', authUniqueIdMiddleware, getUserCart);
@@ -129,6 +144,21 @@ module.exports = function (app) {
   //Feed Routes
   app.get('/feed/get-general-feed', getGeneralFeed);
   app.get('/feed/get-following-feed', authUniqueIdMiddleware, getFollowingFeed);
-  app.get('/feed/get-foryou-feed', authUniqueIdMiddleware ,getForYouFeed);
+  app.get('/feed/get-foryou-feed', authUniqueIdMiddleware, getForYouFeed);
+
+
+
+
+
+
+
+
+
+  // All Routes For Seller
+  // Seller Auth Routes
+  app.post(`/auth/seller/verify-otp`, verifySellerOTP);
+  app.post(`/auth/seller/create-user`, authPhoneNoMiddleware, createSeller);
+  
+  
 
 }

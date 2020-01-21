@@ -10,19 +10,21 @@ const authUniqueIdMiddleware = (req, res, next) => {
     const decodedToken = decodeJWT(token);
 
     if (decodedToken) {
-        esClient.get({
-            index: 'user',
-            id: decodedToken
-        }).then((data) => {
-            if (data.found) {
-                req._id = decodedToken;
-                next();
-            } else {
-                return res.status(401).end();
-            }
-        }).catch(e => {
-            throw new Error('Failed in searching decoded JWT Token');
-        })
+        // esClient.get({
+        //     index: 'user',
+        //     id: decodedToken
+        // }).then((data) => {
+        //     if (data.found) {
+        //         req._id = decodedToken;
+        //         next();
+        //     } else {
+        //         return res.status(401).end();
+        //     }
+        // }).catch(e => {
+        //     throw new Error('Failed in searching decoded JWT Token');
+        // })
+        req._id = decodedToken;
+        next();
     } else {
         return res.status(401).end();
 
