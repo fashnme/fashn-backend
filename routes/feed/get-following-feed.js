@@ -7,9 +7,18 @@ const getFollowingFeed = (req, res) => {
         id: req._id,
         _source: ['followingPosts']
     }).then((user) => {
+
+        if (!user._source.followingPosts) {
+        // In case followingPosts is not present on user
+            return res.status(200).send({ posts: [] });
+        }else if(user._source.followingPosts.length == 0){
+        // In case followingPoints length == 0
+            return res.status(200).send({ posts: [] });
+        }
+
         esClient.mget({
             index: 'post',
-            body: { ids: ['hkh'] }
+            body: { ids: user._source.followingPosts }
         }).then((data) => {
             let posts = data.docs.map(post => { return { postId: post._id, ...post._source } });
             esClient.mget({
@@ -23,7 +32,7 @@ const getFollowingFeed = (req, res) => {
                 return res.status(200).json({ posts });
             }).catch((e) => {
                 console.log('error', e);
-                return res.status(200).send({ posts: [] });
+                return res.status(500).end();
             });
         }).catch(e => {
             return res.status(500).end();
