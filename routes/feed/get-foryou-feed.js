@@ -23,14 +23,14 @@ const getForYouFeed = (req, res) => {
                 return res.status(200).json({ posts });
             }).catch((e) => {
                 console.log('error', e);
-                res.status(500).end();
+                return res.status(200).send({ posts: [] });
             });
         }).catch(e => {
-            res.status(400).end();
+            return res.status(500).end();
         });
     }).catch(e => {
         console.log("error", e);
-        res.status(400).end();
+        return res.status(400).end();
     });
 
 

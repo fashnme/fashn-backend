@@ -9,7 +9,7 @@ const getFollowingFeed = (req, res) => {
     }).then((user) => {
         esClient.mget({
             index: 'post',
-            body: { ids: user._source.followingPosts || [] }
+            body: { ids: ['hkh'] }
         }).then((data) => {
             let posts = data.docs.map(post => { return { postId: post._id, ...post._source } });
             esClient.mget({
@@ -23,14 +23,13 @@ const getFollowingFeed = (req, res) => {
                 return res.status(200).json({ posts });
             }).catch((e) => {
                 console.log('error', e);
-                res.status(500).end();
+                return res.status(200).send({ posts: [] });
             });
         }).catch(e => {
-            res.status(400).end();
+            return res.status(500).end();
         });
     }).catch(e => {
-        console.log("error", e);
-        res.status(400).end();
+        return res.status(400).end();
     });
 
 

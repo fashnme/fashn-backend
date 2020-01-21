@@ -36,6 +36,7 @@
     "elasticdump": "^6.16.2",
     "elasticsearch": "^16.5.0",
     "express": "^4.17.1",
+    "firebase-admin": "^8.9.1",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.1.0",
     "memory-cache": "^0.2.0",

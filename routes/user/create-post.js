@@ -7,7 +7,8 @@ const createPost = (req, res) => {
     let postInfo = {
         caption: req.body.caption,
         uploadUrl: req.body.uploadUrl,
-        userId: req._id
+        userId: req._id,
+        mediaType: req.body.mediaType
     }
     
     // Creating body for putting this doc in ES post index

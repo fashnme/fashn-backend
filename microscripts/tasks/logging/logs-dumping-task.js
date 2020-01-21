@@ -4,9 +4,9 @@ const rl = require('readline');
 
 const schedule = require('node-schedule');
 
-const { esClient } = require('./../../conf/elastic-conf');
+const { esClient } = require('../../../conf/elastic-conf');
 
-const pathName = path.join(__dirname, `./../../logs.json`);
+const pathName = path.join(__dirname, `./../../../logs.json`);
 
 
 const logsDumpingTask = () => {
