@@ -93,8 +93,8 @@ module.exports = function (app) {
   app.get('/test', (req, res) => { return res.status(200).send('Working'); })
 
   // Auth Routes
-  app.post(`/auth/user/send-otp`, sendOTP);
-  app.post(`/auth/user/resend-otp`, resendOTP);
+  app.post(`/auth/send-otp`, sendOTP);
+  app.post(`/auth/resend-otp`, resendOTP);
 
    // Auth User Routes
   app.post(`/auth/user/verify-otp`, verifyUserOTP);
