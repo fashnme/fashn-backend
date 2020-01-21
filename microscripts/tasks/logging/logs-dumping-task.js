@@ -46,6 +46,7 @@ const logsDumpingTask = () => {
     });
 }
 
+
 module.exports = {
     logsDumpingTask
 }

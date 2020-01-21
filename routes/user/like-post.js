@@ -17,19 +17,8 @@ const likePost = (req, res) => {
         index: 'like',
         id: `${likeInfo.userId}.${likeInfo.postId}`,
         body: likeInfo
-    }).then(resp => {
-        // Then updating totalLikes value in post index
-        // esClient.update({
-        //     index: 'post',
-        //     id: likeInfo.postId,
-        //     body: {
-        //         "script": {
-        //             "source": "ctx._source.totalLikes++",
-        //             "lang": "painless"
-        //         }
-        //     }
-        //  })
-
+    }).then((data) => {
+      
         esClient.bulk({
             body: [
                 { "update": { "_index": "post", "_id": likeInfo.postId } },
@@ -49,7 +38,7 @@ const likePost = (req, res) => {
                 }
             ]
         })
-            .then(data => {
+            .then((data) => {
                 res.status(200).end();
                 return loggingMiddleware('like_post', likeInfo);
 

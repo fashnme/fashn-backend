@@ -2,10 +2,10 @@ const elasticsearch = require('elasticsearch');
 const esClient = new elasticsearch.Client({
   host: [
     {
-      host: "acea2a0a6441468c916122818742e87b.us-east-1.aws.found.io",
+      host: "bea4897764024f35b28f16ef1ea05cea.us-east-1.aws.found.io",
       protocol: "https",
       port: 9243,
-      auth: `elastic:3a7piSEEQHKBGSmREr8w8MjU`,
+      auth: `elastic:UZ3U15OiSbobP6zeGpNzrZPA`,
     }
   ]
 });

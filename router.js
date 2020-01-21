@@ -11,18 +11,17 @@ const { sendOTP } = require('./routes/auth/user/send-otp');
 const { resendOTP } = require('./routes/auth/user/resend-otp');
 const { verifyOTP } = require('./routes/auth/user/verify-otp');
 const { createUser } = require('./routes/auth/user/create-user');
+
+//User Actions
 const { createPost } = require('./routes/user/create-post');
 const { likePost } = require('./routes/user/like-post');
 const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
-const { getGeneralFeed } = require('./routes/user/get-general-feed');
 const { dislikePost } = require('./routes/user/dislike-post');
 const { undislikePost } = require('./routes/user/undislike-post');
 
-//Get methods
-const { getUserProfile } = require('./routes/user/get-user-profile');
-const { getUserCart } = require('./routes/user/get-user-cart');
-const { getUserPosts } = require('./routes/user/get-user-posts');
+
+//Get Product Routes
 const { fetchProduct } = require('./routes/products/fetch-product');
 const { fetchProducts } = require('./routes/products/fetch-products');
 const { Search } = require('./routes/search/search');
@@ -41,6 +40,18 @@ const { sharePost } = require('./routes/user/share-post');
 const { getWishlistProduct } = require('./routes/user/get-user-wishlist');
 const { viewedPost } = require('./routes/user/viewed-post');
 const { viewedPosts } = require('./routes/user/viewed-posts');
+
+//User Specific Routes
+const { getUserProfile } = require('./routes/user/get-user-profile');
+const { getUserCart } = require('./routes/user/get-user-cart');
+const { getUserPosts } = require('./routes/user/get-user-posts');
+const { editUserProfile } = require('./routes/user/edit-user-profile');
+
+
+//Get Feed Routes
+const { getGeneralFeed } = require('./routes/user/get-general-feed');
+const { getForYouFeed } = require('./routes/feed/get-foryou-feed');
+const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 var cache = (duration) => {
@@ -76,6 +87,8 @@ module.exports = function (app) {
 
   // User Profile
   app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
+  app.post(`/user/edit-user-profile`, authUniqueIdMiddleware ,  editUserProfile);
+
   app.get('/user/get-user-posts', authUniqueIdMiddleware, getUserPosts);
   app.get('/user/get-user-cart', authUniqueIdMiddleware, getUserCart);
   app.get('/user/get-user-wishlist', authUniqueIdMiddleware, getWishlistProduct);
@@ -109,16 +122,13 @@ module.exports = function (app) {
   app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
 
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
-  // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  createStory);
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  likeProduct);
 
   //Feed Routes
-  app.get('/user/get-general-feed', getGeneralFeed);
-
-
-
-
+  app.get('/feed/get-general-feed', getGeneralFeed);
+  app.get('/feed/get-following-feed', authUniqueIdMiddleware, getFollowingFeed);
+  app.get('/feed/get-foryou-feed', authUniqueIdMiddleware ,getForYouFeed);
 
 }
