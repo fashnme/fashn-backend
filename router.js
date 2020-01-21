@@ -16,6 +16,8 @@ const { likePost } = require('./routes/user/like-post');
 const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
+const { dislikePost } = require('./routes/user/dislike-post');
+const { undislikePost } = require('./routes/user/undislike-post');
 
 //Get methods
 const { getUserProfile } = require('./routes/user/get-user-profile');
@@ -37,6 +39,8 @@ const { addToWishlist } = require('./routes/user/add-to-wishlist');
 const { removeFromWishlist } = require('./routes/user/remove-from-wishlist');
 const { sharePost } = require('./routes/user/share-post');
 const { getWishlistProduct } = require('./routes/user/get-user-wishlist');
+const { viewedPost } = require('./routes/user/viewed-post');
+const { viewedPosts } = require('./routes/user/viewed-posts');
 
 
 var cache = (duration) => {
@@ -88,6 +92,8 @@ module.exports = function (app) {
   app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
+  app.post(`/user/dislike-post`, authUniqueIdMiddleware, dislikePost);
+  app.post(`/user/undislike-post`, authUniqueIdMiddleware, undislikePost);
   app.post(`/user/share-post`, authUniqueIdMiddleware, sharePost);
   app.post(`/user/add-to-collection`, authUniqueIdMiddleware, addToCollection);
   app.post(`/user/remove-from-collection`, authUniqueIdMiddleware, removeFromCollection);
@@ -99,6 +105,9 @@ module.exports = function (app) {
   app.post(`/user/unfollow-user`, authUniqueIdMiddleware, unfollowUser);
   app.post(`/user/create-story`, authUniqueIdMiddleware, createStory);
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
+  app.post(`/user/viewed-post`, authUniqueIdMiddleware, viewedPost);
+  app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
+
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.post(`/user/edit-profile`, authUniqueIdMiddleware ,  editProfile);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);

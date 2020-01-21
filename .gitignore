@@ -2,3 +2,5 @@ node_modules/
 .env
 testing/personal-testing/*
 logs.json
+config.json
+firebase-key.json
