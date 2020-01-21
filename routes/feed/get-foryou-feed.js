@@ -7,9 +7,18 @@ const getForYouFeed = (req, res) => {
         id: req._id,
         _source: ['forYouPosts']
     }).then((user) => {
+
+        if (!user._source.forYouPosts) {
+        // In case forYouPosts is not present on user
+        return res.status(200).send({ posts: [] });
+        }else if(user._source.forYouPosts.length == 0){
+        // In case forYouPosts length == 0
+        return res.status(200).send({ posts: [] });
+        }
+
         esClient.mget({
             index: 'post',
-            body: { ids: user._source.forYouPosts || [] }
+            body: { ids: user._source.forYouPosts }
         }).then((data) => {
             let posts = data.docs.map(post => { return { postId: post._id, ...post._source } });
             esClient.mget({
@@ -22,14 +31,12 @@ const getForYouFeed = (req, res) => {
                 });
                 return res.status(200).json({ posts });
             }).catch((e) => {
-                console.log('error', e);
-                return res.status(200).send({ posts: [] });
+                return res.status(500).end();
             });
         }).catch(e => {
             return res.status(500).end();
         });
     }).catch(e => {
-        console.log("error", e);
         return res.status(400).end();
     });
 
