@@ -11,8 +11,10 @@ const authPhoneNoMiddleware = (req, res, next) => {
         //Decoding JWT Token
         const decodedToken = decodeJWT(token);
 
+        let indexToSearch = req.body.type || 'user';
+
         esClient.count({
-            index: 'user',
+            index: indexToSearch,
             body: {
                 "query": {
                     "term": {
@@ -24,9 +26,8 @@ const authPhoneNoMiddleware = (req, res, next) => {
             if (data.count == 0) {
                 req.phoneNo = decodedToken;
                 next();
-            }else{
-                console.log('User Already Exists');
-                return res.status(422).send('User Already Exists');
+            }else{;
+                return res.status(422).send(`${indexToSearch} already exists`);
             }
         }).catch(e => {
             return res.status(401);

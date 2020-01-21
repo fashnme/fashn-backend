@@ -2,7 +2,7 @@ const sendOtpMSG91 = require('sendotp');
 const { esClient } = require('./../../../conf/elastic-conf');
 const { createJWT } = require('../../../controllers/create-decode-jwt')
 
-const verifyUserOTP = (req, res) => {
+const verifySellerOTP = (req, res) => {
 
 
 	const SendOtpInstance = new sendOtpMSG91(process.env.MSG_KEY, 'Your One time verification Code is {{otp}} ');
@@ -68,4 +68,4 @@ const verifyUserOTP = (req, res) => {
 
 }
 
-module.exports = { verifyUserOTP }
+module.exports = { verifySellerOTP }

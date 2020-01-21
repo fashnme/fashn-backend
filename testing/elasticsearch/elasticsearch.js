@@ -10,6 +10,53 @@ const esClient = new elasticsearch.Client({
   ]
 });
 
+// Add foryouposts, followingposts
+// esClient.update({
+//   id: 'PDo5gm8BMgKYZ1P4YhlZ',
+//   index:'user',
+//   body:{
+//       doc:{
+//         "forYouPosts":["XWhRhW8BuJISDM2-eD74","aWhzlG8BuJISDM2-rz5r"],
+//         "followingPosts":["aWhzlG8BuJISDM2-rz5r","XWhRhW8BuJISDM2-eD74"]
+//       },
+//       "doc_as_upsert" : true
+
+//   }
+// }).then((data)=>{
+//   console.log(data);
+// })
+
+
+// Add Products in post
+// esClient.update({
+//   index: 'post',
+//   id:'aWhzlG8BuJISDM2-rz5r',
+//   body:{
+//     doc:{
+//       taggedProducts:[{
+//         'productId':'sh-725039',
+//         'title':'Zip Back Tie Dye Sleeveless Dress',
+//         'image':'https://img.ltwebstatic.com/images2_pi/2019/05/21/1558435895320229956.webp'
+//       },
+//       {
+//         'productId':'sh-594830',
+//         'title':'Men Stitch Detail Slip On Shoes',
+//         'image':'https://img.ltwebstatic.com/images2_pi/2018/09/18/15372650362820069143.webp'
+//       },
+//       {
+//         'productId':'sh-712778',
+//         'title':'Plus raw hem wide black jeans',
+//         'image':'https://img.ltwebstatic.com/images2_pi/2019/04/04/15543544472841803825.webp'
+//       }
+//       ]
+//     },
+//     doc_as_upsert: true
+//   }
+// }).then((data)=>{
+//   console.log('data')
+// })
+
+
 
 // console.log(esClient)
 // Index Created
@@ -204,14 +251,14 @@ const esClient = new elasticsearch.Client({
 //   })
 
 // Delete a doc using id
-esClient.delete({
-    index: 'test',
-    id:"1"
-  }).then(resp=>{
-      console.log(resp);
-  }).catch(e=>{
-      console.log('e',e);
-  })
+// esClient.delete({
+//     index: 'test',
+//     id:"1"
+//   }).then(resp=>{
+//       console.log(resp);
+//   }).catch(e=>{
+//       console.log('e',e);
+//   })
 
 
 
