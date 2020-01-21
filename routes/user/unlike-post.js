@@ -5,6 +5,7 @@ const unlikePost = (req, res) => {
 
     // removing doc from like index by querying
     let postId = req.body.postId;
+    let posterId = req.body.posterId;
     let userId = req._id;
     let id = `${userId}.${postId}`;
 
@@ -15,29 +16,51 @@ const unlikePost = (req, res) => {
         // Then updating totalLikes value in post index
         let toDump = {
             timestamp: new Date(),
-            postId: req.body.postId,
-            userId: req._id
+            postId,
+            posterId,
+            userId
         }
-        esClient.update({
-            index: 'post',
-            id: postId,
-            body: {
-                "script": {
-                    "source": "ctx._source.totalLikes--",
-                    "lang": "painless"
+        // esClient.update({
+        //     index: 'post',
+        //     id: postId,
+        //     body: {
+        //         "script": {
+        //             "source": "ctx._source.totalLikes--",
+        //             "lang": "painless"
+        //         }
+        //     }
+        // })
+        esClient.bulk({
+            body: [
+                { "update": { "_index": "post", "_id": postId } },
+                {
+                    "script": {
+                        "source": "ctx._source.totalLikes--",
+                        "lang": "painless"
+                    }
+                },
+
+                { "update": { "_index": "user", "_id": posterId } },
+                {
+                    "script": {
+                        "source": "ctx._source.totalLikes--",
+                        "lang": "painless"
+                    }
                 }
-            }
-        }).then(data => {
-            res.status(200).end()
-            return loggingMiddleware('unlike_post',toDump)
-        }).catch(e => {
-            res.status(401).end()
-            // implement rollback here in later versions
+            ]
         })
+            .then(data => {
+                res.status(200).end()
+                return loggingMiddleware('unlike_post', toDump)
+            }).catch(e => {
+                res.status(401).end()
+                // implement rollback here in later versions
+            })
 
     }).catch(e => {
         // Like not present
-        res.status(404).end()
+        console.log(e);
+        res.status(404).end();
     })
 
 }

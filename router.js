@@ -25,7 +25,7 @@ const { getUserCart } = require('./routes/user/get-user-cart');
 const { getUserPosts } = require('./routes/user/get-user-posts');
 const { fetchProduct } = require('./routes/products/fetch-product');
 const { fetchProducts } = require('./routes/products/fetch-products');
-
+const { Search } = require('./routes/search/search');
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
@@ -83,6 +83,9 @@ module.exports = function (app) {
   //Product
   app.get('/product/fetch-product', fetchProduct);
   app.post('/product/fetch-products', fetchProducts);
+
+  //Search
+  app.get('/search', Search);
 
   // User Action Routes TODO
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
