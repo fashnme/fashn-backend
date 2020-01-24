@@ -66,7 +66,7 @@ const { verifySellerOTP } = require('./routes/auth/seller/verify-otp');
 const { createSeller } = require('./routes/auth/seller/create-seller');
 
 const { getActiveOrders } = require('./routes/seller/get-active-orders');
-
+const { getDashboardData } = require('./routes/seller/get-dashboard-data')
 
 
 
@@ -92,14 +92,14 @@ var cache = (duration) => {
 }
 
 module.exports = function (app) {
-  
+
   app.get('/test', (req, res) => { return res.status(200).send('Working'); })
 
   // Auth Routes
   app.post(`/auth/send-otp`, sendOTP);
   app.post(`/auth/resend-otp`, resendOTP);
 
-   // Auth User Routes
+  // Auth User Routes
   app.post(`/auth/user/verify-otp`, verifyUserOTP);
   app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
 
@@ -163,7 +163,7 @@ module.exports = function (app) {
   app.post(`/auth/seller/create-user`, authPhoneNoMiddleware, createSeller);
 
   app.get(`/seller/get-active-orders`, authUniqueIdMiddleware, getActiveOrders);
-  
-  
+  app.get(`/seller/get-dashboard-data`, authUniqueIdMiddleware, getDashboardData);
+
 
 }
