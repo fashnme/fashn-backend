@@ -5,14 +5,15 @@ const addToCart = (req, res) => {
 
     // collectionInfo fetched from request body
     let cartInfo = {
-        quantity: req.body.quantity || 1,
         productId: req.body.productId,
+        quantity: req.body.quantity || 1,
+        size: req.body.size || "",
         userId: req._id,
         timeStamp: new Date()
     }
 
     // putting doc in cart index
-    esClient.create({
+    esClient.index({
         index: 'cart',
         id: `${req._id}.${req.body.productId}`,
         body: cartInfo
@@ -22,7 +23,7 @@ const addToCart = (req, res) => {
 
     }).catch(err => {
         console.log("error in creating cart", err)
-        return res.status(401).end();
+        return res.status(401).send('Exists in Cart');
     })
 
 }
