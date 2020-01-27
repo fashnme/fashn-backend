@@ -3,6 +3,10 @@ const { loggingMiddleware } = require('./../../controllers/helpers/logging-middl
 
 const followUser = (req, res) => {
 
+    if(req._id == req.body.userId){
+        return res.status(400).send(`You can't follow yourself!`);
+    }
+
     //userId fetched from req body
     let followInfo = {
         timestamp: new Date(),
