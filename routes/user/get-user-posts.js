@@ -3,8 +3,8 @@ const { esClient } = require('../../conf/elastic-conf');
 
 const getUserPosts = (req, res) => {
 
-    let from = Number(req.query.page-1)*18 || 0;
-    let userId = req.query.userId;
+    let from = Number(req.body.page-1)*18 || 0;
+    let userId = req.body.userId;
 
     if (!userId) {
         return res.status(400).end()

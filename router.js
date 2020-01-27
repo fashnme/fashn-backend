@@ -43,10 +43,17 @@ const { getWishlistProduct } = require('./routes/user/get-user-wishlist');
 const { viewedPost } = require('./routes/user/viewed-post');
 const { viewedPosts } = require('./routes/user/viewed-posts');
 
+//User checkout related routes 
+const { generateCartCheckoutLink } = require('./routes/payments/generate-cart-checkout-link');
+const { checkoutCart } = require('./routes/payments/checkout-cart');
+
+
 //User Specific Routes
 const { getUserProfile } = require('./routes/user/get-user-profile');
 const { getUserCart } = require('./routes/user/get-user-cart');
 const { getUserPosts } = require('./routes/user/get-user-posts');
+const { getUserLikedPosts } = require('./routes/user/get-user-liked-posts');
+const { fetchUserColdStart } = require('./routes/user/fetch-user-coldstart');
 const { editUserProfile } = require('./routes/user/edit-user-profile');
 
 
@@ -106,8 +113,11 @@ module.exports = function (app) {
   // User Profile
   app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
   app.post(`/user/edit-user-profile`, authUniqueIdMiddleware, editUserProfile);
+  app.get('/user/fetch-user-coldstart', authUniqueIdMiddleware, fetchUserColdStart);
 
-  app.get('/user/get-user-posts', authUniqueIdMiddleware, getUserPosts);
+
+  app.post('/user/get-user-posts', authUniqueIdMiddleware, getUserPosts);
+  app.post('/user/get-user-liked-posts', authUniqueIdMiddleware, getUserLikedPosts);
   app.get('/user/get-user-cart', authUniqueIdMiddleware, getUserCart);
   app.get('/user/get-user-wishlist', authUniqueIdMiddleware, getWishlistProduct);
 
@@ -138,6 +148,11 @@ module.exports = function (app) {
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
   app.post(`/user/viewed-post`, authUniqueIdMiddleware, viewedPost);
   app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
+
+  // Payments related route from user
+  app.post(`/payments/generate-cart-checkout-link`, authUniqueIdMiddleware, generateCartCheckoutLink);
+  app.post(`/payments/checkout-cart`, authUniqueIdMiddleware, checkoutCart);
+
 
   // app.post(`/user/comment-post`, authUniqueIdMiddleware ,  commentPost);
   // app.get(`/user/myprofile`,authUniqueIdMiddleware,  myProfile);
