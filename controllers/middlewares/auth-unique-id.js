@@ -1,6 +1,4 @@
-const jwt = require('jsonwebtoken');
 const { decodeJWT } = require('./../create-decode-jwt');
-const { esClient } = require('./../../conf/elastic-conf');
 
 const authUniqueIdMiddleware = (req, res, next) => {
     
