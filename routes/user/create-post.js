@@ -8,7 +8,8 @@ const createPost = (req, res) => {
         caption: req.body.caption,
         uploadUrl: req.body.uploadUrl,
         userId: req._id,
-        mediaType: req.body.mediaType
+        mediaType: req.body.mediaType,
+        timestamp: new Date()
     }
     
     // Creating body for putting this doc in ES post index
