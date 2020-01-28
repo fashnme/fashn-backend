@@ -116,7 +116,7 @@ module.exports = function (app) {
   app.post(`/auth/user/create-user`, authPhoneNoMiddleware, createUser);
 
   // User Profile
-  app.get('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
+  app.post('/user/get-user-profile', authUniqueIdMiddleware, getUserProfile);
   app.post(`/user/edit-user-profile`, authUniqueIdMiddleware, editUserProfile);
   app.get('/user/fetch-user-coldstart', authUniqueIdMiddleware, fetchUserColdStart);
 

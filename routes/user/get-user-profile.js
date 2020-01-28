@@ -3,19 +3,57 @@ const { esClient } = require('./../../conf/elastic-conf');
 
 const getUserProfile = (req, res) => {
 
-    console.log(req._id)
+    let body = {
+        sort: [{ timestamp: { "order": "desc" } }],
+        query: {
+            match: {
+                userId: req.body.userId
+            }
+        }
+    }
 
     esClient.get({
         index: 'user',
-        id: req._id
-    }).then(data => {
+        _source: ['firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
+        id: req.body.userId
+    }).then((data) => {
 
-        res.json({ user: data._source })
+        let userDetails = data._source;
 
-    }).catch(e => {
-        console.log("error in fetching user", e)
-        res.status(404).end()
-    })
+        esClient.search({
+            index: ['post'],
+            size: 18,
+            body
+        }).then((data) => {
+            
+            let recentPosts = data.hits.hits.map(ele => ele._id);
+
+            esClient.search({
+                index: ['like'],
+                size: 18,
+                body
+            }).then(data => {
+                
+                let recentLikedPosts = data.hits.hits.map(ele => ele._id);
+
+                return res.status(200).json({
+                    user: { ...userDetails, recentPosts, recentLikedPosts }
+                })
+            })
+            .catch(e => {
+                return res.status(500).send(`Server Error`);
+            });
+        })
+        .catch(e=>{
+            return res.status(500).send(`Server Error`);
+        })
+    }).catch(e=>{
+        return res.status(500).send(`Server Error`);
+    });
+
+
+
+
 
 
 }
