@@ -78,6 +78,9 @@ const { getDashboardData } = require('./routes/seller/get-dashboard-data')
 const { getSellerProfile } = require('./routes/seller/get-seller-profile');
 const { editSellerProfile } = require('./routes/seller/edit-seller-profile');
 
+// Orders Routes
+const { getOrderDetails } = require('./routes/seller/get-order-details')
+const { getInventory } = require('./routes/seller/get-inventory')
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -185,6 +188,10 @@ module.exports = function (app) {
   // Seller Profile
   app.get('/seller/get-seller-profile', authUniqueIdMiddleware, getSellerProfile);
   app.post(`/seller/edit-seller-profile`, authUniqueIdMiddleware, editSellerProfile);
+
+  // Orders routes
+  app.post('/seller/get-order-details', authUniqueIdMiddleware, getOrderDetails);
+  app.get('/seller/get-inventory', authUniqueIdMiddleware, getInventory)
 
 
 }
