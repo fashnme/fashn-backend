@@ -11,7 +11,9 @@ const createSeller = (req, res) => {
         ecommerceName:req.body.ecommerceName,
         gender: req.body.gender,
         createdOn: new Date(),
-        registrationToken:req.body.registrationToken
+        registrationToken:req.body.registrationToken,
+        logoUrl:req.body.logoUrl || "",
+        email:req.body.email || ""
     }
 
     // Phone No fetched from authMiddleware next callback
