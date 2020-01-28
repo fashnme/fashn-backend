@@ -82,6 +82,10 @@ const { editSellerProfile } = require('./routes/seller/edit-seller-profile');
 const { getOrderDetails } = require('./routes/seller/get-order-details')
 const { getInventory } = require('./routes/seller/get-inventory')
 
+// create and update Product
+const { createProduct } = require('./routes/seller/create-product')
+const {editProductDetails}=require('./routes/seller/edit-product-details')
+
 var cache = (duration) => {
   return (req, res, next) => {
     let key = '__express__' + req.originalUrl || req.url
@@ -189,6 +193,9 @@ module.exports = function (app) {
   app.get('/seller/get-seller-profile', authUniqueIdMiddleware, getSellerProfile);
   app.post(`/seller/edit-seller-profile`, authUniqueIdMiddleware, editSellerProfile);
 
+  // create and update Product
+  app.post('/seller/create-product', authUniqueIdMiddleware, createProduct);
+  app.post('/seller/edit-product-details', authUniqueIdMiddleware, editProductDetails);
   // Orders routes
   app.post('/seller/get-order-details', authUniqueIdMiddleware, getOrderDetails);
   app.get('/seller/get-inventory', authUniqueIdMiddleware, getInventory)
