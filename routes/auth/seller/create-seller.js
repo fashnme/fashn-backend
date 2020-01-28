@@ -8,7 +8,7 @@ const createSeller = (req, res) => {
     let sellerInfo = {
         firstName: req.body.fullName.split(" ")[0],
         lastName: req.body.fullName.split(" ")[1] || "",
-        ecommerceName:req.body.ecommerceName,
+        ecommerce:req.body.ecommerce,
         gender: req.body.gender,
         createdOn: new Date(),
         registrationToken:req.body.registrationToken,
@@ -29,12 +29,12 @@ const createSeller = (req, res) => {
     // creating the seller
     esClient.create({
         index: 'seller',
-        id:req.body.ecommerceName,
+        id:req.body.ecommerce,
         body: body
     }).then((data) => {
 
         // adding _id to our existing body we PUT in ES index
-        body._id=req.body.ecommerceName
+        body._id=req.body.ecommerce
 
         // Creating JWT based on unique Id for all subsequent requests
         let jwt = createJWT(body._id);
