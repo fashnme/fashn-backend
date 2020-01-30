@@ -22,7 +22,7 @@ const getInventory = (req, res) => {
             }
         }
     }).then((data) => {
-        res.json({ inventory: data.hits.hits })
+        res.json({ inventory: data.hits.hits.map(ele=>{return {productId: ele._id, ...ele._source}}) })
     }).catch(e => {
         console.log("error in searching for inventory", e)
         res.status(400).end()
