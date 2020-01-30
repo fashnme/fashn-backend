@@ -12,11 +12,6 @@ const checkoutCart = (req, res) =>{
                         console.log(err)
                     })
     return res.status(200);
-
-    
-    
-
-
 }
 
 module.exports = {

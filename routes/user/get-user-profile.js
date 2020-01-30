@@ -12,6 +12,8 @@ const getUserProfile = (req, res) => {
         }
     }
 
+
+
     esClient.get({
         index: 'user',
         _source: ['firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
@@ -35,7 +37,7 @@ const getUserProfile = (req, res) => {
             }).then(data => {
                 
                 let recentLikedPosts = data.hits.hits.map(ele => ele._id);
-
+ 
                 return res.status(200).json({
                     user: { ...userDetails, recentPosts, recentLikedPosts }
                 })
