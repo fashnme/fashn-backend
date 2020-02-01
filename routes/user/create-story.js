@@ -7,7 +7,8 @@ const createStory = (req, res) => {
     let storyInfo = {
         caption: req.body.caption,
         uploadUrl: req.body.uploadUrl,
-        userId: req._id
+        userId: req._id,
+        timestamp:new Date()
     }
 
     // Creating body for putting this doc in ES story index

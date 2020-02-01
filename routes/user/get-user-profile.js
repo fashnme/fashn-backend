@@ -1,5 +1,6 @@
 const { esClient } = require('./../../conf/elastic-conf');
 
+// add stories of this user when sending profile data...TODO
 
 const getUserProfile = (req, res) => {
 

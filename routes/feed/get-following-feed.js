@@ -1,5 +1,7 @@
 const { esClient } = require('./../../conf/elastic-conf');
 
+// get-following-story..make route--TODO // follow format {userId:[is user ki stories],userId:[]}
+
 const getFollowingFeed = (req, res) => {
 
     return esClient.get({
