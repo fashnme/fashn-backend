@@ -13,6 +13,6 @@ const loggingMiddleware = (activityType, payload) => {
 }
 
 module.exports = {
-    loggingMiddleware
+    loggingMiddleware , writeStream
 }
 

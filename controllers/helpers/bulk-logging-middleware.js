@@ -1,6 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-const writeStream = fs.createWriteStream(path.join(__dirname, './../../logs.json'), { 'flags': 'a' });
+const { writeStream } = require('./logging-middleware');
 
 const bulkLoggingMiddleware = (activityType, payload) => {
 
