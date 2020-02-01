@@ -55,7 +55,8 @@ const { getUserPosts } = require('./routes/user/get-user-posts');
 const { getUserLikedPosts } = require('./routes/user/get-user-liked-posts');
 const { fetchUserColdStart } = require('./routes/user/fetch-user-coldstart');
 const { editUserProfile } = require('./routes/user/edit-user-profile');
-
+const { getUserStory } = require('./routes/user/get-user-story');
+const { getUserStories } = require('./routes/user/get-user-stories');
 
 //Get Feed Routes
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
@@ -84,7 +85,7 @@ const { getInventory } = require('./routes/seller/get-inventory')
 
 // create and update Product
 const { createProduct } = require('./routes/seller/create-product')
-const {editProductDetails}=require('./routes/seller/edit-product-details')
+const { editProductDetails } = require('./routes/seller/edit-product-details')
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -157,6 +158,8 @@ module.exports = function (app) {
   app.post(`/user/delete-story`, authUniqueIdMiddleware, deleteStory);
   app.post(`/user/viewed-post`, authUniqueIdMiddleware, viewedPost);
   app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
+  app.post(`/user/get-user-story`, authUniqueIdMiddleware, getUserStory);
+  app.post(`/user/get-user-stories`, authUniqueIdMiddleware, getUserStories);
 
   // Payments related route from user
   app.post(`/payments/generate-cart-checkout-link`, authUniqueIdMiddleware, generateCartCheckoutLink);

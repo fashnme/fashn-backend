@@ -5,61 +5,56 @@ const { esClient } = require('./../../conf/elastic-conf');
 const getUserProfile = (req, res) => {
 
     let body = {
+        size: 18,
         sort: [{ timestamp: { "order": "desc" } }],
         query: {
             match: {
-                userId: req.body.userId
+                userId: req.body.userId || req._id // empty body defaults to requesting user profile
             }
         }
     }
 
 
-
     esClient.get({
         index: 'user',
         _source: ['firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
-        id: req.body.userId
+        id: req.body.userId || req._id
     }).then((data) => {
+
 
         let userDetails = data._source;
 
-        esClient.search({
-            index: ['post'],
-            size: 18,
-            body
-        }).then((data) => {
-            
-            let recentPosts = data.hits.hits.map(ele => ele._id);
-
-            esClient.search({
-                index: ['like'],
-                size: 18,
+        esClient.msearch({
+            body: [
+                { index: 'post' },
+                body,
+                { index: 'like' },
+                body,
+                { index: 'story' },
                 body
-            }).then(data => {
-                
-                let recentLikedPosts = data.hits.hits.map(ele => ele._id);
- 
-                return res.status(200).json({
-                    user: { ...userDetails, recentPosts, recentLikedPosts }
-                })
-            })
-            .catch(e => {
-                return res.status(500).send(`Server Error`);
-            });
-        })
-        .catch(e=>{
+            ]
+
+        }).then((data) => {
+
+            let recentPosts=data.responses[0].hits.hits.map(ele=>ele._id)
+            let recentLikedPosts=data.responses[1].hits.hits.map(ele=>ele._id)
+            let stories=data.responses[2].hits.hits.map(ele=>ele._id)
+
+            res.send({userDetails, recentPosts,recentLikedPosts,stories})
+
+        }).catch(e => {
             return res.status(500).send(`Server Error`);
         })
-    }).catch(e=>{
+
+
+    }).catch(e => {
+        console.log(e)
         return res.status(500).send(`Server Error`);
     });
 
 
-
-
-
-
 }
+
 module.exports = {
     getUserProfile
 }
