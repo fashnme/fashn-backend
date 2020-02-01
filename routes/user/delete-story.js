@@ -21,6 +21,9 @@ const deleteStory = (req, res) => {
                         return loggingMiddleware('delete_story',saveStoryInDump)
                     })
                     .catch(err => { console.log(err); res.status(500).end() })
+            }else{
+                // story is not of the user requesting
+                res.status(400).end()
             }
         })
         .catch(error => console.log("error in deleting story", error))

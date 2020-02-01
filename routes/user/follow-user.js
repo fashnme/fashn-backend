@@ -4,7 +4,7 @@ const { loggingMiddleware } = require('./../../controllers/helpers/logging-middl
 const followUser = (req, res) => {
 
     if(req._id == req.body.userId){
-        return res.status(400).send(`You can't follow yourself!`);
+        return res.status(400).send({error:'cannot follow self'});
     }
 
     //userId fetched from req body
