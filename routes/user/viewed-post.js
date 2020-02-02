@@ -7,6 +7,7 @@ const viewedPost = (req, res) => {
     let viewedPostInfo = {
         userId: req._id,
         postId: req.body.postId,
+        referrerId: req.body.referrerId,
         timestamp: new Date()
     }
 

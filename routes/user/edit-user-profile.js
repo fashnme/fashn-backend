@@ -1,5 +1,5 @@
-const { checkUsername } = require('./../../controllers/helpers/elasticSearch-helpers/check-user-name')
-const { userUpdateProfile } = require('./../../controllers/helpers/elasticSearch-helpers/user-update-profile')
+const { checkUsername } = require('./../../controllers/helpers/elasticsearch-helpers/check-user-name')
+const { userUpdateProfile } = require('./../../controllers/helpers/elasticsearch-helpers/user-update-profile')
 const editUserProfile = async (req, res) => {
 
     /**

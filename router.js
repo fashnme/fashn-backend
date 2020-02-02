@@ -21,6 +21,10 @@ const { deletePost } = require('./routes/user/delete-post');
 const { unlikePost } = require('./routes/user/unlike-post');
 const { dislikePost } = require('./routes/user/dislike-post');
 const { undislikePost } = require('./routes/user/undislike-post');
+const { commentPost } = require('./routes/user/comment-post');
+const { deleteCommentPost } = require('./routes/user/delete-comment-post');
+
+
 
 
 //Get Product Routes
@@ -137,6 +141,8 @@ module.exports = function (app) {
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
   app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
+  app.post(`/user/comment-post`, authUniqueIdMiddleware, commentPost);
+  app.post(`/user/delete-comment-post`, authUniqueIdMiddleware, deleteCommentPost);
   app.post(`/user/unlike-post`, authUniqueIdMiddleware, unlikePost);
   app.post(`/user/dislike-post`, authUniqueIdMiddleware, dislikePost);
   app.post(`/user/undislike-post`, authUniqueIdMiddleware, undislikePost);

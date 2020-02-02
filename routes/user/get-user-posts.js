@@ -7,7 +7,7 @@ const getUserPosts = (req, res) => {
     let userId = req.body.userId;
 
     if (!userId) {
-        return res.status(400).end()
+        return res.status(400).end();
     }
 
     esClient.search({

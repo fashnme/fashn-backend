@@ -7,6 +7,8 @@ const addToWishlist = (req, res) => {
     let wishlistInfo = {
         productId: req.body.productId,
         userId: req._id,
+        referrerPost:req.body.referrerPost || "",
+        referrerId:req.body.referrerId || "",
         timeStamp: new Date()
     }
 
