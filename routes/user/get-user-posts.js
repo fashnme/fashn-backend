@@ -3,7 +3,8 @@ const { esClient } = require('../../conf/elastic-conf');
 
 const getUserPosts = (req, res) => {
 
-    let from = Number(req.body.page-1)*18 || 0;
+    let offset = 18
+    let from = Number(req.body.page-1)*offset || 0;
     let userId = req.body.userId;
 
     if (!userId) {
@@ -12,7 +13,7 @@ const getUserPosts = (req, res) => {
 
     esClient.search({
         index: 'post',
-        size: 18,
+        size: offset,
         from,
         body: {
             "query": {
