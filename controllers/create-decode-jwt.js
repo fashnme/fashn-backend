@@ -21,5 +21,4 @@ const createJWT = (dataToEncode) => {
 }
 
 
-
 module.exports = { decodeJWT, createJWT }

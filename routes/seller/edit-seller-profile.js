@@ -1,4 +1,4 @@
-const { sellerUpdateProfile } = require('../../controllers/helpers/elasticSearch-helpers/seller-update-profile')
+const { sellerUpdateProfile } = require('../../controllers/helpers/elasticsearch-helpers/seller-update-profile')
 const editSellerProfile = async (req, res) => {
 
     /**

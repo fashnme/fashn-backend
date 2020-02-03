@@ -236,17 +236,28 @@ const esClient = new elasticsearch.Client({
 
 // update by id
 
-esClient.update({
-  id:'shein',
-  index:'seller',
+// esClient.update({
+//   id:'shein',
+//   index:'seller',
+//   body:{
+//     doc:{
+//       ecommerce: 'shein'
+//     }
+//   }
+// }).then(data=>{
+//   console.log(data); 
+// });
+
+esClient.index({
+  index: 'test',
+  id:'O1iWBXABhQayJ3uYLfDi',
   body:{
-    doc:{
-      ecommerce: 'shein'
-    }
+    'testtext': "hello",
+    'text': null
   }
 }).then(data=>{
-  console.log(data); 
-});
+  console.log(data);
+})
 // Update a doc by  query using painless scripting
 
 // esClient.updateByQuery({

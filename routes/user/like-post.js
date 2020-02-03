@@ -8,7 +8,8 @@ const likePost = (req, res) => {
         timestamp: new Date(),
         postId: req.body.postId,
         userId: req._id,
-        posterId: req.body.posterId
+        posterId: req.body.posterId,
+        referrerId: req.body.referrerId || ""
     }
 
 

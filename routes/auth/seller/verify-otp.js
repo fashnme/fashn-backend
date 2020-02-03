@@ -10,7 +10,7 @@ const verifySellerOTP = (req, res) => {
 	let phoneNo = req.body.phoneNo;
 	let otpToVerify = req.body.otp;
 
-	//Node-MSG91 Client 
+	// Node-MSG91 Client 
 	SendOtpInstance.verify(phoneNo, otpToVerify, function (err, response) {
 
 		// Use only response object as it contains response type and message
@@ -19,7 +19,7 @@ const verifySellerOTP = (req, res) => {
 		} else {
 			// Searching User Phone No in DB to send user Object
 			esClient.search({
-				index: 'user',
+				index: 'seller',
 				body: {
 					"query": {
 						"term": {
@@ -27,40 +27,26 @@ const verifySellerOTP = (req, res) => {
 						}
 					}
 				}
-			}).then(data => {
+			}).then((data) => {
+
 
 				let jwt;
 				let user;
 
 				//If User Exists with the Phone No {login case}, and thus generate uniqueId with existing ID
-				if (data.hits.hits.length > 0) {
-
-					esClient.update({
-						index: 'user',
-						id: data.hits.hits[0]._id,
-						body: {
-							"doc": {
-								"registrationToken": req.body.registrationToken
-							}
-						}
-					}).then(data => {
-
-						jwt = createJWT(data.hits.hits[0]._id);
-						user = { ...data.hits.hits[0]._source, _id: data.hits.hits[0]._id };
-
-					}).catch(e => {
-						throw new Error("could not update reg Token")
-					})
-				} else {
+				if (data.hits.total.value == 0) {
 					//Create Dynamic JWT based on phoneNo for user to just create Account 
 					jwt = createJWT(phoneNo);
 					user = null;
+					return res.status(200).json({ user, jwt });
+				} else {
+					//Destructure response to send user object object and data
+					let fetchedUser = data.hits.hits[0];
+					jwt = createJWT(fetchedUser._id);
+					user = { ...fetchedUser._source, _id: fetchedUser._id };
+					return res.status(200).json({ user, jwt });
 				}
-
-				return res.status(200).json({ user, jwt });
-
-			}).catch(e => {
-				console.log(e);
+			}).catch((e) => {
 				res.status(400).end();
 			})
 		}
