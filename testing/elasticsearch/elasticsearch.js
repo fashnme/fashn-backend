@@ -2,72 +2,111 @@ const elasticsearch = require('elasticsearch');
 const esClient = new elasticsearch.Client({
   host: [
     {
-      host: "bea4897764024f35b28f16ef1ea05cea.us-east-1.aws.found.io",
+      host: "00eabe27a27b41cd9a16a200994233d2.us-east-1.aws.found.io",
       protocol: "https",
       port: 9243,
-      auth: `elastic:UZ3U15OiSbobP6zeGpNzrZPA`,
+      auth: `elastic:JJCGho6I2ckRkedzTUCb8so7`,
     }
   ]
 });
 
-// // Add foryouposts, followingposts
-// esClient.update({
-//   id: 'PDo5gm8BMgKYZ1P4YhlZ',
-//   index:'user',
-//   body:{
-//       doc:{
-//         "forYouPosts":[
-//           "a2hzlG8BuJISDM2-rz5r",
-//           "bGhzlG8BuJISDM2-rz5r",
-//           "bWhzlG8BuJISDM2-rz5r",
-//           "bmhzlG8BuJISDM2-rz5r",
-//           "cGhzlG8BuJISDM2-rz5r",
-//           "cWhzlG8BuJISDM2-rz5r",
-//           "cmhzlG8BuJISDM2-rz5r",
-//           "c2hzlG8BuJISDM2-rz5r",
-//           "dGhzlG8BuJISDM2-rz5r",
-//           "dWhzlG8BuJISDM2-rz5r",
-//           "dmhzlG8BuJISDM2-rz5r",
-//           "d2hzlG8BuJISDM2-rz5r",
-//           "eGhzlG8BuJISDM2-rz5r",
-//           "eWhzlG8BuJISDM2-rz5r",
-//           "emhzlG8BuJISDM2-rz5r",
-//           "e2hzlG8BuJISDM2-rz5r",
-//           "fGhzlG8BuJISDM2-rz5r",
-//           "fWhzlG8BuJISDM2-rz5r",
-//           "fmhzlG8BuJISDM2-rz5r",
-//           "f2hzlG8BuJISDM2-rz5r"
-//         ],
-//         "followingPosts":[
-//           "dmhzlG8BuJISDM2-rz5r",
-//           "d2hzlG8BuJISDM2-rz5r",
-//           "eGhzlG8BuJISDM2-rz5r",
-//           "eWhzlG8BuJISDM2-rz5r",
-//           "emhzlG8BuJISDM2-rz5r",
-//           "e2hzlG8BuJISDM2-rz5r",
-//           "fGhzlG8BuJISDM2-rz5r",
-//           "fWhzlG8BuJISDM2-rz5r",
-//           "fmhzlG8BuJISDM2-rz5r",
-//           "f2hzlG8BuJISDM2-rz5r",
-//           "gGhzlG8BuJISDM2-rz5r",
-//           "gWhzlG8BuJISDM2-rz5r",
-//           "gmhzlG8BuJISDM2-rz5r",
-//           "g2hzlG8BuJISDM2-rz5r",
-//           "hGhzlG8BuJISDM2-rz5r",
-//           "hWhzlG8BuJISDM2-rz5r",
-//           "hmhzlG8BuJISDM2-rz5r",
-//           "h2hzlG8BuJISDM2-rz5r",
-//           "iGhzlG8BuJISDM2-rz5r",
-//           "ZmhzlG8BuJISDM2-rz5r"
-//         ]
-//       },
-//       "doc_as_upsert" : true
+// Add foryouposts, followingposts
+esClient.update({
+  id: 'PDo5gm8BMgKYZ1P4YhlZ',
+  index:'user',
+  body:{
+      doc:{
+        "forYouPosts":[
+          "cS-1LnABtwtk_tS7hSOH",
+          "ci-1LnABtwtk_tS7hSOH",
+          "cy-1LnABtwtk_tS7hSOH",
+          "dC-1LnABtwtk_tS7hSOH",
+          "dS-1LnABtwtk_tS7hSOH",
+          "di-1LnABtwtk_tS7hSOH",
+          "dy-1LnABtwtk_tS7hSOH",
+          "eC-1LnABtwtk_tS7hSOH",
+          "eS-1LnABtwtk_tS7hSOH",
+          "ei-1LnABtwtk_tS7hSOH",
+          "ey-1LnABtwtk_tS7hSOH",
+          "fC-1LnABtwtk_tS7hSOH",
+          "fS-1LnABtwtk_tS7hSOH",
+          "fi-1LnABtwtk_tS7hSOI",
+          "fy-1LnABtwtk_tS7hSOI",
+          "gC-1LnABtwtk_tS7hSOI",
+          "gS-1LnABtwtk_tS7hSOI",
+          "gi-1LnABtwtk_tS7hSOI",
+          "gy-1LnABtwtk_tS7hSOI",
+          "hC-1LnABtwtk_tS7hSOI",
+          "hS-1LnABtwtk_tS7hSOI",
+          "hi-1LnABtwtk_tS7hSOI",
+          "hy-1LnABtwtk_tS7hSOI",
+          "iC-1LnABtwtk_tS7hSOI",
+          "iS-1LnABtwtk_tS7hSOI",
+          "ii-1LnABtwtk_tS7hSOI",
+          "iy-1LnABtwtk_tS7hSOI",
+          "jC-1LnABtwtk_tS7hSOI",
+          "jS-1LnABtwtk_tS7hSOI",
+          "ji-1LnABtwtk_tS7hSOI",
+          "jy-1LnABtwtk_tS7hSOI",
+          "kC-1LnABtwtk_tS7hSOI",
+          "kS-1LnABtwtk_tS7hSOI",
+          "ki-1LnABtwtk_tS7hSOI",
+          "ky-1LnABtwtk_tS7hSOI",
+          "aWhzlG8BuJISDM2-rz5r",
+          "cC-1LnABtwtk_tS7hSOH"
+        ],
+        "followingPosts":[
+          "cS-1LnABtwtk_tS7hSOH",
+          "ci-1LnABtwtk_tS7hSOH",
+          "cy-1LnABtwtk_tS7hSOH",
+          "dC-1LnABtwtk_tS7hSOH",
+          "dS-1LnABtwtk_tS7hSOH",
+          "di-1LnABtwtk_tS7hSOH",
+          "dy-1LnABtwtk_tS7hSOH",
+          "eC-1LnABtwtk_tS7hSOH",
+          "eS-1LnABtwtk_tS7hSOH",
+          "ei-1LnABtwtk_tS7hSOH",
+          "ey-1LnABtwtk_tS7hSOH",
+          "fC-1LnABtwtk_tS7hSOH",
+          "fS-1LnABtwtk_tS7hSOH",
+          "fi-1LnABtwtk_tS7hSOI",
+          "fy-1LnABtwtk_tS7hSOI",
+          "gC-1LnABtwtk_tS7hSOI",
+          "gS-1LnABtwtk_tS7hSOI",
+          "gi-1LnABtwtk_tS7hSOI",
+          "gy-1LnABtwtk_tS7hSOI",
+          "hC-1LnABtwtk_tS7hSOI",
+          "hS-1LnABtwtk_tS7hSOI",
+          "hi-1LnABtwtk_tS7hSOI",
+          "hy-1LnABtwtk_tS7hSOI",
+          "iC-1LnABtwtk_tS7hSOI",
+          "iS-1LnABtwtk_tS7hSOI",
+          "ii-1LnABtwtk_tS7hSOI",
+          "iy-1LnABtwtk_tS7hSOI",
+          "jC-1LnABtwtk_tS7hSOI",
+          "jS-1LnABtwtk_tS7hSOI",
+          "ji-1LnABtwtk_tS7hSOI",
+          "jy-1LnABtwtk_tS7hSOI",
+          "kC-1LnABtwtk_tS7hSOI",
+          "kS-1LnABtwtk_tS7hSOI",
+          "ki-1LnABtwtk_tS7hSOI",
+          "ky-1LnABtwtk_tS7hSOI",
+          "aWhzlG8BuJISDM2-rz5r",
+          "cC-1LnABtwtk_tS7hSOH"
+        ]
+      },
+      "doc_as_upsert" : true
 
-//   }
-// }).then((data)=>{
-//   console.log(data);
+  }
+}).then((data)=>{
+  console.log(data);
+})
+
+//Delete a post
+// esClient.delete({
+//   index: 'post',
+//   id:'aWhzlG8BuJISDM2-rz5r'
 // })
-
 
 // Add Products in post
 // esClient.update({
@@ -78,7 +117,9 @@ const esClient = new elasticsearch.Client({
 //       taggedProducts:[{
 //         'productId':'sh-725039',
 //         'title':'Zip Back Tie Dye Sleeveless Dress',
-//         'image':'https://img.ltwebstatic.com/images2_pi/2019/05/21/1558435895320229956.webp'
+//         'image':'https://img.ltwebstatic.com/images2_pi/2019/05/21/1558435895320229956.webp',
+//         'brand':,
+//         pri
 //       },
 //       {
 //         'productId':'sh-594830',
@@ -248,16 +289,16 @@ const esClient = new elasticsearch.Client({
 //   console.log(data); 
 // });
 
-esClient.index({
-  index: 'test',
-  id:'O1iWBXABhQayJ3uYLfDi',
-  body:{
-    'testtext': "hello",
-    'text': null
-  }
-}).then(data=>{
-  console.log(data);
-})
+// esClient.index({
+//   index: 'test',
+//   id:'O1iWBXABhQayJ3uYLfDi',
+//   body:{
+//     'testtext': "hello",
+//     'text': null
+//   }
+// }).then(data=>{
+//   console.log(data);
+// })
 // Update a doc by  query using painless scripting
 
 // esClient.updateByQuery({

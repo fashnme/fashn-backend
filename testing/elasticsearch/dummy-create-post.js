@@ -1,10 +1,10 @@
 const elasticsearch = require('elasticsearch');
 const  esClient =  new elasticsearch.Client({  host: [
     {
-      host: "acea2a0a6441468c916122818742e87b.us-east-1.aws.found.io",
+      host: "00eabe27a27b41cd9a16a200994233d2.us-east-1.aws.found.io",
       protocol:"https",
       port: 9243,
-      auth: `elastic:3a7piSEEQHKBGSmREr8w8MjU`,
+      auth: `elastic:JJCGho6I2ckRkedzTUCb8so7`,
     }
   ]
 });
@@ -301,7 +301,11 @@ let array = [
 //   let body = array.push({})
 let body = [];
 
-array.forEach((ele,i)=>{
+array.forEach((ele,i)=>{  
+   ele.timeStamp = new Date();
+   ele.mediaType= "image";
+
+    
     if(i%2==0){
         ele.userId = "YmiSjm8BuJISDM2-cz5j";
     }
