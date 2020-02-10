@@ -10,13 +10,13 @@ const createPost = (req, res) => {
         userId: req._id,
         mediaType: req.body.mediaType,
         timestamp: new Date()
-    }
+    };
     
     // Creating body for putting this doc in ES post index
     let postBody = {
         ...postInfo,
         ...postDefaultAdditionalSchema,
-    }
+    };
 
     // putting doc in post index
     esClient.index({
