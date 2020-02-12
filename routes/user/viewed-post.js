@@ -8,7 +8,7 @@ const viewedPost = (req, res) => {
         userId: req._id,
         postId: req.body.postId,
         referrerId: req.body.referrerId,
-        timestamp: new Date()
+        timeStamp: new Date()
     }
 
     esClient.create({

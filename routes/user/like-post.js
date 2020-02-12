@@ -5,7 +5,7 @@ const likePost = (req, res) => {
 
     // likeInfo fetched from request body
     let likeInfo = {
-        timestamp: new Date(),
+        timeStamp: new Date(),
         postId: req.body.postId,
         userId: req._id,
         posterId: req.body.posterId,

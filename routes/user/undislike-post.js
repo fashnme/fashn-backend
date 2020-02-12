@@ -14,7 +14,7 @@ const undislikePost = (req, res) => {
     }).then(resp => {
         // Then updating totalLikes value in post index
         let toDump = {
-            timestamp: new Date(),
+            timeStamp: new Date(),
             postId: req.body.postId,
             userId: req._id
         }

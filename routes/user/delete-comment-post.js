@@ -14,7 +14,7 @@ const deleteCommentPost = (req, res) => {
     }).then((data) => {
         // Then updating totalComment value in post index
         let toDump = {
-            timestamp: new Date(),
+            timeStamp: new Date(),
             postId,
             commentId,
             userId

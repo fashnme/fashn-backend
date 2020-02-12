@@ -5,7 +5,7 @@ const commentPost = (req, res) => {
 
     // commentInfo fetched from request body
     let commentInfo = {
-        timestamp: new Date(),
+        timeStamp: new Date(),
         postId: req.body.postId,
         userId: req._id,
         commentText: req.body.commentText,
