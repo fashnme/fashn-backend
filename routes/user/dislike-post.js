@@ -5,7 +5,7 @@ const dislikePost = (req, res) => {
 
     // dislikeInfo fetched from request body
     let dislikeInfo = {
-        timestamp: new Date(),
+        timeStamp: new Date(),
         postId: req.body.postId,
         posterId:req.body.posterId,
         userId: req._id

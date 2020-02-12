@@ -7,7 +7,7 @@ const viewedStory = (req, res) => {
     let viewedStoryInfo = {
         userId: req._id,
         storyId: req.body.storyId,
-        timestamp: new Date()
+        timeStamp: new Date()
     }
 
     esClient.create({

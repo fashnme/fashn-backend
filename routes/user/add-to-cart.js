@@ -9,8 +9,10 @@ const addToCart = (req, res) => {
         quantity: req.body.quantity || 1,
         size: req.body.size || "",
         userId: req._id,
-        timeStamp: new Date()
-    }
+        timeStamp: new Date(),
+        referrerPost: req.body.referrerPost || "",
+        referrerId: req.body.referrerId || ""
+    };
 
     // putting doc in cart index
     esClient.index({
@@ -24,7 +26,7 @@ const addToCart = (req, res) => {
     }).catch(err => {
         console.log("error in creating cart", err)
         return res.status(401).send('Exists in Cart');
-    })
+    });
 
 }
 module.exports = {

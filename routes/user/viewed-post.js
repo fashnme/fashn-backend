@@ -7,7 +7,8 @@ const viewedPost = (req, res) => {
     let viewedPostInfo = {
         userId: req._id,
         postId: req.body.postId,
-        timestamp: new Date()
+        referrerId: req.body.referrerId,
+        timeStamp: new Date()
     }
 
     esClient.create({
