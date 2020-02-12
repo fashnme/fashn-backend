@@ -138,7 +138,7 @@ module.exports = function (app) {
   //Search
   app.get('/search', Search);
 
-  // User Action Routes TODO
+  // User Action Routes
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
   app.post(`/user/delete-post`, authUniqueIdMiddleware, deletePost);
   app.post(`/user/like-post`, authUniqueIdMiddleware, likePost);
