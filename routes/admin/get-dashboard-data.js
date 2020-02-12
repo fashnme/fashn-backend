@@ -1,8 +1,18 @@
 const { esClient } = require('../../conf/elastic-conf');
 
-const getDashboardData = (req, res) => {
+const getDashboardData = async (req, res) => {
 
-    let dashboardData = {}
+    let userP = await esClient.count({ index: 'user' })
+    let productP = await esClient.count({ index: 'product' })
+    let sellerP = await esClient.count({ index: 'seller' })
+
+    return res.json({
+        totalUsers: userP.count,
+        totalProducts: productP.count,
+        totalSellers: sellerP.count
+    })
+
+    // esClient.count({index: 'orders'}) and full amount of current orders
     esClient.search({
         index: 'orders',
         body: {
@@ -38,7 +48,9 @@ const getDashboardData = (req, res) => {
         }
 
 
-        esClient.count({
+        // ask nikhil bhaiya - can be optimised as no need to fetch complete prod document just to count it
+        // similarly for above functions 
+        esClient.search({
             index: 'product',
             body: {
                 query: {
