@@ -9,7 +9,7 @@ const unfollowUser = (req, res) => {
     }).then((data) => {
 
             let toDump = {
-                timestamp: new Date(),
+                timeStamp: new Date(),
                 follower: req._id,
                 following: req.body.userId
             }

@@ -9,7 +9,7 @@ const followUser = (req, res) => {
 
     //userId fetched from req body
     let followInfo = {
-        timestamp: new Date(),
+        timeStamp: new Date(),
         follower: req._id,
         following: req.body.userId,
     }
