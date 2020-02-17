@@ -8,7 +8,7 @@ const getInventory = (req, res) => {
     const pageResultSize = 100;
     let offset=0;
     if(req.query.hasOwnProperty("page"))
-    offset = pageResultSize * req.query.page;
+    offset = pageResultSize * (req.query.page-1);
 
     esClient.search({
         index: 'product',
