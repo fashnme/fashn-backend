@@ -70,6 +70,13 @@ const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 
+//Admin Routes
+const { fetchPostForProductTagging } = require('./routes/admin/fetch-post-for-product-tagging')
+const { fetchPostsForProductTagging } = require('./routes/admin/fetch-posts-for-product-tagging')
+
+
+
+
 
 
 //Seller Routes
@@ -90,6 +97,7 @@ const { getInventory } = require('./routes/seller/get-inventory')
 // create and update Product
 const { createProduct } = require('./routes/seller/create-product')
 const { editProductDetails } = require('./routes/seller/edit-product-details')
+
 
 var cache = (duration) => {
   return (req, res, next) => {
@@ -208,6 +216,12 @@ module.exports = function (app) {
   // Orders routes
   app.post('/seller/get-order-details', authUniqueIdMiddleware, getOrderDetails);
   app.get('/seller/get-inventory', authUniqueIdMiddleware, getInventory)
+
+
+
+  // All Routes For Admin
+  app.post('/admin/fetch-post-for-product-tagging', fetchPostForProductTagging);
+  app.post('/admin/fetch-posts-for-product-tagging', fetchPostsForProductTagging);
 
 
 }

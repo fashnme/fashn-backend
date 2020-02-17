@@ -18,7 +18,7 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
             referrerPost: product.referrerPost,
             referralType: referralType,
             timeStamp: new Date(),
-            status: 'pending'
+            status: 'received'
         });
     });
     // Pushing all products referrals in referral schema using bulk
@@ -32,7 +32,7 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
                 bodyForUserRewardsUpdation.push({update: { _index: 'user', _id: product.referrerId } });
 
                 if(product.referrerPost){
-                    bodyForUserRewardsUpdation({
+                    bodyForUserRewardsUpdation.push({
                         "script": {
                             "source": "ctx._source.rewards.postReferral.pending += params.increment",
                             "lang": "painless",
@@ -42,7 +42,7 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
                         }
                     });
                 }else{
-                    bodyForUserRewardsUpdation({
+                    bodyForUserRewardsUpdation.push({
                         "script": {
                             "source": "ctx._source.rewards.productReferral.pending += params.increment",
                             "lang": "painless",
