@@ -76,8 +76,8 @@ const { fetchPostsForProductTagging } = require('./routes/admin/fetch-posts-for-
 const getActiveOrdersAdmin = require('./routes/admin/get-active-orders').getActiveOrders
 const getOrderDetailsAdmin = require('./routes/admin/get-order-details').getOrderDetails
 const {updateOrderStatus}=require('./routes/admin/update-order-status')
-
-
+const {getVisuallySimilarProducts}=require('./routes/admin/get-visually-similar-products')
+const {updateTaggedProductsArray}=require('./routes/admin/update-tagged-products-array')
 
 
 
@@ -227,6 +227,8 @@ module.exports = function (app) {
   app.get('/admin/get-active-orders', getActiveOrdersAdmin);
   app.post('/admin/get-order-details', getOrderDetailsAdmin);
   app.post('/admin/update-order-status', updateOrderStatus);
-
+  app.post('/admin/get-visually-similar-products',getVisuallySimilarProducts)
+  app.post('/admin/update-tagged-products-array',updateTaggedProductsArray)
+  
 
 }
