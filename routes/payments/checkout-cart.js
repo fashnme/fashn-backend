@@ -7,7 +7,9 @@ const checkoutCart = (req, res) => {
     let orderId = req.body.orderId;
 
     let orderBody = {
-        ...req.body, status: 'received'
+        ...req.body,
+        status: 'received',
+        completed:false
     };
 
     if (req.body.paymentMode == 'cod') {

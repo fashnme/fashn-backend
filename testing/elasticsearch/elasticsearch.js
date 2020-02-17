@@ -102,6 +102,17 @@ const esClient = new elasticsearch.Client({
 //   console.log(data);
 // })
 
+// esClient.update({
+//   id: "KYmWP3AB6RapfNTzYhAJ",
+//   index:'orders',
+//   body:{
+//       doc:{
+//           completed:false
+//       }
+//   }
+// })
+
+
 //Delete a post
 // esClient.delete({
 //   index: 'post',
