@@ -11,96 +11,110 @@ const esClient = new elasticsearch.Client({
 });
 
 // Add foryouposts, followingposts
-esClient.update({
-  id: 'PDo5gm8BMgKYZ1P4YhlZ',
-  index:'user',
-  body:{
-      doc:{
-        "forYouPosts":[
-          "cS-1LnABtwtk_tS7hSOH",
-          "ci-1LnABtwtk_tS7hSOH",
-          "cy-1LnABtwtk_tS7hSOH",
-          "dC-1LnABtwtk_tS7hSOH",
-          "dS-1LnABtwtk_tS7hSOH",
-          "di-1LnABtwtk_tS7hSOH",
-          "dy-1LnABtwtk_tS7hSOH",
-          "eC-1LnABtwtk_tS7hSOH",
-          "eS-1LnABtwtk_tS7hSOH",
-          "ei-1LnABtwtk_tS7hSOH",
-          "ey-1LnABtwtk_tS7hSOH",
-          "fC-1LnABtwtk_tS7hSOH",
-          "fS-1LnABtwtk_tS7hSOH",
-          "fi-1LnABtwtk_tS7hSOI",
-          "fy-1LnABtwtk_tS7hSOI",
-          "gC-1LnABtwtk_tS7hSOI",
-          "gS-1LnABtwtk_tS7hSOI",
-          "gi-1LnABtwtk_tS7hSOI",
-          "gy-1LnABtwtk_tS7hSOI",
-          "hC-1LnABtwtk_tS7hSOI",
-          "hS-1LnABtwtk_tS7hSOI",
-          "hi-1LnABtwtk_tS7hSOI",
-          "hy-1LnABtwtk_tS7hSOI",
-          "iC-1LnABtwtk_tS7hSOI",
-          "iS-1LnABtwtk_tS7hSOI",
-          "ii-1LnABtwtk_tS7hSOI",
-          "iy-1LnABtwtk_tS7hSOI",
-          "jC-1LnABtwtk_tS7hSOI",
-          "jS-1LnABtwtk_tS7hSOI",
-          "ji-1LnABtwtk_tS7hSOI",
-          "jy-1LnABtwtk_tS7hSOI",
-          "kC-1LnABtwtk_tS7hSOI",
-          "kS-1LnABtwtk_tS7hSOI",
-          "ki-1LnABtwtk_tS7hSOI",
-          "ky-1LnABtwtk_tS7hSOI",
-          "aWhzlG8BuJISDM2-rz5r",
-          "cC-1LnABtwtk_tS7hSOH"
-        ],
-        "followingPosts":[
-          "cS-1LnABtwtk_tS7hSOH",
-          "ci-1LnABtwtk_tS7hSOH",
-          "cy-1LnABtwtk_tS7hSOH",
-          "dC-1LnABtwtk_tS7hSOH",
-          "dS-1LnABtwtk_tS7hSOH",
-          "di-1LnABtwtk_tS7hSOH",
-          "dy-1LnABtwtk_tS7hSOH",
-          "eC-1LnABtwtk_tS7hSOH",
-          "eS-1LnABtwtk_tS7hSOH",
-          "ei-1LnABtwtk_tS7hSOH",
-          "ey-1LnABtwtk_tS7hSOH",
-          "fC-1LnABtwtk_tS7hSOH",
-          "fS-1LnABtwtk_tS7hSOH",
-          "fi-1LnABtwtk_tS7hSOI",
-          "fy-1LnABtwtk_tS7hSOI",
-          "gC-1LnABtwtk_tS7hSOI",
-          "gS-1LnABtwtk_tS7hSOI",
-          "gi-1LnABtwtk_tS7hSOI",
-          "gy-1LnABtwtk_tS7hSOI",
-          "hC-1LnABtwtk_tS7hSOI",
-          "hS-1LnABtwtk_tS7hSOI",
-          "hi-1LnABtwtk_tS7hSOI",
-          "hy-1LnABtwtk_tS7hSOI",
-          "iC-1LnABtwtk_tS7hSOI",
-          "iS-1LnABtwtk_tS7hSOI",
-          "ii-1LnABtwtk_tS7hSOI",
-          "iy-1LnABtwtk_tS7hSOI",
-          "jC-1LnABtwtk_tS7hSOI",
-          "jS-1LnABtwtk_tS7hSOI",
-          "ji-1LnABtwtk_tS7hSOI",
-          "jy-1LnABtwtk_tS7hSOI",
-          "kC-1LnABtwtk_tS7hSOI",
-          "kS-1LnABtwtk_tS7hSOI",
-          "ki-1LnABtwtk_tS7hSOI",
-          "ky-1LnABtwtk_tS7hSOI",
-          "aWhzlG8BuJISDM2-rz5r",
-          "cC-1LnABtwtk_tS7hSOH"
-        ]
-      },
-      "doc_as_upsert" : true
+// esClient.update({
+//   id: 'PDo5gm8BMgKYZ1P4YhlZ',
+//   index:'user',
+//   body:{
+//       doc:{
+//         "forYouPosts":[
+//           "cS-1LnABtwtk_tS7hSOH",
+//           "ci-1LnABtwtk_tS7hSOH",
+//           "cy-1LnABtwtk_tS7hSOH",
+//           "dC-1LnABtwtk_tS7hSOH",
+//           "dS-1LnABtwtk_tS7hSOH",
+//           "di-1LnABtwtk_tS7hSOH",
+//           "dy-1LnABtwtk_tS7hSOH",
+//           "eC-1LnABtwtk_tS7hSOH",
+//           "eS-1LnABtwtk_tS7hSOH",
+//           "ei-1LnABtwtk_tS7hSOH",
+//           "ey-1LnABtwtk_tS7hSOH",
+//           "fC-1LnABtwtk_tS7hSOH",
+//           "fS-1LnABtwtk_tS7hSOH",
+//           "fi-1LnABtwtk_tS7hSOI",
+//           "fy-1LnABtwtk_tS7hSOI",
+//           "gC-1LnABtwtk_tS7hSOI",
+//           "gS-1LnABtwtk_tS7hSOI",
+//           "gi-1LnABtwtk_tS7hSOI",
+//           "gy-1LnABtwtk_tS7hSOI",
+//           "hC-1LnABtwtk_tS7hSOI",
+//           "hS-1LnABtwtk_tS7hSOI",
+//           "hi-1LnABtwtk_tS7hSOI",
+//           "hy-1LnABtwtk_tS7hSOI",
+//           "iC-1LnABtwtk_tS7hSOI",
+//           "iS-1LnABtwtk_tS7hSOI",
+//           "ii-1LnABtwtk_tS7hSOI",
+//           "iy-1LnABtwtk_tS7hSOI",
+//           "jC-1LnABtwtk_tS7hSOI",
+//           "jS-1LnABtwtk_tS7hSOI",
+//           "ji-1LnABtwtk_tS7hSOI",
+//           "jy-1LnABtwtk_tS7hSOI",
+//           "kC-1LnABtwtk_tS7hSOI",
+//           "kS-1LnABtwtk_tS7hSOI",
+//           "ki-1LnABtwtk_tS7hSOI",
+//           "ky-1LnABtwtk_tS7hSOI",
+//           "aWhzlG8BuJISDM2-rz5r",
+//           "cC-1LnABtwtk_tS7hSOH"
+//         ],
+//         "followingPosts":[
+//           "cS-1LnABtwtk_tS7hSOH",
+//           "ci-1LnABtwtk_tS7hSOH",
+//           "cy-1LnABtwtk_tS7hSOH",
+//           "dC-1LnABtwtk_tS7hSOH",
+//           "dS-1LnABtwtk_tS7hSOH",
+//           "di-1LnABtwtk_tS7hSOH",
+//           "dy-1LnABtwtk_tS7hSOH",
+//           "eC-1LnABtwtk_tS7hSOH",
+//           "eS-1LnABtwtk_tS7hSOH",
+//           "ei-1LnABtwtk_tS7hSOH",
+//           "ey-1LnABtwtk_tS7hSOH",
+//           "fC-1LnABtwtk_tS7hSOH",
+//           "fS-1LnABtwtk_tS7hSOH",
+//           "fi-1LnABtwtk_tS7hSOI",
+//           "fy-1LnABtwtk_tS7hSOI",
+//           "gC-1LnABtwtk_tS7hSOI",
+//           "gS-1LnABtwtk_tS7hSOI",
+//           "gi-1LnABtwtk_tS7hSOI",
+//           "gy-1LnABtwtk_tS7hSOI",
+//           "hC-1LnABtwtk_tS7hSOI",
+//           "hS-1LnABtwtk_tS7hSOI",
+//           "hi-1LnABtwtk_tS7hSOI",
+//           "hy-1LnABtwtk_tS7hSOI",
+//           "iC-1LnABtwtk_tS7hSOI",
+//           "iS-1LnABtwtk_tS7hSOI",
+//           "ii-1LnABtwtk_tS7hSOI",
+//           "iy-1LnABtwtk_tS7hSOI",
+//           "jC-1LnABtwtk_tS7hSOI",
+//           "jS-1LnABtwtk_tS7hSOI",
+//           "ji-1LnABtwtk_tS7hSOI",
+//           "jy-1LnABtwtk_tS7hSOI",
+//           "kC-1LnABtwtk_tS7hSOI",
+//           "kS-1LnABtwtk_tS7hSOI",
+//           "ki-1LnABtwtk_tS7hSOI",
+//           "ky-1LnABtwtk_tS7hSOI",
+//           "aWhzlG8BuJISDM2-rz5r",
+//           "cC-1LnABtwtk_tS7hSOH"
+//         ]
+//       },
+//       "doc_as_upsert" : true
 
-  }
-}).then((data)=>{
-  console.log(data);
-})
+//   }
+// }).then((data)=>{
+//   console.log(data);
+// })
+
+// esClient.update({
+//   id: 'YmiSjm8BuJISDM2-cz5j',
+//   index:'user',
+//   body:{
+//       doc:{
+//           "totalLikes": 0,
+//           "followersCount": 0,
+//           "followingCount": 0,
+//           gender:"female"
+//       }
+//   }
+// })
+
 
 //Delete a post
 // esClient.delete({
