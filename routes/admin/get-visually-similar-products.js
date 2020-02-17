@@ -17,7 +17,14 @@ const getVisuallySimilarProducts = (req, res) => {
         .then((resp) => {
             let similarProducts=[]
             similarProducts=resp.data.productArray.map(i=>{
-                return({productId:i.productId,imageUrl:i.image})
+                return({
+                    productId:i.productId,
+                    imageUrl:i.image,
+                    price:i.price,
+                    ecommerce:i.ecommerce,
+                    brandName:i.brandName,
+                    imageUrl:i.image
+                })
             })
             res.send({products:similarProducts})
         })
