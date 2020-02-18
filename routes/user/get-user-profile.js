@@ -20,7 +20,6 @@ const getUserProfile = (req, res) => {
         id: req.body.userId || req._id
     }).then((data) => {
 
-
         let userDetails = data._source;
 
         esClient.msearch({

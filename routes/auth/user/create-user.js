@@ -46,7 +46,7 @@ const createUser = (req, res) => {
 
 
         if(referralCode){
-            await signupRewardsReferral(req.body.referralCode, userId);
+            await signupRewardsReferral(req.body.referralCode||"organic", userId);
         }
         
         return res.status(200).json({ body, jwt });
