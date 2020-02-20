@@ -68,6 +68,11 @@ const { getForYouFeed } = require('./routes/feed/get-foryou-feed');
 const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
+// Bidding routes imports
+
+const {createBid}=require('./routes/bid/create-bid')
+const {getMyBids}=require('./routes/bid/get-my-bids')
+const {getBids}=require('./routes/bid/get-bids')
 
 
 //Admin Routes
@@ -193,6 +198,11 @@ module.exports = function (app) {
   app.get('/feed/get-foryou-feed', authUniqueIdMiddleware, getForYouFeed);
 
 
+  // Bidding Route
+
+  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid)
+  app.get('/bid/get-my-bids',authUniqueIdMiddleware,getMyBids)
+  app.get('/bid/get-bids',authUniqueIdMiddleware,getBids)
 
 
 
