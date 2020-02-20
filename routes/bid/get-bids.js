@@ -3,13 +3,13 @@ const { esClient } = require('../../conf/elastic-conf');
 
 const getBids = (req, res) => {
 
-    let offset = 18
+    let size = 18;
     let from = (Number(req.query.page)-1 ) * offset || 0;
     let userId = req._id;
 
     esClient.search({
         index: 'bid',
-        size: offset,
+        size: 18,
         from,
         body: {
             "query": {
