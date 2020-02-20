@@ -34,7 +34,7 @@ const createBid = (req, res) => {
                 body: bidBody
             }).then(resp => {
 
-                return res.status(200).json({ ...bidBody, _id: resp._id });
+                return res.status(200).json({ ...bidBody, bidId: resp._id });
 
             })
 
