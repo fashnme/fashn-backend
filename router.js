@@ -201,8 +201,8 @@ module.exports = function (app) {
   // Bidding Route
 
   app.post('/bid/create-bid',authUniqueIdMiddleware,createBid)
-  app.post('/bid/get-my-bids',authUniqueIdMiddleware,getMyBids)
-  app.post('/bid/get-bids',authUniqueIdMiddleware,getBids)
+  app.get('/bid/get-my-bids',authUniqueIdMiddleware,getMyBids)
+  app.get('/bid/get-bids',authUniqueIdMiddleware,getBids)
 
 
 
