@@ -7,7 +7,9 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
 
     orderedProducts.forEach((product) => {
 
-        let referralType = product.referrerPost ? 'product' : 'post';
+        console.log('product', product);
+
+        let referralType = product.referrerPost ? 'post' : 'product';
 
         body.push({ index: { _index: 'referral' } });
         body.push({
@@ -24,6 +26,8 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
     // Pushing all products referrals in referral schema using bulk
     esClient.bulk({ body })
         .then(() => {
+
+            console.log('Bulk creation of reffe');
             
             let bodyForUserRewardsUpdation = [];
             
@@ -36,7 +40,8 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
                         "script": {
                             "source": "ctx._source.rewards.postReferral.pending += params.increment",
                             "lang": "painless",
-                            "params": {
+                            
+                "params": {
                                 "increment": (product.price)*postInfluencerIncomePercentage
                             }
                         }
@@ -53,7 +58,12 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
                     });
                 }
                 
+                
             });
+
+            esClient.bulk({body: bodyForUserRewardsUpdation}).then((data)=>{
+                console.log('data', data);
+            })
 
         });
 }
