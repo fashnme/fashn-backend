@@ -12,7 +12,7 @@ const getOrders = (req, res) => {
         size: pageResultSize,
         body: {
             query: {
-                term:{
+                match:{
                     userId: req._id
                 }
             },
@@ -30,16 +30,28 @@ const getOrders = (req, res) => {
             })
         }
         let orderProducts = [];
+        let idArray = [];
 
-        data.hits.forEach((order)=>{
-            order.products.forEach((product)=>{
-                orderProducts.push(product);
+        data.hits.hits.forEach((order)=>{
+            order._source.products.forEach((product)=>{
+                idArray.push(product.productId);
+                orderProducts.push({...product, orderId: order._id, orderCreated: order._source.orderCreated});
+            })
+        });
+
+        esClient.mget({
+            index:'product',
+            body: { ids: idArray }
+        }).then(products=>{
+            products.docs.map((product,index)=>{
+                orderProducts[index] = {...product._source,  ...orderProducts[index]}
+            })
+            return res.status(200).json({
+                orderProducts
             })
         })
 
-        return res.status(200).json({
-            orderProducts
-        })
+        
     });
 }
 
