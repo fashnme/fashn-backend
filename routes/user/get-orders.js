@@ -13,7 +13,7 @@ const getOrders = (req, res) => {
         body: {
             query: {
                 term:{
-                    userId: req.id
+                    userId: req._id
                 }
             },
             sort:{
