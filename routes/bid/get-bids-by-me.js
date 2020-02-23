@@ -1,7 +1,7 @@
 const { esClient } = require('../../conf/elastic-conf');
 
 
-const getMyBids = (req, res) => {
+const getBidsByMe = (req, res) => {
 
     let size = 18;
     let from = (Number(req.query.page)-1 ) * size || 0;
@@ -35,5 +35,5 @@ const getMyBids = (req, res) => {
 }
 
 module.exports = {
-    getMyBids
+    getBidsByMe
 }
