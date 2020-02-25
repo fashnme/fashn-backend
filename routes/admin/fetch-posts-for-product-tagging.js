@@ -6,8 +6,8 @@ const fetchPostsForProductTagging = (req, res) => {
 
     esClient.search({
         index: 'post',
-        size: 24,
-        from: (pageNo-1)*24,
+        size: 1,
+        from: (pageNo-1)*1,
         body: {
             "query": {
                 "bool": {
@@ -27,11 +27,9 @@ const fetchPostsForProductTagging = (req, res) => {
         }
     }).then(
         (data) => {
-            console.log(data);
             return res.json({pageNo: pageNo, posts: data.hits.hits});
         }
     ).catch(err => {
-        console.log(err);
         return res.status(500).send('Server Error');
     })
 
