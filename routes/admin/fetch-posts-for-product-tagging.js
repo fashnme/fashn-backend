@@ -30,7 +30,6 @@ const fetchPostsForProductTagging = (req, res) => {
             return res.json({pageNo: pageNo, posts: data.hits.hits});
         }
     ).catch(err => {
-        console.log(err);
         return res.status(500).send('Server Error');
     })
 

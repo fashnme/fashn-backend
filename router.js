@@ -71,10 +71,15 @@ const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 // Bidding routes imports
+const { createBid }= require('./routes/bid/create-bid');
+const { getBidsByMe }= require('./routes/bid/get-bids-by-me');
+const { getBidsForMe }= require('./routes/bid/get-bids-for-me');
+const { editBid } = require('./routes/bid/edit-bid');
+const { acceptBid } = require('./routes/bid/accept-bid');
+const { rejectBid } = require('./routes/bid/reject-bid');
 
-const {createBid}=require('./routes/bid/create-bid')
-const {getBidsByMe}=require('./routes/bid/get-bids-by-me')
-const {getBidsForMe}=require('./routes/bid/get-bids-for-me')
+
+
 
 
 //Admin Routes
@@ -204,9 +209,12 @@ module.exports = function (app) {
 
   // Bidding Route
 
-  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid)
-  app.get('/bid/get-bids-by-me',authUniqueIdMiddleware,getBidsByMe)
-  app.get('/bid/get-bids-for-me',authUniqueIdMiddleware,getBidsForMe)
+  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid);
+  app.post('/bid/edit-bid',authUniqueIdMiddleware,editBid);
+  app.post('/bid/accept-bid',authUniqueIdMiddleware,acceptBid);
+  app.post('/bid/reject-bid',authUniqueIdMiddleware,rejectBid);
+  app.get('/bid/get-bids-by-me',authUniqueIdMiddleware,getBidsByMe);
+  app.get('/bid/get-bids-for-me',authUniqueIdMiddleware,getBidsForMe);
 
 
 
