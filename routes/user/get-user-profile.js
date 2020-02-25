@@ -16,9 +16,9 @@ const getUserProfile = (req, res) => {
 
     esClient.get({
         index: 'user',
-        _source: ['fullName','firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
         id: req.body.userId || req._id
     }).then((data) => {
+        
 
         let userDetails = data._source;
 
