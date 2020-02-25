@@ -16,7 +16,7 @@ const getUserProfile = (req, res) => {
 
     esClient.get({
         index: 'user',
-        _source: ['firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
+        _source: ['fullName','firstName', 'lastName', 'gender', 'profilePic', 'totalLikes', 'followersCount', 'followingCount', 'userName'],
         id: req.body.userId || req._id
     }).then((data) => {
 
@@ -35,8 +35,6 @@ const getUserProfile = (req, res) => {
         }).then((data) => {
 
 
-            console.log(JSON.stringify(data, undefined, 2))
-
             let recentPosts=data.responses[0].hits.hits.map(ele=>ele._id)
             let recentLikedPosts=data.responses[1].hits.hits.map(ele=>ele._id)
             let stories=data.responses[2].hits.hits.map(ele=>ele._id)
@@ -44,10 +42,6 @@ const getUserProfile = (req, res) => {
             res.send({userDetails, recentPosts,recentLikedPosts,stories})
 
         }).catch(e => {
-
-            // let recentPosts=data.responses[0].hits.hits.map(ele=>ele._id)
-            // let recentLikedPosts=data.responses[1].hits.hits.map(ele=>ele._id)
-            // let stories=data.responses[2].hits.hits.map(ele=>ele._id)
 
             return res.status(500).send(`Server Error`);
 

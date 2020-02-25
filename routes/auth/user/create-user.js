@@ -20,6 +20,7 @@ const createUser = (req, res) => {
 
     // UserInfo fetched from request body
     let userInfo = {
+        fullName: req.body.fullName,
         firstName: req.body.fullName.split(" ")[0],
         lastName: req.body.fullName.split(" ")[1] || "",
         gender: req.body.gender,
