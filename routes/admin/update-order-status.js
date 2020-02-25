@@ -16,7 +16,7 @@ const updateOrderStatus = (req, res) => {
         res.json({ success:true })
     }).catch(e => {
         console.log("error while updating order status", e)
-        res.status(404).end();
+        res.status(500).end();
     })
 }
 

@@ -10,6 +10,14 @@ const createUser = (req, res) => {
     // Generate UserId/ReferrerId
     let userId = generateRandom();
 
+    if(req.body.gender == 'male'){
+        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/702/702023.svg';
+    }else if(req.body.gender == 'female'){
+        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/145/145866.svg';
+    }else{
+        userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/747/747545.png';
+    };
+
     // UserInfo fetched from request body
     let userInfo = {
         firstName: req.body.fullName.split(" ")[0],
