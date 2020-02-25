@@ -17,7 +17,7 @@ const rejectBid = (req, res) =>{
             }
         }
     }).then((data)=>{
-        console.log('updated');
+        return res.status(200).send('Bid Rejected');
     }).catch((err)=>{
         return res.status(500);
     });
