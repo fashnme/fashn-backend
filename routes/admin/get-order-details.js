@@ -10,8 +10,8 @@ const getOrderDetails = (req, res) => {
 
         res.json({orderDetails:data._source})
     }).catch(e=>{
-        console.log("error while fetching order details",e)
-        res.status(404).end();
+        console.log("error while fetching order details",e);
+        res.status(500).end();
     })
 }
 

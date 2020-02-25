@@ -20,6 +20,7 @@ const getBidsForMe = (req, res) => {
         }
     })
         .then(data => {
+            console.log('data',data)
             const bids = data.hits.hits.map(bid => {
                 return {
                     bidId: bid._id, ...bid._source
