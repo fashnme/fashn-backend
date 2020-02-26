@@ -8,7 +8,9 @@ const rejectBid = (req, res) =>{
         body:{
             query:{
                 match:{
-                    posterId: req._id
+                    posterId: req._id,
+                    ownerRejectionReason: req.body.ownerRejectionReason,
+                    ownerFeedback: req.body.ownerFeedback
                 }
             },
             script: {
