@@ -13,20 +13,33 @@ const getBidsForMe = (req, res) => {
         from,
         body: {
             "query": {
-                "match": {
-                    posterId:userId
+                "bool":{
+                    "must":{
+                        "match": {
+                            posterId:userId
+                        }
+                    },
+                    "must_not":{
+                        "match":{
+                            "status":"rejected"
+                        }
+                    }
+                }
+            },
+            "sort": {
+                "timeStamp": {
+                    "order": "desc"
                 }
             }
         }
     })
         .then(data => {
-            console.log('data',data)
             const bids = data.hits.hits.map(bid => {
                 return {
                     bidId: bid._id, ...bid._source
                 }
             })
-            res.status(200).json({ bids })
+            res.status(200).json({ bids });
         })
         .catch(err => {
             console.log('error getting bids on user posts', err)
