@@ -21,7 +21,7 @@ const fetchPostsForProductTagging = (req, res) => {
             },
             "sort": {
                 "timeStamp": {
-                    "order": "asc"
+                    "order": "desc"
                 }
             }
         }

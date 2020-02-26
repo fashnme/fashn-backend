@@ -13,8 +13,22 @@ const getBidsByMe = (req, res) => {
         from,
         body: {
             "query": {
-                "match": {
-                    userId
+                "bool":{
+                    "must":{
+                        "match": {
+                            userId:userId
+                        }
+                    },
+                    "must_not":{
+                        "match":{
+                            "status":"rejected"
+                        }
+                    }
+                }
+            },
+            "sort": {
+                "timeStamp": {
+                    "order": "desc"
                 }
             }
         }
