@@ -29,8 +29,8 @@ const updateDeliveryDetails = (req, res) => {
         }
     }).then((data) => {
         
-        let deliveryDetailsArray = Object.values(data._source.deliveryDetails);
-        return res.status(200).json({deliveryDetailsArray});
+        let deliveryDetails = data._source.deliveryDetails;
+        return res.status(200).json({deliveryDetails});
         
     }).catch(e => {
         console.log("error in updating address ", e)
