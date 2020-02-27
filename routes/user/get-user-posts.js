@@ -33,7 +33,7 @@ const getUserPosts = (req, res) => {
         })
         .catch(err => {
             console.log('error getting user posts', err)
-            res.status(500).send()
+            res.status(500).end()
         })
 
 }

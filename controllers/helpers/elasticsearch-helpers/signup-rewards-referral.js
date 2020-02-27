@@ -8,7 +8,9 @@ const signupRewardsReferral = (referrerId, userId) => {
         timeStamp: new Date(),
         userId,
         referrerId,
-        referralType: 'signup'
+        referralType: 'signup',
+        referralAmount: signupReferralIncomeAmount,
+        referredUserId:userId
     };
 
     // Create Referral Document

@@ -11,7 +11,8 @@ let userDefaultAdditionalSchema = {
         "youtube":"",
         "twitter":""
     },
-    "dob":null
+    "dob":null,
+    "deliveryDetails":{}
 };
 
 module.exports = { userDefaultAdditionalSchema }

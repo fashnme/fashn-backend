@@ -56,7 +56,7 @@ const followUser = (req, res) => {
         .catch(e => {
             //This follow entry already exists
             console.log(e);
-            res.status(422).json("user already exists");
+            res.status(422).send("user already exists");
         })
 }
 

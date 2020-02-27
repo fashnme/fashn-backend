@@ -43,7 +43,7 @@ const getUserCart = (req, res) => {
         })
         .catch(err => {
             console.log('error getting user cart', err)
-            res.status(500).send()
+            res.status(500).end()
         })
 
 }

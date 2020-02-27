@@ -62,6 +62,8 @@ const { editUserProfile } = require('./routes/user/edit-user-profile');
 const { getUserStory } = require('./routes/user/get-user-story');
 const { getUserStories } = require('./routes/user/get-user-stories');
 const { getOrders } = require('./routes/user/get-orders');
+const { getRewardsList } = require('./routes/user/get-rewards-list')
+const { updateDeliveryDetails } = require('./routes/user/update-delivery-details')
 
 
 //Get Feed Routes
@@ -71,9 +73,9 @@ const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 // Bidding routes imports
-const { createBid }= require('./routes/bid/create-bid');
-const { getBidsByMe }= require('./routes/bid/get-bids-by-me');
-const { getBidsForMe }= require('./routes/bid/get-bids-for-me');
+const { createBid } = require('./routes/bid/create-bid');
+const { getBidsByMe } = require('./routes/bid/get-bids-by-me');
+const { getBidsForMe } = require('./routes/bid/get-bids-for-me');
 const { editBid } = require('./routes/bid/edit-bid');
 const { acceptBid } = require('./routes/bid/accept-bid');
 const { rejectBid } = require('./routes/bid/reject-bid');
@@ -87,9 +89,9 @@ const { fetchPostForProductTagging } = require('./routes/admin/fetch-post-for-pr
 const { fetchPostsForProductTagging } = require('./routes/admin/fetch-posts-for-product-tagging')
 const getActiveOrdersAdmin = require('./routes/admin/get-active-orders').getActiveOrders
 const getOrderDetailsAdmin = require('./routes/admin/get-order-details').getOrderDetails
-const {updateOrderStatus}=require('./routes/admin/update-order-status')
-const {getVisuallySimilarProducts}=require('./routes/admin/get-visually-similar-products')
-const {updateTaggedProductsArray}=require('./routes/admin/update-tagged-products-array')
+const { updateOrderStatus } = require('./routes/admin/update-order-status')
+const { getVisuallySimilarProducts } = require('./routes/admin/get-visually-similar-products')
+const { updateTaggedProductsArray } = require('./routes/admin/update-tagged-products-array')
 
 
 
@@ -189,6 +191,10 @@ module.exports = function (app) {
   app.post(`/user/get-user-story`, authUniqueIdMiddleware, getUserStory);
   app.post(`/user/get-user-stories`, authUniqueIdMiddleware, getUserStories);
   app.get(`/user/get-orders`, authUniqueIdMiddleware, getOrders);
+  app.get(`/user/get-rewards-list`, authUniqueIdMiddleware, getRewardsList);
+  app.post(`/user/update-delivery-details`, authUniqueIdMiddleware, updateDeliveryDetails);
+  
+
 
 
   // Payments related route from user
@@ -209,12 +215,12 @@ module.exports = function (app) {
 
   // Bidding Route
 
-  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid);
-  app.post('/bid/edit-bid',authUniqueIdMiddleware,editBid);
-  app.post('/bid/accept-bid',authUniqueIdMiddleware,acceptBid);
-  app.post('/bid/reject-bid',authUniqueIdMiddleware,rejectBid);
-  app.get('/bid/get-bids-by-me',authUniqueIdMiddleware,getBidsByMe);
-  app.get('/bid/get-bids-for-me',authUniqueIdMiddleware,getBidsForMe);
+  app.post('/bid/create-bid', authUniqueIdMiddleware, createBid);
+  app.post('/bid/edit-bid', authUniqueIdMiddleware, editBid);
+  app.post('/bid/accept-bid', authUniqueIdMiddleware, acceptBid);
+  app.post('/bid/reject-bid', authUniqueIdMiddleware, rejectBid);
+  app.get('/bid/get-bids-by-me', authUniqueIdMiddleware, getBidsByMe);
+  app.get('/bid/get-bids-for-me', authUniqueIdMiddleware, getBidsForMe);
 
 
 
@@ -249,8 +255,8 @@ module.exports = function (app) {
   app.get('/admin/get-active-orders', getActiveOrdersAdmin);
   app.post('/admin/get-order-details', getOrderDetailsAdmin);
   app.post('/admin/update-order-status', updateOrderStatus);
-  app.post('/admin/get-visually-similar-products',getVisuallySimilarProducts)
-  app.post('/admin/update-tagged-products-array',updateTaggedProductsArray)
-  
+  app.post('/admin/get-visually-similar-products', getVisuallySimilarProducts)
+  app.post('/admin/update-tagged-products-array', updateTaggedProductsArray)
+
 
 }
