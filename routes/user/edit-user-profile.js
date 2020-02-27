@@ -1,4 +1,4 @@
-const { checkUsername } = require('./../../controllers/helpers/elasticsearch-helpers/check-user-name')
+const { checkUserName } = require('./../../controllers/helpers/elasticsearch-helpers/check-user-name')
 const { userUpdateProfile } = require('./../../controllers/helpers/elasticsearch-helpers/user-update-profile')
 const editUserProfile = async (req, res) => {
 
@@ -8,7 +8,7 @@ const editUserProfile = async (req, res) => {
      */
     if (req.body.userNameChanged) {
 
-        await checkUsername()
+        await checkUserName()
             .then(async (data) => {
                 if (data.count == 0) {
                     // Username can be used
