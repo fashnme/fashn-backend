@@ -20,7 +20,7 @@ const getUserStories = (req, res) => {
         res.status(200).json({ stories })
     }).catch(err => {
         console.log('error getting user stories', err)
-        res.status(500).send()
+        res.status(500).end()
     })
 
 
