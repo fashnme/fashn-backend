@@ -1,7 +1,7 @@
 const { esClient } = require('../../conf/elastic-conf');
 
 
-const getBids = (req, res) => {
+const getBidsForMe = (req, res) => {
 
     let size = 18;
     let from = (Number(req.query.page)-1 ) * size || 0;
@@ -13,8 +13,22 @@ const getBids = (req, res) => {
         from,
         body: {
             "query": {
-                "match": {
-                    posterId:userId
+                "bool":{
+                    "must":{
+                        "match": {
+                            posterId:userId
+                        }
+                    },
+                    "must_not":{
+                        "match":{
+                            "status":"rejected"
+                        }
+                    }
+                }
+            },
+            "sort": {
+                "timeStamp": {
+                    "order": "desc"
                 }
             }
         }
@@ -25,7 +39,7 @@ const getBids = (req, res) => {
                     bidId: bid._id, ...bid._source
                 }
             })
-            res.status(200).json({ bids })
+            res.status(200).json({ bids });
         })
         .catch(err => {
             console.log('error getting bids on user posts', err)
@@ -35,5 +49,5 @@ const getBids = (req, res) => {
 }
 
 module.exports = {
-    getBids
+    getBidsForMe
 }

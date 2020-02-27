@@ -11,7 +11,8 @@ const updateTaggedProductsArray = (req, res) => {
         body: {
             doc: {
                 taggedProducts:req.body.taggedProducts
-            }
+            },
+            doc_as_upsert: true
         }
     }).then((data) => {
         res.json({ success:true })

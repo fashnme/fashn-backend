@@ -1,7 +1,7 @@
 const { esClient } = require('../../conf/elastic-conf');
 
 
-const getMyBids = (req, res) => {
+const getBidsByMe = (req, res) => {
 
     let size = 18;
     let from = (Number(req.query.page)-1 ) * size || 0;
@@ -13,8 +13,22 @@ const getMyBids = (req, res) => {
         from,
         body: {
             "query": {
-                "match": {
-                    userId
+                "bool":{
+                    "must":{
+                        "match": {
+                            userId:userId
+                        }
+                    },
+                    "must_not":{
+                        "match":{
+                            "status":"rejected"
+                        }
+                    }
+                }
+            },
+            "sort": {
+                "timeStamp": {
+                    "order": "desc"
                 }
             }
         }
@@ -35,5 +49,5 @@ const getMyBids = (req, res) => {
 }
 
 module.exports = {
-    getMyBids
+    getBidsByMe
 }

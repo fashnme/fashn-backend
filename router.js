@@ -61,6 +61,8 @@ const { fetchUserColdStart } = require('./routes/user/fetch-user-coldstart');
 const { editUserProfile } = require('./routes/user/edit-user-profile');
 const { getUserStory } = require('./routes/user/get-user-story');
 const { getUserStories } = require('./routes/user/get-user-stories');
+const { getOrders } = require('./routes/user/get-orders');
+
 
 //Get Feed Routes
 const { getGeneralFeed } = require('./routes/user/get-general-feed');
@@ -69,10 +71,15 @@ const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 
 
 // Bidding routes imports
+const { createBid }= require('./routes/bid/create-bid');
+const { getBidsByMe }= require('./routes/bid/get-bids-by-me');
+const { getBidsForMe }= require('./routes/bid/get-bids-for-me');
+const { editBid } = require('./routes/bid/edit-bid');
+const { acceptBid } = require('./routes/bid/accept-bid');
+const { rejectBid } = require('./routes/bid/reject-bid');
 
-const {createBid}=require('./routes/bid/create-bid')
-const {getMyBids}=require('./routes/bid/get-my-bids')
-const {getBids}=require('./routes/bid/get-bids')
+
+
 
 
 //Admin Routes
@@ -181,6 +188,8 @@ module.exports = function (app) {
   app.post(`/user/viewed-posts`, authUniqueIdMiddleware, viewedPosts);
   app.post(`/user/get-user-story`, authUniqueIdMiddleware, getUserStory);
   app.post(`/user/get-user-stories`, authUniqueIdMiddleware, getUserStories);
+  app.get(`/user/get-orders`, authUniqueIdMiddleware, getOrders);
+
 
   // Payments related route from user
   app.post(`/payments/generate-cart-checkout-link`, authUniqueIdMiddleware, generateCartCheckoutLink);
@@ -200,9 +209,12 @@ module.exports = function (app) {
 
   // Bidding Route
 
-  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid)
-  app.get('/bid/get-my-bids',authUniqueIdMiddleware,getMyBids)
-  app.get('/bid/get-bids',authUniqueIdMiddleware,getBids)
+  app.post('/bid/create-bid',authUniqueIdMiddleware,createBid);
+  app.post('/bid/edit-bid',authUniqueIdMiddleware,editBid);
+  app.post('/bid/accept-bid',authUniqueIdMiddleware,acceptBid);
+  app.post('/bid/reject-bid',authUniqueIdMiddleware,rejectBid);
+  app.get('/bid/get-bids-by-me',authUniqueIdMiddleware,getBidsByMe);
+  app.get('/bid/get-bids-for-me',authUniqueIdMiddleware,getBidsForMe);
 
 
 
