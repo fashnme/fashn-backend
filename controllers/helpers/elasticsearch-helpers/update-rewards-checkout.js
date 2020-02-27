@@ -5,11 +5,12 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
 
     let body = [];
 
+
     orderedProducts.forEach((product) => {
 
-        console.log('product', product);
-
         let referralType = product.referrerPost ? 'post' : 'product';
+        let referralAmount = (product.referrerPost?(product.productId)*(postInfluencerIncomePercentage): (product.productId)*(productSharingReferralPercentage)); 
+
 
         body.push({ index: { _index: 'referral' } });
         body.push({
@@ -20,6 +21,7 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
             referrerPost: product.referrerPost,
             referralType: referralType,
             timeStamp: new Date(),
+            referralAmount: referralAmount,
             status: 'received'
         });
     });
@@ -62,7 +64,6 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
             });
 
             esClient.bulk({body: bodyForUserRewardsUpdation}).then((data)=>{
-                console.log('data', data);
             })
 
         });
