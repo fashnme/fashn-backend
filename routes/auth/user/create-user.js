@@ -10,14 +10,6 @@ const createUser = (req, res) => {
     // Generate UserId/ReferrerId
     let userId = generateRandom();
 
-    if(req.body.gender == 'male'){
-        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/702/702023.svg';
-    }else if(req.body.gender == 'female'){
-        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/145/145866.svg';
-    }else{
-        userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/747/747545.png';
-    };
-
     // UserInfo fetched from request body
     let userInfo = {
         fullName: req.body.fullName,
@@ -28,6 +20,14 @@ const createUser = (req, res) => {
         profilePic: req.body.profilePic || "",
         registrationToken:req.body.registrationToken,
         createdOn: new Date()
+    };
+
+    if(req.body.gender == 'male'){
+        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/702/702023.svg';
+    }else if(req.body.gender == 'female'){
+        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/145/145866.svg';
+    }else{
+        userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/747/747545.png';
     };
     
     // Phone No fetched from authMiddleware next callback
@@ -54,7 +54,7 @@ const createUser = (req, res) => {
         let jwt = createJWT(userId);
 
 
-        if(referralCode){
+        if(req.body.referralCode){
             await signupRewardsReferral(req.body.referralCode||"organic", userId);
         }
         
