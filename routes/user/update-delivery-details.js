@@ -19,7 +19,7 @@ const updateDeliveryDetails = (req, res) => {
         source:['deliveryDetails'],
         body: {
             "script": {
-                "source": "ctx._source.deliveryDetails[params.timeStamp] = params.deliveryInfo",
+                "_source": "ctx._source.deliveryDetails[params.timeStamp] = params.deliveryInfo",
                 "lang": "painless",
                 "params": {
                     "addressId": deliveryInfo.addressId,
