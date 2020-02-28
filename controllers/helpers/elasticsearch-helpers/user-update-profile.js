@@ -8,34 +8,36 @@ const { generateSocialMediaLinksFromUserName} = require('./../../helpers/generat
 
 const userUpdateProfile = (id,user) => {
 
+
     let userDetails ={
         fullName: user.fullName,
         firstName: user.fullName.split(' ')[0],
-        lastName: user.lastName.split(' ')[1],
+        lastName: user.fullName.split(' ')[1],
         userName: user.userName,
-        profilePic: req.body.profilePic,
-        gender: req.body.gender,
-        bio: req.body.bio,
-        dob:req.body.dob,
+        profilePic: user.profilePic,
+        gender: user.gender,
+        bio: user.bio,
+        dob:user.dob,
         socialMediaLinks:{
             ...generateSocialMediaLinksFromUserName(user.socialMediaLinks)
         }
-            
-            
     };
 
-    return esClient.update({
-        index: 'user',
-        id: id,
-        body: {
-            "doc": userDetails
-        }
-    }).then(data => {
-        return data;
-    }).catch(e => {
-        return e;
-    })
+    return new Promise((resolve,reject)=>{
+        esClient.update({
+            index: 'user',
+            id: id,
+            body: {
+                "doc": {...userDetails}
+            }
+        }).then(data => {
+            resolve(data);
+        }).catch(e => {
+            reject(e);
+        })
+    
 
+    })
 }
 
 module.exports = { userUpdateProfile }
