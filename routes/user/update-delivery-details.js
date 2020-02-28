@@ -8,10 +8,9 @@ const updateDeliveryDetails = (req, res) => {
      */
 
     let deliveryInfo = {
-        label: req.body.label,
-        address: { ...req.body.address },
-        addressId: req.body.adressId || `${new Date().getTime()}`
-    }
+         ...req.body.address ,
+         addressId: req.body.adressId || `${new Date().getTime()}`
+    };
 
     esClient.update({
         index: 'user',
@@ -22,7 +21,6 @@ const updateDeliveryDetails = (req, res) => {
                 "_source": "ctx._source.deliveryDetails[params.timeStamp] = params.deliveryInfo",
                 "lang": "painless",
                 "params": {
-                    "addressId": deliveryInfo.addressId,
                     "deliveryInfo": deliveryInfo
                 }
             }

@@ -18,7 +18,7 @@ const editUserProfile = async (req, res) => {
                         .then(data => {
                             res.status(200).end()
                         }).catch(e => {
-                            res.status(400).send("Can't Update Profile, Try later");
+                            res.status(500).send("Can't Update Profile, Try later");
                         })
 
                 } else {
