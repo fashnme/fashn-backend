@@ -9,7 +9,7 @@ const updateDeliveryDetails = (req, res) => {
 
     let deliveryInfo = {
          ...req.body.address ,
-         addressId: req.body.adressId || `${new Date().getTime()}`
+         addressId: req.body.addressId || `${new Date().getTime()}`
     };
 
     esClient.update({
