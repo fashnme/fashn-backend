@@ -16,20 +16,19 @@ const editUserProfile = async (req, res) => {
                     await userUpdateProfile(req._id, req.body.newProfile)
 
                         .then(data => {
-                            console.log(data);
                             res.status(200).end()
                         }).catch(e => {
-                            res.status(400).end()
+                            res.status(400).send("Can't Update Profile, Try later");
                         })
 
                 } else {
                     // Username is already used by someone
-                    res.status(422).end();
+                    res.status(422).send('Username Already Exists');
 
                 }
             })
             .catch(err => {
-                return res.status(500).end();
+                return res.status(500).send('Server Error');
             })
 
     } else {
@@ -39,9 +38,9 @@ const editUserProfile = async (req, res) => {
         // calling update profile function
         await userUpdateProfile(req._id, req.body.newProfile)
                 .then((data) => {
-                    res.status(200).end()
+                    res.status(200).end();
                 }).catch((e) => {
-                    res.status(400).end()
+                    res.status(400).send('Bad Request');
                 });
             }
 }
