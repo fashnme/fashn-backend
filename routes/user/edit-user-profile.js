@@ -8,15 +8,15 @@ const editUserProfile = async (req, res) => {
      */
     if (req.body.userNameChanged) {
 
-        await checkUserName()
+        await checkUserName(req.body.newProfile.userName)
             .then(async (data) => {
                 if (data.count == 0) {
-                    // Username can be used
 
                     // calling update profile function
                     await userUpdateProfile(req._id, req.body.newProfile)
 
                         .then(data => {
+                            console.log(data);
                             res.status(200).end()
                         }).catch(e => {
                             res.status(400).end()
@@ -38,16 +38,13 @@ const editUserProfile = async (req, res) => {
 
         // calling update profile function
         await userUpdateProfile(req._id, req.body.newProfile)
-
-            .then(data => {
-                res.status(200).end()
-            }).catch(e => {
-                res.status(400).end()
-            })
-
-
-    }
+                .then((data) => {
+                    res.status(200).end()
+                }).catch((e) => {
+                    res.status(400).end()
+                });
+            }
 }
 module.exports = {
     editUserProfile
-}
+};
