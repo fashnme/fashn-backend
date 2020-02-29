@@ -11,7 +11,7 @@ const sendBidsForMe = (posterId) =>{
                 "bool": {
                     "must": {
                         "match": {
-                            posterId: userId
+                            posterId: posterId
                         }
                     },
                     "must_not": {
