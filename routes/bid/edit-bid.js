@@ -1,4 +1,5 @@
 const { esClient } = require('./../../conf/elastic-conf');
+const { sendBidsByrMe } = require('./../../controllers/helpers/elasticsearch-helpers/send-bids-for-me');
 
 const editBid = (req, res) => {
 
@@ -16,7 +17,7 @@ const editBid = (req, res) => {
             return res.status(401).send('Bid not accessible for this user');
 
         } else {
-            
+
             //Whether Bid acceptance is allowed based on time delay
             let allowed = (new Date(data._source.initialDate).getTime() > new Date().getTime() + 86400000) ? true : false;
 
@@ -29,27 +30,35 @@ const editBid = (req, res) => {
                 return res.status(400).send('Bid Already Accepted Or Rejected')
             }
             else {
-            // Final case where bid is to be accepted
+                // Final case where bid is to be accepted
                 esClient.update({
                     index: 'bid',
                     id: req.body.bidId,
                     body: {
                         doc: {
-                            amount: req.body.amount, 
+                            amount: req.body.amount,
                             deliveryDetails: req.body.deliveryDetails,
                             comment: req.body.comment
                         }
                     }
-                }).then((data) => {
-                    return res.status(200);
+                }).then(async (data) => {
+                    await sendBidsByrMe(req._id).then((data) => {
+                        const bids = data.hits.hits.map(bid => {
+                            return {
+                                bidId: bid._id, ...bid._source
+                            }
+                        })
+                    }).catch((err) => {
+                        return res.status(500);
+                    });
                 }).catch((err) => {
                     return res.status(500);
                 });
+
             }
         }
-    });
-};
-
+    })
+}
 module.exports = {
     editBid
 };

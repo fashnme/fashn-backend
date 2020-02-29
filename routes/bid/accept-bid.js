@@ -1,8 +1,9 @@
 const { esClient } = require('./../../conf/elastic-conf');
+const { sendBidsForMe } = require('./../../controllers/helpers/elasticsearch-helpers/send-bids-for-me');
+
 
 const acceptBid = (req, res) => {
 
-    console.log(req._id);
 
     esClient.get({
         index: 'bid',
@@ -14,7 +15,7 @@ const acceptBid = (req, res) => {
             return res.status(400).send('Bid not present');
 
         } else if (!data._source.posterId === req._id) {
-            
+
             // PosterId is wrong
             return res.status(401).send('Bid not accessible for this user');
 
@@ -46,39 +47,16 @@ const acceptBid = (req, res) => {
                             ownerMessage: req.body.ownerMessage
                         }
                     }
-                }).then((data) => {
-                    esClient.search({
-                        index: 'bid',
-                        size: 18,
-                        from: 0,
-                        body: {
-                            "query": {
-                                "bool": {
-                                    "must": {
-                                        "match": {
-                                            posterId: req._id
-                                        }
-                                    },
-                                    "must_not": {
-                                        "match": {
-                                            "status": "rejected"
-                                        }
-                                    }
-                                }
-                            },
-                            "sort": {
-                                "timeStamp": {
-                                    "order": "desc"
-                                }
-                            }
-                        }
-                    }).then((data) => {
+                }).then(async (data) => {
+                    await sendBidsForMe(req._id).then((data) => {
                         const bids = data.hits.hits.map(bid => {
                             return {
                                 bidId: bid._id, ...bid._source
                             }
                         })
                         res.status(200).json({ bids });
+                    }).catch(err=>{
+                        return res.status(400);
                     })
                 }).catch((err) => {
                     return res.status(500);
