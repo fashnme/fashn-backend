@@ -37,7 +37,7 @@ const createBid = (req, res) => {
                 index: 'bid',
                 body: bidBody
             }).then(async (data) => {
-                await sendBidsByrMe(req._id).then((data) => {
+                await sendBidsByMe(req._id).then((data) => {
                     const bids = data.hits.hits.map(bid => {
                         return {
                             bidId: bid._id, ...bid._source
