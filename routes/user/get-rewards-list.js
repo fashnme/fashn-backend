@@ -3,8 +3,6 @@ const { esClient } = require('../../conf/elastic-conf');
 
 const getRewardsList = (req, res) => {
 
-
-console.log(req._id);
     esClient.search({
         index:'referral',
         body: {
@@ -17,18 +15,22 @@ console.log(req._id);
           }
     })
     .then(data => {
-        console.log(req._id)
-        console.log(data.hits.hits)
-        res.end();
+
+      let referralRewardsArray = data.hits.hits.map((referral)=>{
+        return {...referral._source, rewardId: referral._id };
+      });
+
+      return res.json({
+        referralRewardsArray
+      });
 
     })
     .catch(err => {
-        console.log('error getting user rewards list', err)
-        res.status(400).end()
+        res.status(400).end();
     })
 
 }
 
 module.exports = {
     getRewardsList
-}
+};

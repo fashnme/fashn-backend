@@ -79,6 +79,8 @@ const { getBidsForMe } = require('./routes/bid/get-bids-for-me');
 const { editBid } = require('./routes/bid/edit-bid');
 const { acceptBid } = require('./routes/bid/accept-bid');
 const { rejectBid } = require('./routes/bid/reject-bid');
+const { cancelBid } = require('./routes/bid/cancel-bid');
+
 
 
 
@@ -217,10 +219,12 @@ module.exports = function (app) {
 
   app.post('/bid/create-bid', authUniqueIdMiddleware, createBid);
   app.post('/bid/edit-bid', authUniqueIdMiddleware, editBid);
+  app.get('/bid/cancel-bid', authUniqueIdMiddleware, cancelBid);
   app.post('/bid/accept-bid', authUniqueIdMiddleware, acceptBid);
   app.post('/bid/reject-bid', authUniqueIdMiddleware, rejectBid);
   app.get('/bid/get-bids-by-me', authUniqueIdMiddleware, getBidsByMe);
   app.get('/bid/get-bids-for-me', authUniqueIdMiddleware, getBidsForMe);
+
 
 
 

@@ -1,5 +1,6 @@
 const { esClient } = require('./../../conf/elastic-conf');
 const { bidDefaultAdditionalSchema } = require('./../../schemas/bid-default-schema');
+const { sendBidsByMe } = require('./../../controllers/helpers/elasticsearch-helpers/send-bids-by-me');
 
 const createBid = (req, res) => {
 
@@ -11,7 +12,10 @@ const createBid = (req, res) => {
         comment: req.body.comment || "",
         amount: req.body.amount,
         startDate: req.body.startDate,
-        endDate: req.body.endDate
+        endDate: req.body.endDate,
+        refProductId: req.body.refProductId,
+        deliveryAddress: req.body.deliveryAddress
+
     };
 
 
@@ -25,18 +29,26 @@ const createBid = (req, res) => {
             let bidBody = {
                 ...bidInfo,
                 ...bidDefaultAdditionalSchema,
-                postImgUrl:data._source.uploadUrl
+                postImgUrl: data._source.uploadUrl
             };
 
             // putting doc in bid index
             esClient.index({
                 index: 'bid',
                 body: bidBody
-            }).then(resp => {
-
-                return res.status(200).json({ ...bidBody, bidId: resp._id });
-
-            })
+            }).then(async (data) => {
+                await sendBidsByrMe(req._id).then((data) => {
+                    const bids = data.hits.hits.map(bid => {
+                        return {
+                            bidId: bid._id, ...bid._source
+                        }
+                    })
+                }).catch((err) => {
+                    return res.status(500);
+                });
+            }).catch((err) => {
+                return res.status(500);
+            });
 
         })
         .catch(err => {
