@@ -19,7 +19,7 @@ const getWishlistProduct = (req, res) => {
     })
         .then(data => {
 
-            if(this.hits.total.value == 0) {
+            if(data.hits.total.value == 0) {
                 return res.status(200).json({ products });
             }
 
