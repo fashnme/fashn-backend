@@ -1,6 +1,6 @@
 const { esClient } = require('../../conf/elastic-conf');
 
-const getActiveOrders = (req, res) => {
+const getActiveOrdersAdmin = (req, res) => {
     
     const pageResultSize = 30;
     let offset = 0;
@@ -51,5 +51,5 @@ const getActiveOrders = (req, res) => {
 }
 
 module.exports = {
-    getActiveOrders
+    getActiveOrdersAdmin
 }
