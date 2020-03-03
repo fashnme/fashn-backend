@@ -30,6 +30,13 @@ const editBid = (req, res) => {
                 return res.status(400).send('Bid Already Accepted Or Rejected')
             }
             else {
+
+                let timeStamp = `${new Date().getTime()}`;
+
+                //Setting in updatedtimestamp object this will merge with current updatedtimestamp object
+                let updatedTimeStamp = {};
+                updatedTimeStamp[timeStamp] = 1;
+
                 // Final case where bid is to be accepted
                 esClient.update({
                     index: 'bid',
@@ -37,8 +44,12 @@ const editBid = (req, res) => {
                     body: {
                         doc: {
                             amount: req.body.amount,
-                            deliveryDetails: req.body.deliveryDetails,
-                            comment: req.body.comment
+                            deliveryAddress: req.body.deliveryAddress,
+                            comment: req.body.comment,
+                            startDate: req.body.startDate,
+                            endDate: req.body.endDate,
+                            updatedTimeStamp: updatedTimeStamp
+
                         }
                     }
                 }).then(async (data) => {

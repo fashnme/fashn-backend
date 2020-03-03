@@ -1,6 +1,6 @@
 const { esClient } = require('../../conf/elastic-conf');
 
-const getOrderDetails = (req, res) => {
+const getOrderDetailsAdmin = (req, res) => {
     
     // expects Order Id in body
     esClient.get({
@@ -16,5 +16,5 @@ const getOrderDetails = (req, res) => {
 }
 
 module.exports = {
-    getOrderDetails
-}
+    getOrderDetailsAdmin
+};

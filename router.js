@@ -30,6 +30,7 @@ const { deleteCommentPost } = require('./routes/user/delete-comment-post');
 //Get Product Routes
 const { fetchProduct } = require('./routes/products/fetch-product');
 const { fetchProducts } = require('./routes/products/fetch-products');
+const { getUpdatedPriceAndSize } = require('./routes/products/get-updated-price-and-size');
 const { Search } = require('./routes/search/search');
 
 const { followUser } = require('./routes/user/follow-user');
@@ -89,9 +90,9 @@ const { cancelBid } = require('./routes/bid/cancel-bid');
 //Admin Routes
 const { fetchPostForProductTagging } = require('./routes/admin/fetch-post-for-product-tagging')
 const { fetchPostsForProductTagging } = require('./routes/admin/fetch-posts-for-product-tagging')
-const getActiveOrdersAdmin = require('./routes/admin/get-active-orders').getActiveOrders
-const getOrderDetailsAdmin = require('./routes/admin/get-order-details').getOrderDetails
-const { updateOrderStatus } = require('./routes/admin/update-order-status')
+const { getActiveOrdersAdmin } = require('./routes/admin/get-active-orders');
+const { getOrderDetailsAdmin } = require('./routes/admin/get-order-details');
+const { updateOrderStatus } = require('./routes/admin/update-order-status');
 const { getVisuallySimilarProducts } = require('./routes/admin/get-visually-similar-products')
 const { updateTaggedProductsArray } = require('./routes/admin/update-tagged-products-array')
 
@@ -164,6 +165,7 @@ module.exports = function (app) {
   //Product
   app.get('/product/fetch-product', fetchProduct);
   app.post('/product/fetch-products', fetchProducts);
+  app.post('/product/get-updated-price-and-size', getUpdatedPriceAndSize);
 
   //Search
   app.get('/search', Search);

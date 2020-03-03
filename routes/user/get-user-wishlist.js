@@ -18,11 +18,16 @@ const getWishlistProduct = (req, res) => {
         }
     })
         .then(data => {
+
+            if(this.hits.total.value == 0) {
+                return res.status(200).json({ products });
+            }
+
             const productData = data.hits.hits.map(item => {
                 return item._source
-            })
-            // console.log(productCollection)
-            // res.status(200).json(data.hits.hits)
+            });
+            
+          
             esClient.mget({
                 index: 'product',
                 body: { ids: productData.map(product => { return product.productId }) }
@@ -45,7 +50,7 @@ const getWishlistProduct = (req, res) => {
         })
         .catch(err => {
             console.log('error getting user wishlist', err)
-            res.status(500).send()
+            res.status(500).send();
         })
 
 }
