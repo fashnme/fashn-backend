@@ -42,11 +42,13 @@ const getRewardsList = (req, res) => {
       });
 
 
-      const { docs } = await getBulkDetails(idArray);
+      const docs = await getBulkDetails(idArray);
 
       let finalResponseArray = referralRewardsArray.map((referral, index)=>{
-        return {...referral, image: docs[index]._source.profilePic || docs[index]._source.uploadUrl || docs[index]._source.imagesArray[0] || ''}
-      })
+        if(docs[index]._source){
+          return {...referral, image: docs[index]._source.profilePic || docs[index]._source.uploadUrl || docs[index]._source.imagesArray[0] || ''}
+        }
+      });
       
       return res.json({
         referralRewardsArray: finalResponseArray

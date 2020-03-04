@@ -15,10 +15,10 @@ const getBulkDetails = (docs) =>{
                 docs: docs
             }
         }).then(data=>{
-            resolve(data);
+            resolve(data.docs);
         }).catch((e)=>{
             console.log(e);
-            return [];
+             resolve([]);
         })
         
     });
