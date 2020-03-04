@@ -3,13 +3,13 @@ const { postInfluencerIncomePercentage, productSharingReferralPercentage } = req
 
 const updateRewardsCheckout = (orderId, orderedProducts) => {
 
+    // This body will contain data to add to referral schema from ordered products
     let body = [];
-
-
+    
     orderedProducts.forEach((product) => {
 
         let referralType = product.referrerPost ? 'post' : 'product';
-        let referralAmount = (product.referrerPost?(product.productId)*(postInfluencerIncomePercentage): (product.productId)*(productSharingReferralPercentage)); 
+        let referralAmount = (product.referrerPost ? (product.productId) * (postInfluencerIncomePercentage) : (product.productId) * (productSharingReferralPercentage));
 
 
         body.push({ index: { _index: 'referral' } });
@@ -29,42 +29,39 @@ const updateRewardsCheckout = (orderId, orderedProducts) => {
     esClient.bulk({ body })
         .then(() => {
 
-            console.log('Bulk creation of reffe');
-            
             let bodyForUserRewardsUpdation = [];
-            
-
             orderedProducts.forEach((product) => {
-                bodyForUserRewardsUpdation.push({update: { _index: 'user', _id: product.referrerId } });
+                bodyForUserRewardsUpdation.push({ update: { _index: 'user', _id: product.referrerId } });
 
-                if(product.referrerPost){
+                if (product.referrerPost) {
                     bodyForUserRewardsUpdation.push({
                         "script": {
                             "source": "ctx._source.rewards.postReferral.pending += params.increment",
                             "lang": "painless",
-                            
-                "params": {
-                                "increment": (product.price)*postInfluencerIncomePercentage
+
+                            "params": {
+                                "increment": (product.price) * postInfluencerIncomePercentage
                             }
                         }
                     });
-                }else{
+                } else {
                     bodyForUserRewardsUpdation.push({
                         "script": {
                             "source": "ctx._source.rewards.productReferral.pending += params.increment",
                             "lang": "painless",
                             "params": {
-                                "increment": (product.price)*productSharingReferralPercentage
+                                "increment": (product.price) * productSharingReferralPercentage
                             }
                         }
                     });
                 }
-                
-                
+
+
             });
 
-            esClient.bulk({body: bodyForUserRewardsUpdation}).then((data)=>{
-            })
+            esClient.bulk({ body: bodyForUserRewardsUpdation })
+                .then((data) => { })
+                .catch((e) => { });
 
         });
 }
