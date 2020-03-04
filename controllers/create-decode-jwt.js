@@ -19,4 +19,5 @@ const decodeJWT = (token) => {
 const createJWT = (dataToEncode) => {
 	return jwt.sign({ data: dataToEncode }, secretkey)
 }
+
 module.exports = { decodeJWT, createJWT }
