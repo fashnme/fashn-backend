@@ -1,5 +1,5 @@
 const { esClient } = require('../../conf/elastic-conf');
-const { getBulkUsers, getBulkPosts, getBulkProducts, getBulkDetails } = require('./../../controllers/helpers/elasticsearch-helpers/get-bulk-details');
+const { getBulkDetails } = require('./../../controllers/helpers/elasticsearch-helpers/get-bulk-details');
 
 
 const getRewardsList = (req, res) => {
@@ -32,23 +32,27 @@ const getRewardsList = (req, res) => {
       
 
       referralRewardsArray.forEach((referral) => {
-        if (referral.referralType == 'signup') {
-          idArray.push({_index:'user', _id:referral.referrerId});
-        } else if (referral.referralType == 'post') {
-          idArray.push({_index:'post',_id: referral.referrerPost});
-        } else if (referralreferralType == 'product') {
-          idArray.push({_index:'product',_id: referral.productId});
-        }
+        let index = referral.referralType == 'signup' ? 'user': referral.referralType;
+        idArray.push({_index: index, _id: referral.referrerPost || referral.productId || referral.userId })
       });
 
 
       const docs = await getBulkDetails(idArray);
 
       let finalResponseArray = referralRewardsArray.map((referral, index)=>{
-        if(docs[index]._source){
-          return {...referral, image: docs[index]._source.profilePic || docs[index]._source.uploadUrl || docs[index]._source.imagesArray[0] || ''}
+        
+        if (referral.referralType == 'signup') {
+          let { profilePic, firstName } = docs[index]._source;
+          return {...referral, image: profilePic, message: `You earned +${referral.referralAmount} Credits for referring ${firstName}`}
+        } else if (referral.referralType == 'post') {
+          let { uploadUrl } = docs[index]._source;
+          return {...referral, image: uploadUrl, message: `You earned +${referral.referralAmount} for Post Referral`}
+        } else if (referralreferralType == 'product') {
+          let productImage = docs[index]._source.imagesArray[0];
+          return {...referral, image: productImage, message: `You earned +${referral.referralAmount} for Product ${title} Referral`}
         }
       });
+      
       
       return res.json({
         referralRewardsArray: finalResponseArray

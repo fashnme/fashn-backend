@@ -3,7 +3,6 @@ const { esClient } = require('./../../../conf/elastic-conf');
 
 const getBulkDetails = (docs) =>{
 
-    
     if(docs.length == 0) {
         return [];
     };
@@ -15,9 +14,10 @@ const getBulkDetails = (docs) =>{
                 docs: docs
             }
         }).then(data=>{
+            console.log(data);
             resolve(data.docs);
         }).catch((e)=>{
-            console.log(e);
+            console.log('this',e);
              resolve([]);
         })
         
