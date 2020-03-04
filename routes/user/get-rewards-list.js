@@ -52,9 +52,17 @@ const getRewardsList = (req, res) => {
           return {...referral, image: productImage, message: `You earned +${referral.referralAmount} for Product ${title} Referral`}
         }
       });
+
+      let rewards = {};
       
-      
+      await esClient.get({
+        index: 'user',
+        id: req._id
+      }).then((data)=>{
+        rewards = data._source.rewards;
+      })
       return res.json({
+        rewards: rewards,
         referralRewardsArray: finalResponseArray
       });
 
