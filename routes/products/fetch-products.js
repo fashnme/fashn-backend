@@ -17,7 +17,6 @@ const fetchProducts = (req, res) => {
             res.status(200).json({ products });
         })
         .catch(err => {
-            console.log("Error fetching Products", err);
             res.status(400).end();
         })
 }

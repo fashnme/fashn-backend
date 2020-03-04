@@ -20,7 +20,7 @@ const getWishlistProduct = (req, res) => {
         .then(data => {
 
             if(data.hits.total.value == 0) {
-                return res.status(200).json({ products });
+                return res.status(200).json({ products:[] });
             }
 
             const productData = data.hits.hits.map(item => {
