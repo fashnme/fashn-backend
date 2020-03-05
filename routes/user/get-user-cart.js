@@ -28,7 +28,7 @@ const getUserCart = (req, res) => {
 
                 const products = data.docs.map((product, index) => {
                     let { title, price, crossedPrice, discount, brandName, quantity, size, ecommerce } = product._source;
-                    let image = product._source.imagesArray[0]
+                    let image = product._source.imagesArray[0];
                     return {
                         title, price, crossedPrice, discount, image, brandName, quantity, size, ecommerce,
                         ...cartProducts[index]
