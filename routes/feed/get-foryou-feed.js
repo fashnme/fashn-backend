@@ -19,7 +19,17 @@ const getForYouFeed = (req, res) => {
         return res.status(200).send({posts: posts._source.foryouPosts})
 
     }).catch(e => {
-        return res.status(400).end();
+        // console.log(e);
+        esClient.get({
+            index: 'feed',
+            id: 'general-feed'
+        }).then(data=>{
+            return res.status(200).send({ posts: data._source.posts});
+
+        }).catch(e=>{
+            return res.status(200).send({ posts: [] });
+
+        })
     });
 
 

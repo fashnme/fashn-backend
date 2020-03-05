@@ -68,7 +68,7 @@ const { updateDeliveryDetails } = require('./routes/user/update-delivery-details
 
 
 //Get Feed Routes
-const { getGeneralFeed } = require('./routes/user/get-general-feed');
+const { getGeneralFeed } = require('./routes/feed/get-general-feed');
 const { getForYouFeed } = require('./routes/feed/get-foryou-feed');
 const { getFollowingFeed } = require('./routes/feed/get-following-feed');
 

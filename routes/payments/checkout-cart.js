@@ -22,7 +22,6 @@ const checkoutCart = (req, res) => {
             // Updating referral Reward in user based on referralType
             // i) A product is added in cart from someone sharing product link => referrerId
             // ii) A product is added in cart from a post => referrerPost (This is by default)
-            console.log(data._id)
             updateRewardsCheckout(data._id, req.body.products);
 
             return res.status(200).send('Order Created');
