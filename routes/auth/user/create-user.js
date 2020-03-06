@@ -4,8 +4,16 @@ const { rewardsDefaultSchema } = require('./../../../schemas/rewards-default-sch
 const { createJWT } = require('./../../../controllers/create-decode-jwt');
 const { generateRandom } = require('./../../../controllers/helpers/generate-random');
 const { signupRewardsReferral } = require('./../../../controllers/helpers/elasticsearch-helpers/signup-rewards-referral');
+const { validateUserName } = require('../../../controllers/helpers/validate-user-name');
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
+
+    let validateUserNameMessage = validateUserName(req.body.userName);
+    
+    // Check whether username is valid or not with invalidationmessage as a response
+    if(validateUserNameMessage !== true){
+        return res.status(400).send(validateUserNameMessage);
+    }
 
     // Generate UserId/ReferrerId
     let userId = generateRandom();
@@ -33,7 +41,7 @@ const createUser = (req, res) => {
     // Phone No fetched from authMiddleware next callback
     let phoneNo = req.phoneNo;
 
-
+    
     // Creating body for ES Document Creating
     let body = {
         ...userDefaultAdditionalSchema,
@@ -41,7 +49,7 @@ const createUser = (req, res) => {
         ...userInfo,
         phoneNo
     };
-
+    
     // Creating the user
     esClient.create({
         index: 'user',
