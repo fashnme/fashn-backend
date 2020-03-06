@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
         firstName: req.body.fullName.split(" ")[0],
         lastName: req.body.fullName.split(" ")[1] || "",
         gender: req.body.gender,
-        userName: req.body.userName,
+        userName: req.body.userName.toLowerCase(),
         profilePic: req.body.profilePic || "",
         registrationToken:req.body.registrationToken,
         createdOn: new Date()
