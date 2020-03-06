@@ -17,16 +17,30 @@ const authPhoneNoMiddleware = (req, res, next) => {
             index: indexToSearch,
             body: {
                 "query": {
-                    "term": {
-                        "phoneNo": decodedToken
+                    "bool": {
+                        "should": [
+                            {
+                                "term": {
+                                    "phoneNo": decodedToken
+                                }
+                            },
+                            {
+                                "term": {
+                                    "userName": req.body.userName.toLowerCase()
+                                }
+                            }
+                        ]
+
                     }
+
                 }
             }
         }).then(data => {
             if (data.count == 0) {
                 req.phoneNo = decodedToken;
                 next();
-            }else{;
+            } else {
+                ;
                 return res.status(422).send(`${indexToSearch} already exists`);
             }
         }).catch(e => {
