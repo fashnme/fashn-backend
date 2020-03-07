@@ -44,7 +44,7 @@ const authPhoneNoMiddleware = (req, res, next) => {
                 return res.status(422).send(`${indexToSearch} already exists`);
             }
         }).catch(e => {
-            return res.status(401);
+            return res.status(401).send('Error in User Auth');
         })
     } catch (e) {
         res.status(401).json({
