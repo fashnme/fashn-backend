@@ -19,7 +19,6 @@ const getForYouFeed = (req, res) => {
         return res.status(200).send({posts: posts._source.foryouPosts})
 
     }).catch(e => {
-        // console.log(e);
         esClient.get({
             index: 'feed',
             id: 'general-feed'
