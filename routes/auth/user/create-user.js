@@ -71,7 +71,7 @@ const createUser = async (req, res) => {
                 });
         }
         
-        return res.status(200).json({ body, jwt });
+        return res.status(200).json({ user: body, jwt });
 
     }).catch(err => {
         return res.status(401).end();
