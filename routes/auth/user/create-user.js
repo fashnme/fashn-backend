@@ -63,13 +63,17 @@ const createUser = async (req, res) => {
 
 
         if(req.body.referralCode){
-            await signupRewardsReferral(req.body.referralCode||"organic", userId);
+            await signupRewardsReferral(req.body.referralCode || 'organic', userId)
+                .then(()=>{
+                    // ReferralUpdated
+                }).catch((err)=>{
+                    //Referral Not Updated/Required
+                });
         }
         
         return res.status(200).json({ body, jwt });
 
     }).catch(err => {
-        console.log(err)
         return res.status(401).end();
     })
 }

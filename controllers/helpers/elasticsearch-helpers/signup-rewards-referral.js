@@ -3,6 +3,12 @@ const { signupReferralIncomeAmount } = require('./../../../conf/rewards-conf');
 
 const signupRewardsReferral = (referrerId, userId) => {
 
+    console.log(referrerId, userId);
+
+    if(referrerId == 'organic') {
+        return ;
+    }
+
     // Body of Referral
     let referralBody = {
         timeStamp: new Date(),
@@ -10,36 +16,35 @@ const signupRewardsReferral = (referrerId, userId) => {
         referrerId,
         referralType: 'signup',
         referralAmount: signupReferralIncomeAmount,
-        referredUserId:userId
+        referredUserId: userId
     };
 
-    // Create Referral Document
-    return esClient.create({
-        index: 'referral',
-        id: `${referrerId}.${userId}`,
-        body: referralBody
-    }).then(() => {
-
-        // Updating referrerUser referral Rewards
-        return esClient.update({
-            index: "user",
-            id: referrerId,
-            body: {
-                "script": {
-                    "source": "ctx._source.rewards.signupReferral.available += params.increment",
-                    "lang": "painless",
-                    "params": {
-                        "increment": signupReferralIncomeAmount
-                    }
+    // Update referrerIncome
+    return esClient.update({
+        index: "user",
+        id: referrerId,
+        body: {
+            "script": {
+                "source": "ctx._source.rewards.signupReferral.available += params.increment",
+                "lang": "painless",
+                "params": {
+                    "increment": signupReferralIncomeAmount
                 }
             }
-        }).then((data) => {
+        }
+    }).then(() => {
 
-            //Successfully updated rewards of referrerUser
 
-
+        // Create Referral Document
+        return esClient.create({
+            index: 'referral',
+            id: `${referrerId}.${userId}`,
+            body: referralBody
+        }).then(() => {
+            
+            
             //Now Updating newUser referral Rewards
-            return esClient.update({
+            esClient.update({
                 index: "user",
                 id: userId,
                 body: {
@@ -52,12 +57,16 @@ const signupRewardsReferral = (referrerId, userId) => {
                     }
                 }
             }).then((data) => {
-                //Everything done
+                return;
             }).catch((err) => {
                 return err;
             });
-
+        }).catch((err) => {
+            return err;
         });
+    }).catch((err)=>{
+        // Error in creation of user
+        return err;
     });
 };
 
