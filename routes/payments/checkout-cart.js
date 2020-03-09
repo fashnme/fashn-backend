@@ -1,6 +1,7 @@
-const { esClient } = require('./../../conf/elastic-conf');
-const { razorPayInstance } = require('./../../conf/razorpay-conf');
-const { updateRewardsCheckout } = require('./../../controllers/helpers/elasticsearch-helpers/update-rewards-checkout');
+const { esClient } = require('../../conf/elastic-conf');
+const { razorPayInstance } = require('../../conf/razorpay-conf');
+const { orderDefaultAdditionalSchema } = require('../../schemas/order-default-additional-schema');
+const { updateRewardsCheckout } = require('../../controllers/helpers/elasticsearch-helpers/update-rewards-checkout');
 
 const checkoutCart = (req, res) => {
 
@@ -8,8 +9,8 @@ const checkoutCart = (req, res) => {
 
     let orderBody = {
         ...req.body,
-        status: 'received',
-        completed:false
+        ...orderDefaultAdditionalSchema
+        
     };
 
     if (req.body.paymentMode == 'cod') {

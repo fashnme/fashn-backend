@@ -5,6 +5,8 @@ const { createJWT } = require('./../../../controllers/create-decode-jwt');
 const createSeller = (req, res) => {
 
     // sellerInfo fetched from request body
+
+    // remember: ecommerce key is used as id of seller here
     let sellerInfo = {
         firstName: req.body.fullName.split(" ")[0],
         lastName: req.body.fullName.split(" ")[1] || "",
