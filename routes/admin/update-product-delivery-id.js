@@ -1,3 +1,5 @@
+//(self) if this works correctly , exact copy can be used to make route to update ecomAccountUsed field
+
 const { esClient } = require('../../conf/elastic-conf');
 
 const updateProductDeliveryId = (req, res) => {
