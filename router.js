@@ -32,6 +32,7 @@ const { fetchProduct } = require('./routes/products/fetch-product');
 const { fetchProducts } = require('./routes/products/fetch-products');
 const { getUpdatedPriceAndSize } = require('./routes/products/get-updated-price-and-size');
 const { Search } = require('./routes/search/search');
+const { fetchPinCodeDetails } = require('./routes/search/fetch-pin-code-details');
 
 const { followUser } = require('./routes/user/follow-user');
 const { unfollowUser } = require('./routes/user/unfollow-user');
@@ -169,6 +170,7 @@ module.exports = function (app) {
 
   //Search
   app.get('/search', Search);
+  app.get('/search/fetch-pin-code-details', fetchPinCodeDetails);
 
   // User Action Routes
   app.post(`/user/create-post`, authUniqueIdMiddleware, createPost);
