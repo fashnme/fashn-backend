@@ -95,7 +95,7 @@ const { getOrderDetailsAdmin } = require('./routes/admin/get-order-details');
 const { updateOrderStatus } = require('./routes/admin/update-order-status');
 const { getVisuallySimilarProducts } = require('./routes/admin/get-visually-similar-products')
 const { updateTaggedProductsArray } = require('./routes/admin/update-tagged-products-array')
-const {updateOrderDeliveryId}=require('./routes/admin/update-order-delivery-id')
+const {updateProductDeliveryId}=require('./routes/admin/update-product-delivery-id')
 
 
 //Seller Routes
@@ -263,6 +263,6 @@ module.exports = function (app) {
   app.post('/admin/update-order-status', updateOrderStatus);
   app.post('/admin/get-visually-similar-products', getVisuallySimilarProducts)
   app.post('/admin/update-tagged-products-array', updateTaggedProductsArray)
-  app.post('/admin/update-order-delivery-id',authUniqueIdMiddleware,updateOrderDeliveryId)
+  app.post('/admin/update-product-delivery-id',updateProductDeliveryId)
 
 }

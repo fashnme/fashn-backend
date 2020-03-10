@@ -7,6 +7,12 @@ const checkoutCart = (req, res) => {
 
     let orderId = req.body.orderId;
 
+    // looping on products in body to assign DeliverytrackingId and ecomAccountUsed
+    req.body.products.forEach(e => {
+        e.ecomAccountUsed = "order unplaced" // default value for not placed orders by us
+        e.deliveryTrackingId = "unassigned"
+    });
+
     let orderBody = {
         ...req.body,
         ...orderDefaultAdditionalSchema
