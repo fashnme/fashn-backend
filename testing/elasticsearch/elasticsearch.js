@@ -505,15 +505,15 @@ const esClient = new elasticsearch.Client({
 //   console.log(JSON.stringify(resp, undefined, 2))
 // })
 
-esClient.updateByQuery({
-  index:'referral',
-  body:{
-    query:{
-      'script':{
-      'source': 'ctx._source.referredId = ctx._source.userId',
-      'lang':'painless'
-    }
-    }
-  }
-})
+// esClient.updateByQuery({
+//   index:'referral',
+//   body:{
+//     query:{
+//       'script':{
+//       'source': 'ctx._source.referredId = ctx._source.userId',
+//       'lang':'painless'
+//     }
+//     }
+//   }
+// })
 
