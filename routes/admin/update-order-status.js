@@ -9,7 +9,7 @@ const updateOrderStatus = (req, res) => {
         id: req.body.orderId,
         body: {
             "script": {
-                "source": "for (product in ctx._source.products) {if (product['productId'] == params.productId) { item['status'] = params.statusToUpdate; } }",
+                "source": "for (product in ctx._source.products) {if (product['productId'] == params.productId) { product['status'] = params.statusToUpdate; } }",
                 "lang": "painless",
                 "params": {
                     "productId": req.body.productId,
