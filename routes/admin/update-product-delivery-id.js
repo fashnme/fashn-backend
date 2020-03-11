@@ -16,7 +16,7 @@ const updateProductDeliveryId = (req, res) => {
             },
             script: {
                 lang: 'painless',
-                source: 'foreach (item : ctx._source.products) {if (item["productId"] ==productId) { item["deliveryTrackingId"] = delTrackId; } }',     // debug (gives script compile error)
+                source: 'for (product in ctx._source.products) {if (product["productId"] == params.productId) { product["deliveryTrackingId"] = params.delTrackId; } }',     // debug (gives script compile error)
                 params:{
                     "productId": req.body.productId,
                     "delTrackId":req.body.deliveryTrackingId
@@ -25,11 +25,10 @@ const updateProductDeliveryId = (req, res) => {
             
         }
     }).then(resp => {
-        console.log(resp);
-        res.json({success:true});
+        return res.json({success:true});
     }).catch(e => {
         console.log('e', e);
-        res.status(400).end()
+        return res.status(400).end();
     })
 }
 
