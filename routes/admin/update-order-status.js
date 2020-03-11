@@ -8,15 +8,19 @@ const updateOrderStatus = (req, res) => {
         index: 'orders',
         id: req.body.orderId,
         body: {
-            doc: {
-                status: req.body.status
+            "script": {
+                "source": "for (product in ctx._source.products) {if (product['productId'] == params.productId) { item['status'] = params.statusToUpdate; } }",
+                "lang": "painless",
+                "params": {
+                    "productId": req.body.productId,
+                    "statusToUpdate": req.body.status
+                }
             }
         }
-    }).then((data) => {
-        res.json({ success:true })
+    }).then(() => {
+        return res.json({ updated: true })
     }).catch(e => {
-        console.log("error while updating order status", e)
-        res.status(500).end();
+        return res.status(500).end();
     })
 }
 
