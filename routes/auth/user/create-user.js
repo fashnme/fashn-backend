@@ -31,9 +31,9 @@ const createUser = async (req, res) => {
     };
 
     if(req.body.gender == 'male'){
-        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/702/702023.svg';
+        userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/1807/1807934.png';
     }else if(req.body.gender == 'female'){
-        userInfo.profilePic = 'https://image.flaticon.com/icons/svg/145/145866.svg';
+        userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/1808/1808439.png';
     }else{
         userInfo.profilePic = 'https://image.flaticon.com/icons/png/128/747/747545.png';
     };
