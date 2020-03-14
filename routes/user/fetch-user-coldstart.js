@@ -56,7 +56,7 @@ const fetchUserColdStart = (req, res) => {
             id: req._id
         }).then((user) => {
             return res.status(200).json({
-                userFollowingMap, userLikedPostsMap, userWishlistMap, userCartMap, userDetails: user._source
+                userFollowingMap, userLikedPostsMap, userWishlistMap, userCartMap, userDetails: {userId:user._id, ...user._source}
             });
         }).catch(err => {
             return res.status(500).send('Server Error');
