@@ -23,9 +23,11 @@ const getForYouFeed = (req, res) => {
             index: 'feed',
             id: 'general-feed'
         }).then(data=>{
+            console.log(data);
             return res.status(200).send({ posts: data._source.posts});
 
         }).catch(e=>{
+            console.log(e)
             return res.status(200).send({ posts: [] });
 
         })
