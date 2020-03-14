@@ -1,7 +1,7 @@
 const validateUserName = (userNameToValidate) => {
 
     let userName = userNameToValidate.toLowerCase();
-    var acceptedRegex = /^[a-z][a-zA-Z0-9_.]{5,14}/;
+    let acceptedRegex = /^[a-z][a-zA-Z0-9_.]{5,14}/;
 
     if (userName.length > 15 || userName.length < 6) {
         return 'username can be 6-10 characters long';
