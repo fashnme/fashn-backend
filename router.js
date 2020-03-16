@@ -24,6 +24,8 @@ const { undislikePost } = require('./routes/user/undislike-post');
 const { commentPost } = require('./routes/user/comment-post');
 const { deleteCommentPost } = require('./routes/user/delete-comment-post');
 
+// User Notification
+const { getUserNotifications } = require('./routes/notification/get-user-notifications');
 
 
 
@@ -199,6 +201,9 @@ module.exports = function (app) {
   app.get(`/user/get-orders`, authUniqueIdMiddleware, getOrders);
   app.get(`/user/get-rewards-list`, authUniqueIdMiddleware, getRewardsList);
   app.post(`/user/update-delivery-details`, authUniqueIdMiddleware, updateDeliveryDetails);
+
+  // Notification Routes
+  app.get(`/notification/get-user-notifications`, authUniqueIdMiddleware, getUserNotifications);
   
 
 
